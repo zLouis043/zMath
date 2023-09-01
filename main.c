@@ -88,7 +88,8 @@ int main(void){
     printf("}\n");
 
     printf("\nTEST: NORMALIZE [VECTOR 3] WITH MAGNITUDE OF [%f] {", magnitude(v3));
-        zVec v12 = normalizedVector(v3);
+        zVec v12 = copyVector(v3);
+        normalizeVector(&v12);
         printV(v12);
     printf("}\n");
 
@@ -98,6 +99,7 @@ int main(void){
         printf("\n> Dot product between [VECTOR 1] and [VECTOR 3]: %f\n", dotProduct(v1, v3));
         printf("\n> Are [VECTOR 1] and [VECTOR 8] orthogonal: %s\n", areVecOrthogonal(v1, v8) ? "True" : "False");
         printf("\n> Magnitude of [VECTOR 3]: %f\n", magnitude(v3));
+        printf("\n> Is [VECTOR 12] normalized : %s\n", isNormalized(v12) ? "True" : "False");
 
     printf("\n----------------------------------------------------------------\n");
 

@@ -187,6 +187,13 @@ bool areVecEqual(zVec vector1, zVec vector2);
 bool areVecOrthogonal(zVec vector1, zVec vector2);
 
 /*!
+    Checks if the vector is normalized.
+    @param vector The vector.
+    @return true if the vector is normalized.
+*/
+bool isNormalized(zVec vector);
+
+/*!
     This functions return the dot product of two vectors.
     @param vector1
     @param vector2
@@ -538,7 +545,7 @@ zVec normalizedVector(zVec vector){
 /*
 */
 zVec normalizeVector(zVec* vector){
-    
+
     float mag = magnitude(*vector);
 
     for(size_t i = 0 ; i < vector->dim; i++){
@@ -564,6 +571,13 @@ bool areVecEqual(zVec vector1, zVec vector2){
 */
 bool areVecOrthogonal(zVec vector1, zVec vector2){
     return dotProduct(vector1, vector2) == 0; 
+}
+
+/*
+*/
+bool isNormalized(zVec vector){
+
+    return fabs(magnitude(vector) - 1.0) < 0.0001;
 }
 
 /*
