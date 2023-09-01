@@ -6,7 +6,7 @@
 int main(void){
 
     printf("\n----------------------------------------------------------------\n");
-
+ 
     printf("\nTEST: CREATE A NEW [VECTOR] {");
         zVec v1 = newZVector(1.0f, 2.0f, 3.0f, 4.0f);
         printV(v1);
