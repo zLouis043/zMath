@@ -148,12 +148,12 @@ float magnitude(zVec vector);
 /*
 */
 void printV(zVec vector){
-    printf("| Vector of size %zu: {\n\t[ ", DIM(vector));
+    printf("\n\n   | Vector of size %zu: {\n   |\t[", DIM(vector));
     for(size_t i = 0; i < DIM(vector); i++){
-        printf("%f ", ValueAt(vector, i));
+        printf(" %f", ValueAt(vector, i));
         printf("%c", (i < DIM(vector) - 1 ? ',' : ' '));
     }
-    printf("]\n}\n");
+    printf("]\n   |  }\n\n");
 }
 
 /*
@@ -456,7 +456,7 @@ float magnitude(zVec vector){
         result += ValueAt(vector, i) * ValueAt(vector, i);
     }
 
-    return result;
+    return sqrt(result);
 
 }
 

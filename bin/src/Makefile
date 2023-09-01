@@ -56,10 +56,10 @@ RM = D:\CMAKE\bin\cmake.exe -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\zMath
+CMAKE_SOURCE_DIR = D:\zMath\zMath
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\zMath\bin
+CMAKE_BINARY_DIR = D:\zMath\zMath\bin
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,14 +86,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /d D:\zMath\bin && $(CMAKE_COMMAND) -E cmake_progress_start D:\zMath\bin\CMakeFiles D:\zMath\bin\src\\CMakeFiles\progress.marks
-	cd /d D:\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\zMath\bin\CMakeFiles 0
+	cd /d D:\zMath\zMath\bin && $(CMAKE_COMMAND) -E cmake_progress_start D:\zMath\zMath\bin\CMakeFiles D:\zMath\zMath\bin\src\\CMakeFiles\progress.marks
+	cd /d D:\zMath\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\zMath\zMath\bin\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /d D:\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/clean
+	cd /d D:\zMath\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -102,17 +102,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /d D:\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/preinstall
+	cd /d D:\zMath\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /d D:\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/preinstall
+	cd /d D:\zMath\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /d D:\zMath\bin && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+	cd /d D:\zMath\zMath\bin && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -134,6 +134,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /d D:\zMath\bin && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+	cd /d D:\zMath\zMath\bin && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

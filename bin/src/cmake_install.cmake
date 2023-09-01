@@ -1,4 +1,4 @@
-# Install script for directory: D:/zMath/src
+# Install script for directory: D:/zMath/zMath/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
