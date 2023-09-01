@@ -39,7 +39,7 @@ zVec allocVector(size_t dim);
 
 /*
 */
-zVec newEmptyVector(size_t dim);
+zVec newZeroVector(size_t dim);
 
 /*
 */
@@ -189,7 +189,7 @@ zVec allocVector(size_t dim){
 
 /*
 */
-zVec newEmptyVector(size_t dim){
+zVec newZeroVector(size_t dim){
 
     zVec result = allocVector(dim);
 
