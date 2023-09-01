@@ -34,3 +34,33 @@ For Linux:
 $ ./run.sh
 
 ```
+
+### Example 
+
+```c
+
+#include <stdio.h>
+
+#define ZMATH_IMPLEMENTATION
+#include "src/zmath.h"
+
+int main(void){
+
+  zVec v1 = newZVector(1.0f, 2.0f, 3.0f, 4.0f);
+  printV(v1);
+
+  zVec v2 = newDefaultVector(4, 1.0f);
+  printV(v2);
+
+  zVec v3 = sumVector(v1, v2);
+  printV(v3);
+
+  return 0;
+
+}
+
+Output > | Vector of size 4: {
+         |    [ 2.000000, 3.000000, 4.000000, 5.000000 ]
+         |  }
+
+```
