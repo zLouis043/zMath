@@ -11,12 +11,12 @@
 
     Struct that holds the dimensions of the vector and its components
     @param dim The dimension of the vector
-    @param element The element of the vector
+    @param elements The element of the vector
 
 */
 typedef struct zVec{
     size_t dim;
-    float *element;
+    float *elements;
 }zVec;
 
 const zVec NULL_VECTOR = {0, NULL};
@@ -133,7 +133,7 @@ float magnitude(zVec vector);
 
 /*
 */
-#define ValueAt(vector, index) (vector.element[index])
+#define ValueAt(vector, index) (vector.elements[index])
 
 /*
 */
@@ -170,8 +170,8 @@ void _zassert(bool condition, const char* message, const char* filepath, size_t 
 /*
 */
 void freeZVector(zVec* vector){
-    free(vector->element);
-    vector->element = NULL;
+    free(vector->elements);
+    vector->elements = NULL;
     vector->dim = 0;
 }
 
@@ -180,9 +180,9 @@ void freeZVector(zVec* vector){
 zVec allocVector(size_t dim){
     zVec result;
     result.dim = dim;
-    result.element = malloc(dim);
+    result.elements = malloc(dim);
 
-    zassert(result.element == NULL, ALLOC_ERROR);
+    zassert(result.elements == NULL, ALLOC_ERROR);
 
     return result;
 }
