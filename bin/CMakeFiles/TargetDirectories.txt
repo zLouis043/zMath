@@ -1,0 +1,5 @@
+D:/zMath/bin/CMakeFiles/zmath.dir
+D:/zMath/bin/CMakeFiles/edit_cache.dir
+D:/zMath/bin/CMakeFiles/rebuild_cache.dir
+D:/zMath/bin/src/CMakeFiles/edit_cache.dir
+D:/zMath/bin/src/CMakeFiles/rebuild_cache.dir

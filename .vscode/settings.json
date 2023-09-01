@@ -1,0 +1,13 @@
+{
+    "cSpell.words": [
+        "DNUMARGS",
+        "FNUMARGS",
+        "INUMARGS",
+        "NUMARGS",
+        "zassert",
+        "ZMATH"
+    ],
+    "files.associations": {
+        "stdio.h": "c"
+    }
+}
