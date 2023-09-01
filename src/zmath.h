@@ -105,7 +105,7 @@ zVec subVector(zVec vector1 , zVec vector2);
     Subtract a vector and a scalar.
     @param vector1
     @param scalar
-    @result The subtractation between vector1 and a scalar.
+    @result The subtraction between vector1 and a scalar.
 */
 zVec subVectorByScalar(zVec vector1 , size_t scalar);
 
@@ -198,6 +198,16 @@ float magnitude(zVec vector);
 #ifndef ZMATH_DEF
 #define ZMATH_DEF
 
+/*
+    Flag that if activated will crush the program if an assertion fails.
+*/
+#define EXIT_ON_ASSERT_FAILURE 0
+
+/*
+    Flag that if activated will print debug information.
+*/
+#define VISUALIZE_DEBUG 0
+
 #define EQUAL_ERROR "Dimension mismatch."
 #define ALLOC_ERROR "Allocation failure."
 
@@ -257,7 +267,7 @@ void printV(zVec vector){
 /*
 */
 void _zassert(bool condition, const char* message, const char* filepath, size_t line){
-    if(condition){
+    if(!condition){
         fprintf(stderr, "[ERROR] : %s:%zu > %s\n", filepath, line, message);
         #if EXIT_ON_ASSERT_FAILURE 
             exit(EXIT_FAILURE);
@@ -268,6 +278,9 @@ void _zassert(bool condition, const char* message, const char* filepath, size_t 
 /*
 */
 void freeZVector(zVec* vector){
+
+    zassert(vector != NULL, "Vector must not be NULL.");
+
     free(vector->elements);
     vector->elements = NULL;
     vector->dim = 0;
@@ -280,7 +293,7 @@ zVec allocVector(size_t dim){
     result.dim = dim;
     result.elements = malloc(dim);
 
-    zassert(result.elements == NULL, ALLOC_ERROR);
+    zassert(result.elements != NULL, ALLOC_ERROR);
 
     return result;
 }
@@ -350,7 +363,7 @@ zVec copyVector(zVec vector){
 */
 zVec sumVector(zVec vector1 , zVec vector2){
 
-    zassert(DIM(vector1) != DIM(vector2), EQUAL_ERROR);
+    zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
     zVec result = allocVector(DIM(vector1));
 
@@ -379,12 +392,12 @@ zVec sumVectorByScalar(zVec vector1 , size_t scalar){
 */
 zVec subVector(zVec vector1 , zVec vector2){
 
-    zassert(DIM(vector1) != DIM(vector2), EQUAL_ERROR);
+    zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
     zVec result = allocVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
-        ValueAt(result , i) = ValueAt(vector1, i) + ValueAt(vector2, i);
+        ValueAt(result , i) = ValueAt(vector1, i) - ValueAt(vector2, i);
     }
 
     return result;  
@@ -397,7 +410,7 @@ zVec subVectorByScalar(zVec vector1 , size_t scalar){
     zVec result = allocVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
-        ValueAt(result , i) = ValueAt(vector1, i) + scalar;
+        ValueAt(result , i) = ValueAt(vector1, i) - scalar;
     }
 
     return result;
@@ -407,12 +420,12 @@ zVec subVectorByScalar(zVec vector1 , size_t scalar){
 */
 zVec multVector(zVec vector1, zVec vector2){
 
-    zassert(DIM(vector1) != DIM(vector2), EQUAL_ERROR);
+    zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
     zVec result = allocVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
-        ValueAt(result , i) = ValueAt(vector1, i) + ValueAt(vector2, i);
+        ValueAt(result , i) = ValueAt(vector1, i) * ValueAt(vector2, i);
     }
 
     return result;  
@@ -425,7 +438,7 @@ zVec multVectorByScalar(zVec vector1, size_t scalar){
     zVec result = allocVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
-        ValueAt(result , i) = ValueAt(vector1, i) + scalar;
+        ValueAt(result , i) = ValueAt(vector1, i) * scalar;
     }
 
     return result;
@@ -435,12 +448,12 @@ zVec multVectorByScalar(zVec vector1, size_t scalar){
 */
 zVec divVector(zVec vector1, zVec vector2){
 
-    zassert(DIM(vector1) != DIM(vector2), EQUAL_ERROR);
+    zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
     zVec result = allocVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
-        ValueAt(result , i) = ValueAt(vector1, i) + ValueAt(vector2, i);
+        ValueAt(result , i) = ValueAt(vector1, i) / ValueAt(vector2, i);
     }
 
     return result;  
@@ -453,7 +466,7 @@ zVec divVectorByScalar(zVec vector1, size_t scalar){
     zVec result = allocVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
-        ValueAt(result , i) = ValueAt(vector1, i) + scalar;
+        ValueAt(result , i) = ValueAt(vector1, i) / scalar;
     }
 
     return result;
@@ -463,13 +476,21 @@ zVec divVectorByScalar(zVec vector1, size_t scalar){
 */
 zVec powerVectorToExp(zVec vector, size_t exponent){
 
-    zVec result = allocVector(DIM(vector));
-    result = copyVector(vector);
-
-    for(size_t i = 0; i < DIM(vector); i++){
+    zVec result = copyVector(vector);
+    
+    printf("\n");
+    for(size_t i = 0; i < DIM(result); i++){
         for(size_t j = 0; j < exponent; j++){
             ValueAt(result, i) *= ValueAt(vector, i);
+
+            #if VISUALIZE_DEBUG
+            printf("%f -> %f |", ValueAt(result, i) / ValueAt(vector, i), ValueAt(result, i));
+            #endif
         }
+
+        #if VISUALIZE_DEBUG
+        printf("\n");
+        #endif
     }
 
     return result;
@@ -486,9 +507,9 @@ zVec crossProduct(zVec vector1, zVec vector2){
 
     zVec result = allocVector(3);
 
-    ValueAt(result , 0 ) = (ValueAt(vector1, 1) * ValueAt( vector1, 2)) - (ValueAt(vector1 , 2) * ValueAt(vector1 , 1));
-    ValueAt(result , 1 ) = -1 * (ValueAt(vector1, 0) * ValueAt( vector1, 2)) - (ValueAt(vector1 , 2) * ValueAt(vector1 , 0));
-    ValueAt(result , 2 ) = (ValueAt(vector1, 0) * ValueAt( vector1, 1)) - (ValueAt(vector1 , 1) * ValueAt(vector1 , 0));
+    ValueAt(result , 0 ) = (ValueAt(vector1, 1) * ValueAt( vector2, 2)) - (ValueAt(vector1 , 2) * ValueAt(vector2 , 1));
+    ValueAt(result , 1 ) = -1 * (ValueAt(vector1, 0) * ValueAt( vector2, 2)) - (ValueAt(vector1 , 2) * ValueAt(vector2 , 0));
+    ValueAt(result , 2 ) = (ValueAt(vector1, 0) * ValueAt( vector2, 1)) - (ValueAt(vector1 , 1) * ValueAt(vector2 , 0));
 
     return result;
 }
@@ -532,7 +553,7 @@ bool areVecOrthogonal(zVec vector1, zVec vector2){
 */
 float dotProduct(zVec vector1, zVec vector2){
 
-    zassert(DIM(vector1) != DIM(vector2), EQUAL_ERROR);
+    zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
     float result = 0.0f;
 

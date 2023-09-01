@@ -13,7 +13,7 @@ int main(void){
     printf("}\n");
 
     printf("\nTEST: COPY FROM [VECTOR 1] TO [VECTOR 2] {");
-        zVec v2 = newDefaultVector(4, 1.0f);
+        zVec v2 = copyVector(v1);
         printV(v2);
     printf("}\n");
 
@@ -101,6 +101,7 @@ int main(void){
 
     printf("\n----------------------------------------------------------------\n");
 
+    freeZVector(&v1);
     freeZVector(&v3);
     freeZVector(&v8); 
 
