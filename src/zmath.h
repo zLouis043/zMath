@@ -43,14 +43,14 @@ void freeZVector(zVec* vector);
 /*!
     Allocate memory for the vector.
     @param dim The dimension of the vector.
-    @result The memory allocated. 
+    @return The memory allocated. 
 */
 zVec allocVector(size_t dim);
 
 /*!
     Create a new vector of dim Dimension with every component in the vector equal to 0.
     @param dim The dimension of the vector.
-    @result The new vector with every element in the vector equal to 0.
+    @return The new vector with every element in the vector equal to 0.
 */
 zVec newZeroVector(size_t dim);
 
@@ -58,7 +58,7 @@ zVec newZeroVector(size_t dim);
     Create a new vector of dim Dimension with every component in the vector equal to to element.
     @param dim The dimension of the vector.
     @param element The element of which the vector will be filled.
-    @result The new vector with every component in the vector equal to element.
+    @returnThe new vector with every component in the vector equal to element.
 */
 zVec newDefaultVector(size_t dim, float element);
 
@@ -66,14 +66,14 @@ zVec newDefaultVector(size_t dim, float element);
     Create a new vector of dim Dimension.
     @param dim The dimension of the vector.
     @param ... The components of the vector.
-    @result The new vector of dim Dimension.
+    @return The new vector of dim Dimension.
 */
 zVec _newZVector(size_t dim, ...);
 
 /*!
     Copy the dimension and the components from a vector to another one.
     @param vector The vector to copy.
-    @result The copy of the vector.
+    @return The copy of the vector.
 */
 zVec copyVector(zVec vector);
 
@@ -81,7 +81,7 @@ zVec copyVector(zVec vector);
     Sums the two vectors.
     @param vector1
     @param vector2
-    @result The sum between vector1 and vector2.
+    @return The sum between vector1 and vector2.
 */
 zVec sumVector(zVec vector1 , zVec vector2);
 
@@ -89,7 +89,7 @@ zVec sumVector(zVec vector1 , zVec vector2);
     Sums a vector and a scalar.
     @param vector1
     @param scalar
-    @result The sum between vector1 and a scalar.
+    @return The sum between vector1 and a scalar.
 */
 zVec sumVectorByScalar(zVec vector1 , size_t scalar);
 
@@ -97,7 +97,7 @@ zVec sumVectorByScalar(zVec vector1 , size_t scalar);
     Sums the two vectors.
     @param vector1
     @param vector2
-    @result The sum between vector1 and vector2.
+    @return The sum between vector1 and vector2.
 */
 zVec subVector(zVec vector1 , zVec vector2);
 
@@ -105,7 +105,7 @@ zVec subVector(zVec vector1 , zVec vector2);
     Subtract a vector and a scalar.
     @param vector1
     @param scalar
-    @result The subtraction between vector1 and a scalar.
+    @return The subtraction between vector1 and a scalar.
 */
 zVec subVectorByScalar(zVec vector1 , size_t scalar);
 
@@ -113,7 +113,7 @@ zVec subVectorByScalar(zVec vector1 , size_t scalar);
     Multiply two vectors.
     @param vector1
     @param vector2
-    @result The product between vector1 and  vector2.
+    @return The product between vector1 and  vector2.
 */
 zVec multVector(zVec vector1, zVec vector2);
 
@@ -121,7 +121,7 @@ zVec multVector(zVec vector1, zVec vector2);
     Multiply a vector and a scalar.
     @param vector1
     @param scalar
-    @result The product between vector1 and a scalar.
+    @return The product between vector1 and a scalar.
 */
 zVec multVectorByScalar(zVec vector1, size_t scalar);
 
@@ -129,7 +129,7 @@ zVec multVectorByScalar(zVec vector1, size_t scalar);
     Divide two vectors.
     @param vector1
     @param vector2
-    @result The division between vector1 and  vector2.
+    @return The division between vector1 and  vector2.
 */
 zVec divVector(zVec vector1, zVec vector2);
 
@@ -137,7 +137,7 @@ zVec divVector(zVec vector1, zVec vector2);
     Divide a vector and a scalar.
     @param vector1
     @param scalar
-    @result The division between vector1 and a scalar.
+    @return The division between vector1 and a scalar.
 */
 zVec divVectorByScalar(zVec vector1, size_t scalar);
 
@@ -145,7 +145,7 @@ zVec divVectorByScalar(zVec vector1, size_t scalar);
     Raise every component of a vector to the exponent given.
     @param vector The vector to raise.
     @param exponent The exponent of the power.
-    @result The vector raised to the exponent.
+    @return The vector raised to the exponent.
 */
 zVec powerVectorToExp(zVec vector, size_t exponent);
 
@@ -153,14 +153,14 @@ zVec powerVectorToExp(zVec vector, size_t exponent);
     The cross product between two vectors.
     @param vector1
     @param vector2
-    @result The cross product between two vectors.
+    @return The cross product between two vectors.
 */
 zVec crossProduct(zVec vector1, zVec vector2);
 
 /*!
     This function return the normalized version of a vector given.
     @param vector The vector to normalize.
-    @result The normalized vector.
+    @return The normalized vector.
 */
 zVec normalizeVector(zVec vector);
 
@@ -168,7 +168,7 @@ zVec normalizeVector(zVec vector);
     Checks if two vectors are equal.
     @param vector1
     @param vector2
-    @result true if they are equal false if otherwise.
+    @return true if they are equal false if otherwise.
 */
 bool areVecEqual(zVec vector1, zVec vector2);
 
@@ -176,7 +176,7 @@ bool areVecEqual(zVec vector1, zVec vector2);
     Checks if the two vectors are orthogonal.
     @param vector1.
     @param vector2.
-    @result true if they are orthogonal false if otherwise
+    @return true if they are orthogonal false if otherwise
 */
 bool areVecOrthogonal(zVec vector1, zVec vector2);
 
@@ -184,14 +184,14 @@ bool areVecOrthogonal(zVec vector1, zVec vector2);
     This functions return the dot product of two vectors.
     @param vector1
     @param vector2
-    @result The dot product of the two vectors.
+    @return The dot product of the two vectors.
 */
 float dotProduct(zVec vector1, zVec vector2);
 
 /*!
     This function return the magnitude of a vector.
     @param vector @
-    @result The magnitude of the vector.
+    @return The magnitude of the vector.
 */
 float magnitude(zVec vector);
 
