@@ -88,7 +88,7 @@ int main(void){
     printf("}\n");
 
     printf("\nTEST: NORMALIZE [VECTOR 3] WITH MAGNITUDE OF [%f] {", magnitude(v3));
-        zVec v12 = normalizeVector(v3);
+        zVec v12 = normalizedVector(v3);
         printV(v12);
     printf("}\n");
 

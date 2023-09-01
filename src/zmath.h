@@ -162,7 +162,13 @@ zVec crossProduct(zVec vector1, zVec vector2);
     @param vector The vector to normalize.
     @return The normalized vector.
 */
-zVec normalizeVector(zVec vector);
+zVec normalizedVector(zVec vector);
+
+/*!
+    This function return the normalized version of a vector given.
+    @param vector The vector pointer to normalize.
+*/
+zVec normalizeVector(zVec* vector);
 
 /*!
     Checks if two vectors are equal.
@@ -516,7 +522,7 @@ zVec crossProduct(zVec vector1, zVec vector2){
 
 /*
 */
-zVec normalizeVector(zVec vector){
+zVec normalizedVector(zVec vector){
 
     zVec result = allocVector(DIM(vector));
     float mag = magnitude(vector);
@@ -527,6 +533,17 @@ zVec normalizeVector(zVec vector){
 
     return result;
 
+}
+
+/*
+*/
+zVec normalizeVector(zVec* vector){
+    
+    float mag = magnitude(*vector);
+
+    for(size_t i = 0 ; i < vector->dim; i++){
+        vector->elements[i] /= mag;
+    }
 }
 
 /*
