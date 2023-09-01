@@ -87,7 +87,7 @@ int main(void){
         freeZVector(&v11);
     printf("}\n");
 
-    printf("\nTEST: NORMALIZE [VECTOR 3] WITH MAGNITUDE OF [%f] {", magnitude(v3));
+    printf("\nTEST: NORMALIZE [VECTOR 12] WITH MAGNITUDE OF [%f] AFTER COPING IT FROM [VECTOR 3] {", magnitude(v3));
         zVec v12 = copyVector(v3);
         normalizeVector(&v12);
         printV(v12);
