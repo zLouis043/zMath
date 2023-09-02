@@ -22,17 +22,6 @@ void printV(zVec vector){
 
 /*
 */
-void _zassert(bool condition, const char* message, const char* filepath, size_t line){
-    if(!condition){
-        fprintf(stderr, "[ERROR] : %s:%zu > %s\n", filepath, line, message);
-        #if EXIT_ON_ASSERT_FAILURE 
-            exit(EXIT_FAILURE);
-        #endif
-    }
-}
-
-/*
-*/
 void freeZVector(zVec* vector){
 
     zassert(vector != NULL, "Vector must not be NULL.");

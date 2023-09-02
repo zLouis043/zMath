@@ -32,4 +32,24 @@
  */
 #define MIN(n, m) (n < m ? n : m)
 
+void _zassert(bool condition, const char* message, const char* filepath, size_t line);
+
+/*!
+    Checks if the condition is true and printf an error message and exit the program if it is false.
+    @param condition The condition to check.
+    @param message The message to send if the condition is false.
+*/
+#define zassert(condition, message) _zassert(condition, message, __FILE__, __LINE__)
+
 #endif // ZMATH_DEF
+
+/*
+*/
+void _zassert(bool condition, const char* message, const char* filepath, size_t line){
+    if(!condition){
+        fprintf(stderr, "[ERROR] : %s:%zu > %s\n", filepath, line, message);
+        #if EXIT_ON_ASSERT_FAILURE 
+            exit(EXIT_FAILURE);
+        #endif
+    }
+}

@@ -22,15 +22,6 @@ extern zVec NULL_VECTOR;
 void printV(zVec vector);
 
 /*!
-    Checks if the condition is true and printf an error message and exit the program if it is false.
-    @param condition The condition to check.
-    @param message The message to send if the condition is false.
-    @param filepath The path of the file where the assertion failed.
-    @param line The line in the file where the assertion failed.
-*/
-void _zassert(bool condition, const char* message, const char* filepath, size_t line);
-
-/*!
     Free the vector and sets its dimension to 0.
 */
 void freeZVector(zVec* vector);
@@ -219,13 +210,6 @@ float magnitude(zVec vector);
     @result The new vector of dim Dimension.
 */
 #define newZVector(...) _newZVector(NUMARGS(float, ##__VA_ARGS__), __VA_ARGS__)
-
-/*!
-    Checks if the condition is true and printf an error message and exit the program if it is false.
-    @param condition The condition to check.
-    @param message The message to send if the condition is false.
-*/
-#define zassert(condition, message) _zassert(condition, message, __FILE__, __LINE__)
 
 /*!
     Return the value of the specified vector at the specified index.
