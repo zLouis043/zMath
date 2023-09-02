@@ -34,7 +34,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.27.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.27.1/CMakeRCCompiler.cmake"
   "CMakeFiles/3.27.1/CMakeSystem.cmake"
-  "D:/zMath/zMath/src/CMakeLists.txt"
+  "D:/zMath/zMath/src/zmath/CMakeLists.txt"
   )
 
 # The corresponding makefile is:
@@ -46,7 +46,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "src/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/zmath/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:

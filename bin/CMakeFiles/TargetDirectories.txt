@@ -1,5 +1,5 @@
 D:/zMath/zMath/bin/CMakeFiles/zmath.dir
 D:/zMath/zMath/bin/CMakeFiles/edit_cache.dir
 D:/zMath/zMath/bin/CMakeFiles/rebuild_cache.dir
-D:/zMath/zMath/bin/src/CMakeFiles/edit_cache.dir
-D:/zMath/zMath/bin/src/CMakeFiles/rebuild_cache.dir
+D:/zMath/zMath/bin/src/zmath/CMakeFiles/edit_cache.dir
+D:/zMath/zMath/bin/src/zmath/CMakeFiles/rebuild_cache.dir

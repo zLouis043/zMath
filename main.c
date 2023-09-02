@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#define ZMATH_IMPLEMENTATION
-#include "src/zmath.h"
+#include "src/zmath/zvec.h"
+#include "src/zmath/zmatrix.h"
 
 int main(void){
 
@@ -23,7 +23,7 @@ int main(void){
     printf("}\n");
 
     printf("\nTEST: SUM [VECTOR 1] BY A SCALAR [2] {");
-        v3 = sumVectorByScalar(v1, 2);
+        v3 = sumVectorByScalar(v1, 2.0f);
         printV(v3);
     printf("}\n");
 
@@ -33,7 +33,7 @@ int main(void){
     printf("}\n");
 
     printf("\nTEST: SUBTRACT [VECTOR 1] BY A SCALAR [2] {");
-        v4 = subVectorByScalar(v1, 2);
+        v4 = subVectorByScalar(v1, 2.0f);
         printV(v4);
 
         freeZVector(&v4);
@@ -45,7 +45,7 @@ int main(void){
     printf("}\n");
 
     printf("\nTEST: MULTIPLY [VECTOR 1] BY A SCALAR [2] {");
-        v5 = multVectorByScalar(v1, 2);
+        v5 = multVectorByScalar(v1, 2.0f);
         printV(v5);
 
         freeZVector(&v5);
@@ -57,7 +57,7 @@ int main(void){
     printf("}\n");
 
     printf("\nTEST: DIVIDE [VECTOR 1] BY A SCALAR [2] {");
-        v6 = divVectorByScalar(v1, 2);
+        v6 = divVectorByScalar(v1, 2.0f);
         printV(v6);
 
         freeZVector(&v6);

@@ -86,14 +86,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\zMath\zMath\bin\CMakeFiles D:\zMath\zMath\bin\\CMakeFiles\progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
+	cd /d D:\zMath\zMath\bin && $(CMAKE_COMMAND) -E cmake_progress_start D:\zMath\zMath\bin\CMakeFiles D:\zMath\zMath\bin\src\zmath\\CMakeFiles\progress.marks
+	cd /d D:\zMath\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/zmath/all
 	$(CMAKE_COMMAND) -E cmake_progress_start D:\zMath\zMath\bin\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 clean
+	cd /d D:\zMath\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/zmath/clean
 .PHONY : clean
 
 # The main clean target
@@ -102,79 +102,18 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 preinstall
+	cd /d D:\zMath\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/zmath/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 preinstall
+	cd /d D:\zMath\zMath\bin && $(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 src/zmath/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+	cd /d D:\zMath\zMath\bin && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
 .PHONY : depend
-
-#=============================================================================
-# Target rules for targets named zmath
-
-# Build rule for target.
-zmath: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 zmath
-.PHONY : zmath
-
-# fast build rule for target.
-zmath/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/build
-.PHONY : zmath/fast
-
-main.obj: main.c.obj
-.PHONY : main.obj
-
-# target to build an object file
-main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/main.c.obj
-.PHONY : main.c.obj
-
-main.i: main.c.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/main.c.i
-.PHONY : main.c.i
-
-main.s: main.c.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/main.c.s
-.PHONY : main.c.s
-
-src/zmath/zvec.obj: src/zmath/zvec.c.obj
-.PHONY : src/zmath/zvec.obj
-
-# target to build an object file
-src/zmath/zvec.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zvec.c.obj
-.PHONY : src/zmath/zvec.c.obj
-
-src/zmath/zvec.i: src/zmath/zvec.c.i
-.PHONY : src/zmath/zvec.i
-
-# target to preprocess a source file
-src/zmath/zvec.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zvec.c.i
-.PHONY : src/zmath/zvec.c.i
-
-src/zmath/zvec.s: src/zmath/zvec.c.s
-.PHONY : src/zmath/zvec.s
-
-# target to generate assembly for a file
-src/zmath/zvec.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zvec.c.s
-.PHONY : src/zmath/zvec.c.s
 
 # Help Target
 help:
@@ -184,13 +123,6 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... zmath
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
-	@echo ... src/zmath/zvec.obj
-	@echo ... src/zmath/zvec.i
-	@echo ... src/zmath/zvec.s
 .PHONY : help
 
 
@@ -202,6 +134,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+	cd /d D:\zMath\zMath\bin && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

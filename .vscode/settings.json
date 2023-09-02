@@ -3,11 +3,25 @@
         "DNUMARGS",
         "FNUMARGS",
         "INUMARGS",
+        "lstr",
         "NUMARGS",
+        "Occurance",
+        "occurances",
+        "occurences",
+        "printz",
+        "uppercases",
+        "ustr",
         "zassert",
-        "ZMATH"
+        "ZMATH",
+        "ZMATRIX",
+        "zstring",
+        "ZVEC"
     ],
     "files.associations": {
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "zmath.h": "c",
+        "zvec.h": "c",
+        "zmatrix.h": "c",
+        "stdlib.h": "c"
     }
 }

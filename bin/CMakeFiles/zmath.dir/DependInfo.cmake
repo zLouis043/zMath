@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/zMath/zMath/main.c" "CMakeFiles/zmath.dir/main.c.obj" "gcc" "CMakeFiles/zmath.dir/main.c.obj.d"
+  "D:/zMath/zMath/src/zmath/zvec.c" "CMakeFiles/zmath.dir/src/zmath/zvec.c.obj" "gcc" "CMakeFiles/zmath.dir/src/zmath/zvec.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
