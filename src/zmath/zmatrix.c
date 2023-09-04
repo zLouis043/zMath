@@ -169,10 +169,14 @@ zMat copyMatrix(zMat source){
 /*
 */
 zVec getMatRow(zMat source, unsigned int row){
-    zVec result = allocVector(source.cols);
 
     row--;
 
+    if(row < 0 || row >= source.rows){
+        return NULL_VECTOR;
+    }
+
+    zVec result = allocVector(source.cols);
     for(int i = 0; i < source.cols; i++){
         result.elements[i] = ValueMatAt(source, row, i);
     }
@@ -183,10 +187,14 @@ zVec getMatRow(zMat source, unsigned int row){
 /*
 */
 zVec getMatCol(zMat source, unsigned int col){
-    zVec result = allocVector(source.rows);
 
     col--;
 
+    if(col < 0 || col  >= source.rows){
+        return NULL_VECTOR;
+    }
+
+    zVec result = allocVector(source.rows);
     for(int i = 0; i < source.rows; i++){
         result.elements[i] = ValueMatAt(source, i, col);
     }
