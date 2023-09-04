@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "zmath.h"
 #include "zvec.h"
@@ -29,6 +30,19 @@ void freeZVector(zVec* vector){
     free(vector->elements);
     vector->elements = NULL;
     vector->dim = 0;
+}
+
+/*
+*/
+void copyPtrVector(zVec* source, zVec* dest){
+
+    if(dest->elements == NULL){ 
+        *dest= allocVector(source->dim); 
+    }
+
+    dest->dim = source->dim;
+    dest->elements = source->elements;
+
 }
 
 /*
@@ -92,12 +106,12 @@ zVec _newZVector(size_t dim, ...){
 
 /*
 */
-zVec copyVector(zVec vector){
+zVec copyVector(zVec source){
 
-    zVec result = allocVector(DIM(vector));
+    zVec result = allocVector(DIM(source));
 
-    for(size_t i = 0; i < DIM(vector); i++){
-        ValueAt(result , i) = ValueAt(vector, i);
+    for(size_t i = 0; i < DIM(source); i++){
+        ValueAt(result , i) = ValueAt(source, i);
     }
 
     return result;

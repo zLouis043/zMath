@@ -1,19 +1,68 @@
-#ifndef ZMATRIX_H_
-#define ZMATRIX_H_
+#pragma once
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <stdarg.h>
 #include <stdbool.h>
 
-#ifndef ZMATRIX_DEF
-#define ZMATRIX_DEF
+typedef struct zMatrix{
+    unsigned int rows;
+    unsigned int cols;
+    float** elements;
+}zMat;
 
-#endif // ZMATRIX_DEF
+extern zMat NULL_MATRIX;
 
-#endif // ZMATRIX_H_
+/*!
+*/
+void printMatrix(zMat mat);
 
-#ifdef ZMATRIX_IMPLEMENTATION
+/*!
+*/
+void freeZMatrix(zMat* mat);
 
-#endif // ZMATRIX_IMPLEMENTATION
+/*!
+*/
+void copyPtrMatrix(zMat *source, zMat *dest);
+
+/*!
+*/
+zMat allocZMatrix(unsigned int rows, unsigned int cols);
+
+/*!
+*/
+zMat newZeroMatrix(unsigned int rows, unsigned int cols);
+
+/*!
+*/
+zMat newDefaultMatrix(unsigned int rows, unsigned int cols, float value);
+
+/*!
+*/
+zMat idMatrix(unsigned int dim);
+
+/*!
+*/
+zMat newZMatrix(unsigned int rows, unsigned int cols, ...);
+
+/*!
+*/
+zMat copyMatrix(zMat source);
+
+/*!
+*/
+zVec getMatRow(zMat source, unsigned int row);
+
+/*!
+*/
+zVec getMatCol(zMat source, unsigned int col);
+
+#define STRAIGHT_LINE 196
+#define LEFT_UP_CORNER 218
+#define RIGHT_UP_CORNER 191
+#define SIDE_CHAR 179
+#define LEFT_DOWN_CORNER 192
+#define RIGHT_DOWN_CORNER 217
+
+// double coords to single coord = rows * index + rows;
+#define ValueMatAt(matrix, x, y) (matrix.elements[x][y])
+
+
+

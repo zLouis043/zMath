@@ -22,6 +22,8 @@
         "zmath.h": "c",
         "zvec.h": "c",
         "zmatrix.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "stdbool.h": "c",
+        "stdarg.h": "c"
     }
 }

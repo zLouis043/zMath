@@ -27,6 +27,13 @@ void printV(zVec vector);
 void freeZVector(zVec* vector);
 
 /*!
+    Copy one vector into another.
+    @param source The vector to copy.
+    @param dest The destination vector.
+*/
+void copyPtrVector(zVec* source, zVec* dest);
+
+/*!
     Allocate memory for the vector.
     @param dim The dimension of the vector.
     @return The memory allocated. 
@@ -58,10 +65,10 @@ zVec _newZVector(size_t dim, ...);
 
 /*!
     Copy the dimension and the components from a vector to another one.
-    @param vector The vector to copy.
+    @param source The vector to copy.
     @return The copy of the vector.
 */
-zVec copyVector(zVec vector);
+zVec copyVector(zVec source);
 
 /*!
     Sums the two vectors.
@@ -194,8 +201,6 @@ float dotProduct(zVec vector1, zVec vector2);
 */
 float magnitude(zVec vector);
 
-#ifndef ZVEC_DEF
-#define ZVEC_DEF
 
 /*!
     Find the arguments given 
@@ -226,6 +231,5 @@ float magnitude(zVec vector);
 */
 #define DIM(vector) (vector.dim)
 
-#endif // ZVEC_DEF 
 
 

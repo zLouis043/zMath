@@ -1,11 +1,15 @@
 #include <stdio.h>
 
+#include "src/zmath/zmath.h"
 #include "src/zmath/zvec.h"
 #include "src/zmath/zmatrix.h"
 
 int main(void){
 
-    printf("\n----------------------------------------------------------------\n");
+
+    printf("\n -----------------------------------------------\n");
+    printf("|                   VECTORS                    |\n");
+    printf(" -----------------------------------------------\n");
  
     printf("\nTEST: CREATE A NEW [VECTOR] {");
         zVec v1 = newZVector(1.0f, 2.0f, 3.0f, 4.0f);
@@ -13,7 +17,9 @@ int main(void){
     printf("}\n");
 
     printf("\nTEST: COPY FROM [VECTOR 1] TO [VECTOR 2] {");
-        zVec v2 = copyVector(v1);
+        zVec v2;
+        //copyVector(v1);
+        copyPtrVector(&v1, &v2);
         printV(v2);
     printf("}\n");
 
@@ -101,11 +107,53 @@ int main(void){
         printf("\n> Magnitude of [VECTOR 3]: %f\n", magnitude(v3));
         printf("\n> Is [VECTOR 12] normalized : %s\n", isNormalized(v12) ? "True" : "False");
 
-    printf("\n----------------------------------------------------------------\n");
 
     freeZVector(&v1);
     freeZVector(&v3);
     freeZVector(&v8); 
+
+    printf("\n -----------------------------------------------\n");
+    printf("|                   MATRIXES                    |\n");
+    printf(" -----------------------------------------------\n\n");
+
+    printf("\nTEST: CREATE A NEW [MATRIX 1] {");
+    zMat mat1 = newZMatrix(2 ,4  ,1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f);
+    printMatrix(mat1);
+    printf("}\n");
+
+    printf("\nTEST: CREATE A NEW [MATRIX 2] AS AN IDENTITY MATRIX OF DIMENSION [6]{");
+    zMat mat2 = idMatrix(3);
+    printMatrix(mat2);
+    printf("}\n");
+
+    printf("\nTEST: COPY THE POINTER AND DIMENSIONS FROM [MATRIX 1] TO [MATRIX 2] {");
+    copyPtrMatrix(&mat1, &mat2);
+    printMatrix(mat2);
+    printf("}\n");  
+
+    printf("\nTEST: COPY THE VALUES AND DIMENSIONS FROM [MATRIX 2] TO [MATRIX 3] {");
+    zMat mat3 = copyMatrix(mat2);
+    printMatrix(mat3);
+    printf("}\n");
+
+    printf("\nTEST: CREATE A VECTOR FROM A SPECIFIC [MATRIX 4] AT THE ROW [2] {");
+    zMat mat4 = idMatrix(5);
+    zVec v13 = getMatRow(mat4, 2);
+    printV(v13);
+    printf("}\n");
+
+    printf("\nTEST: CREATE A VECTOR FROM A SPECIFIC [MATRIX 4] AT THE Col [3] {");
+    v13 = getMatCol(mat4, 3);
+    printV(v13);
+    printf("}\n");
+
+    freeZMatrix(&mat4);
+    freeZMatrix(&mat3);
+    freeZMatrix(&mat2);
+    freeZMatrix(&mat1);
+
+    freeZVector(&v13);
+
 
     return 0;
 }
