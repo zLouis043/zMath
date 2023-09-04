@@ -1,5 +1,5 @@
 # zMath
- An intuitive Single-Header Library for doing linear algebra calcualtions.
+ An intuitive Library for doing linear algebra calcualtions.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/zLouis043/zMath/main)
@@ -10,8 +10,7 @@ Just add the zstring.h file to your project's headers and the include and define
 
 ```c
 
-#define ZMATH_IMPLEMENTATION
-#include "zmath.h"
+#include "zvec.h"
 
 ```
 
@@ -41,8 +40,7 @@ $ ./run.sh
 
 #include <stdio.h>
 
-#define ZMATH_IMPLEMENTATION
-#include "src/zmath.h"
+#include "src/zmath/zvec.h"
 
 int main(void){
 
