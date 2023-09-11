@@ -12,7 +12,8 @@ int main(int argc, char **argv){
 
     const char *filename = argv[1];
 
-    FILE *fp = fopen(filename, "w");
+    FILE *fp;
+    fopen_s(&fp, filename, "w");
 
     fprintf(fp, "\n -----------------------------------------------\n");
     fprintf(fp, "|                   VECTORS                     |\n");

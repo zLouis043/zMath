@@ -1,10 +1,8 @@
-#pragma once
+#ifndef ZMATH_DEF
+#define ZMATH_DEF
 
 #include <stdbool.h>
 #include <stdio.h>
-
-#ifndef ZMATH_DEF
-#define ZMATH_DEF
 
 /*
     Flag that if activated will crush the program if an assertion fails.
@@ -277,7 +275,7 @@ zVec normalizedVector(zVec vector);
     This function return the normalized version of a vector given.
     @param vector The vector pointer to normalize.
 */
-zVec normalizeVector(zVec* vector);
+void normalizeVector(zVec* vector);
 
 /*!
     Checks if two vectors are equal.
@@ -811,8 +809,7 @@ void swapFloat(float* a, float* b){
 /*
 */
 bool arrContains(unsigned int *arr, int n, float target){
-    for (unsigned int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++){
         if (arr[i] == target)
         {
             return true;
@@ -1128,7 +1125,7 @@ zVec normalizedVector(zVec vector){
 
 /*
 */
-zVec normalizeVector(zVec* vector){
+void normalizeVector(zVec* vector){
 
     float mag = magnitude(*vector);
 
@@ -1201,9 +1198,9 @@ zMat NULL_MATRIX = {0, 0, NULL};
 void printMatrix(FILE *fp, zMat mat){
 	
 	int spaces = 11;
-	fprintf(fp, "\n\n   | Matrix of size %zux%zu: {\n", mat.rows, mat.cols);
+	fprintf(fp, "\n\n   | Matrix of size %ux%u: {\n", mat.rows, mat.cols);
 	fprintf(fp, "   |\t%c   ", LEFT_UP_CORNER);
-	for(int i = 0; i < mat.cols; i++){
+	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
 		}	
@@ -1211,18 +1208,18 @@ void printMatrix(FILE *fp, zMat mat){
 	fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
 	
 	
-	for(int i = 0; i < mat.rows; i++){
+	for(unsigned int i = 0; i < mat.rows; i++){
 		
 		fprintf(fp, "   |\t%c   ", SIDE_CHAR);
 		
-		for(int j = 0; j < mat.cols; j++){
+		for(unsigned int j = 0; j < mat.cols; j++){
 			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
 		}		
 		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
 	
 	fprintf(fp, "   |\t%c   ", LEFT_DOWN_CORNER);
-	for(int i = 0; i < mat.cols; i++){
+	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
 		}
@@ -1236,9 +1233,9 @@ void printMatrix(FILE *fp, zMat mat){
 void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 	
 	int spaces = 11;
-	fprintf(fp, "\n\n   | [%s] of size %zux%zu: {\n", label, mat.rows, mat.cols);
+	fprintf(fp, "\n\n   | [%s] of size %ux%u: {\n", label, mat.rows, mat.cols);
 	fprintf(fp, "   |\t%c   ", LEFT_UP_CORNER);
-	for(int i = 0; i < mat.cols; i++){
+	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
 		}	
@@ -1246,18 +1243,18 @@ void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 	fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
 	
 	
-	for(int i = 0; i < mat.rows; i++){
+	for(unsigned int i = 0; i < mat.rows; i++){
 		
 		fprintf(fp, "   |\t%c   ", SIDE_CHAR);
 		
-		for(int j = 0; j < mat.cols; j++){
+		for(unsigned int j = 0; j < mat.cols; j++){
 			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
 		}		
 		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
 	
 	fprintf(fp, "   |\t%c   ", LEFT_DOWN_CORNER);
-	for(int i = 0; i < mat.cols; i++){
+	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
 		}
@@ -1271,9 +1268,9 @@ void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 void printMatrixByIndex(FILE *fp, unsigned int index, zMat mat){
 	
 	int spaces = 11;
-	fprintf(fp, "\n\n   | [MATRIX %d] of size %zux%zu: {\n", index, mat.rows, mat.cols);
+	fprintf(fp, "\n\n   | [MATRIX %d] of size %ux%u: {\n", index, mat.rows, mat.cols);
 	fprintf(fp, "   |\t%c   ", LEFT_UP_CORNER);
-	for(int i = 0; i < mat.cols; i++){
+	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
 		}	
@@ -1281,18 +1278,18 @@ void printMatrixByIndex(FILE *fp, unsigned int index, zMat mat){
 	fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
 	
 	
-	for(int i = 0; i < mat.rows; i++){
+	for(unsigned int i = 0; i < mat.rows; i++){
 		
 		fprintf(fp, "   |\t%c   ", SIDE_CHAR);
 		
-		for(int j = 0; j < mat.cols; j++){
+		for(unsigned int j = 0; j < mat.cols; j++){
 			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
 		}		
 		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
 	
 	fprintf(fp, "   |\t%c   ", LEFT_DOWN_CORNER);
-	for(int i = 0; i < mat.cols; i++){
+	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
 		}
@@ -1351,8 +1348,8 @@ zMat newZeroZMatrix(unsigned int rows, unsigned int cols){
 
     zMat result = allocZMatrix(rows, cols);
 
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < cols; j++){
+    for(unsigned int i = 0; i < rows; i++){
+        for(unsigned int j = 0; j < cols; j++){
             ValueMatAt(result, i, j) = 0.0f;
         }
     }
@@ -1368,8 +1365,8 @@ zMat newRandomFloatMatrix(unsigned int rows, unsigned int cols, float min, float
     zMat result = allocZMatrix(rows, cols);
     
     srand((unsigned)time(NULL)); 
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < cols; j++){
+    for(unsigned int i = 0; i < rows; i++){
+        for(unsigned int j = 0; j < cols; j++){
             ValueMatAt(result, i, j) = float_rand(min, max);
         }
     }
@@ -1385,8 +1382,8 @@ zMat newRandomIntMatrix(unsigned int rows, unsigned int cols, int min, int max){
     zMat result = allocZMatrix(rows, cols);
 
     srand((unsigned)time(NULL)); 
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < cols; j++){
+    for(unsigned int i = 0; i < rows; i++){
+        for(unsigned int j = 0; j < cols; j++){
             ValueMatAt(result, i, j) = (float)int_rand(min, max);
         }
     }
@@ -1401,8 +1398,8 @@ zMat newDefaultZMatrix(unsigned int rows, unsigned int cols, float value){
 
     zMat result = allocZMatrix(rows, cols);
 
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < cols; j++){
+    for(unsigned int i = 0; i < rows; i++){
+        for(unsigned int j = 0; j < cols; j++){
             ValueMatAt(result, i, j) = value;
         }
     }
@@ -1414,8 +1411,8 @@ zMat newDefaultZMatrix(unsigned int rows, unsigned int cols, float value){
 zMat idZMatrix(unsigned int dim){
     zMat result = allocZMatrix(dim, dim);
 
-    for(int i = 0; i < dim; i++){
-        for(int j = 0; j < dim; j++){
+    for(unsigned int i = 0; i < dim; i++){
+        for(unsigned int j = 0; j < dim; j++){
             if(i == j){
                 ValueMatAt(result, i, j) = 1.0f;
             }else {
@@ -1434,15 +1431,13 @@ zMat _newZMatrix(unsigned int rows, unsigned int cols, unsigned int numVals, ...
 
     zMat result = allocZMatrix(rows, cols);
 
-    int size = result.rows * result.cols;
-
     va_list args;
     va_start(args, numVals);
 
     unsigned int vals = 0;
 
-    for(size_t i = 0; i < result.rows; i++){
-        for(size_t j = 0 ; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0 ; j < result.cols; j++){
             if(vals++ < numVals){
                 ValueMatAt(result, i, j) =  va_arg(args, double);
             }else {
@@ -1469,7 +1464,7 @@ zMat vecToZMatrix(zVec source, Direction dir){
         case HORIZONTAL: {
             result = allocZMatrix(1, DIM(source));
 
-            for(int i = 0; i < result.cols; i++){
+            for(unsigned int i = 0; i < result.cols; i++){
                 ValueMatAt(result, 0, i) = source.elements[i];
             }       
 
@@ -1477,11 +1472,12 @@ zMat vecToZMatrix(zVec source, Direction dir){
         case VERTICAL: {
             result = allocZMatrix(source.dim, 1); 
 
-            for(int i = 0; i < result.rows; i++){
+            for(unsigned int i = 0; i < result.rows; i++){
                 ValueMatAt(result, i, 0) = source.elements[i];
             }  
 
         } break;
+        default: break;
     }
 
     return result;
@@ -1494,8 +1490,8 @@ zVec matrixToZVector(zMat source){
 
     zVec result = allocZVector(source.rows * source.cols);   
 
-    for(int i = 0; i < source.rows; i++){
-        for(int j = 0; j < source.cols; j++){
+    for(unsigned int i = 0; i < source.rows; i++){
+        for(unsigned int j = 0; j < source.cols; j++){
             result.elements[j + i * source.cols] = ValueMatAt(source, i, j);
         }
     }
@@ -1513,7 +1509,7 @@ zVec vecFromMatrixRow(zMat source, unsigned int row){
 
     zVec result = allocZVector(source.cols);   
 
-    for(int i = 0; i < source.cols; i++){
+    for(unsigned int i = 0; i < source.cols; i++){
         result.elements[i] = ValueMatAt(source, row, i);
     }
 
@@ -1530,7 +1526,7 @@ zVec vecFromMatrixCol(zMat source, unsigned int col){
 
     zVec result = allocZVector(source.rows);   
 
-    for(int i = 0; i < source.cols; i++){
+    for(unsigned int i = 0; i < source.cols; i++){
         result.elements[i] = ValueMatAt(source, i, col);
     }
 
@@ -1545,8 +1541,8 @@ zMat addMatrixes(zMat matrix1, zMat matrix2){
     
     zMat result = allocZMatrix(matrix1.rows, matrix1.cols);
 
-    for(int i = 0; i < result.rows; i++){
-        for(int j = 0; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0; j < result.cols; j++){
             ValueMatAt(result, i, j) = ValueMatAt(matrix1, i, j) + ValueMatAt(matrix2, i, j);
         }
     }
@@ -1561,8 +1557,8 @@ zMat addMatrixesByScalar(zMat matrix1, float scalar){
     
     zMat result = allocZMatrix(matrix1.rows, matrix1.cols);
 
-    for(int i = 0; i < result.rows; i++){
-        for(int j = 0; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0; j < result.cols; j++){
             ValueMatAt(result, i, j) = ValueMatAt(matrix1, i, j) + scalar;
         }
     }
@@ -1579,8 +1575,8 @@ zMat subMatrixes(zMat matrix1, zMat matrix2){
 
     zMat result = allocZMatrix(matrix1.rows, matrix1.cols);
 
-    for(int i = 0; i < result.rows; i++){
-        for(int j = 0; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0; j < result.cols; j++){
             ValueMatAt(result, i, j) = ValueMatAt(matrix1, i, j) - ValueMatAt(matrix2, i, j);
         }
     }
@@ -1595,8 +1591,8 @@ zMat subMatrixesByScalar(zMat matrix1, float scalar){
     
     zMat result = allocZMatrix(matrix1.rows, matrix1.cols);
 
-    for(int i = 0; i < result.rows; i++){
-        for(int j = 0; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0; j < result.cols; j++){
             ValueMatAt(result, i, j) = ValueMatAt(matrix1, i, j) - scalar;
         }
     }
@@ -1613,8 +1609,8 @@ zMat mulMatrixes(zMat matrix1, zMat matrix2){
 
     zMat result = allocZMatrix(matrix1.rows, matrix1.cols);
     
-    for(int i = 0; i < result.rows; i++){
-        for(int j = 0; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0; j < result.cols; j++){
             ValueMatAt(result, i, j) = ValueMatAt(matrix1, i, j) * ValueMatAt(matrix2, i, j);
         }
     }
@@ -1629,8 +1625,8 @@ zMat mulMatrixesByScalar(zMat matrix1, float scalar){
     
     zMat result = allocZMatrix(matrix1.rows, matrix1.cols);
 
-    for(int i = 0; i < result.rows; i++){
-        for(int j = 0; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0; j < result.cols; j++){
             ValueMatAt(result, i, j) = ValueMatAt(matrix1, i, j) * scalar;
         }
     }
@@ -1647,8 +1643,8 @@ zMat divMatrixes(zMat matrix1, zMat matrix2){
 
     zMat result = allocZMatrix(matrix1.rows, matrix1.cols);
 
-    for(int i = 0; i < result.rows; i++){
-        for(int j = 0; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0; j < result.cols; j++){
             if(ValueMatAt(matrix2, i, j) != 0.0f){
                 ValueMatAt(result, i, j) = ValueMatAt(matrix1, i, j) / ValueMatAt(matrix2, i, j);
             }else {
@@ -1667,8 +1663,8 @@ zMat divMatrixesByScalar(zMat matrix1, float scalar){
     
     zMat result = allocZMatrix(matrix1.rows, matrix1.cols);
 
-    for(int i = 0; i < result.rows; i++){
-        for(int j = 0; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0; j < result.cols; j++){
             if(scalar != 0.0f){
                 ValueMatAt(result, i, j) = ValueMatAt(matrix1, i, j) / scalar;
             }else {
@@ -1689,10 +1685,10 @@ zMat rowsColsProd(zMat matrix1, zMat matrix2){
 
     zMat result = allocZMatrix(matrix1.rows, matrix2.cols);
     
-    for(int i = 0; i < result.rows; i++){
-		for(int j = 0; j < result.cols; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+		for(unsigned int j = 0; j < result.cols; j++){
 			ValueMatAt(result, i, j) = 0;
-			for(int k = 0; k < matrix2.rows; k++){
+			for(unsigned int k = 0; k < matrix2.rows; k++){
 				ValueMatAt(result, i, j) += ValueMatAt(matrix1, i, k) * ValueMatAt(matrix2, k, j); 
 			}
 		}
@@ -1707,8 +1703,8 @@ zMat rowsColsProd(zMat matrix1, zMat matrix2){
 zMat transposedMatrix(zMat source){
     zMat result = allocZMatrix(source.cols, source.rows);
 
-    for(int i = 0; i < result.rows; i++){
-        for(int j = 0; j < result.rows; j++){
+    for(unsigned int i = 0; i < result.rows; i++){
+        for(unsigned int j = 0; j < result.rows; j++){
             ValueMatAt(result, i, j) = ValueMatAt(source, j, i);
         }
     }
@@ -1741,7 +1737,7 @@ bool addRows(zMat *source, unsigned int row1, unsigned int row2){
         return false;
     }
 
-    for(int i = 0; i < source->cols; i++){
+    for(unsigned int i = 0; i < source->cols; i++){
         source->elements[row1][i] += source->elements[row2][i];
     }
 
@@ -1757,7 +1753,7 @@ bool mulRows(zMat *source, unsigned int row, int scalar){
         return false;
     }
 
-    for(int i = 0; i < source->cols; i++){
+    for(unsigned int i = 0; i < source->cols; i++){
         source->elements[row][i] *= scalar;
     }
 
@@ -1774,9 +1770,11 @@ bool addmulRows(zMat *source, unsigned int row1, unsigned int row2, int scalar){
         return false;
     }
 
-    for(int i = 0; i < source->cols; i++){
+    for(unsigned int i = 0; i < source->cols; i++){
         source->elements[row1][i] += source->elements[row2][i] * scalar;
     }
+
+    return true;
 }
 
 /*
@@ -1785,7 +1783,7 @@ void matrixToRowEchelonForm(zMat *source){
 
     unsigned int curRow = 0;
 
-    for(int i = 0; i < source->cols; i++){
+    for(unsigned int i = 0; i < source->cols; i++){
         
         #if VISUALIZE_STEPS
         printMatrixByIndex(curRow, *source);
@@ -1825,7 +1823,7 @@ void matrixToReducedRowEchelonForm(zMat *source){
 
     unsigned int curRow = 0;
 
-    for(int i = 0; i < source->cols; i++){
+    for(unsigned int i = 0; i < source->cols; i++){
         
         #if VISUALIZE_STEPS
         printMatrixByIndex(curRow, *source);
@@ -1867,8 +1865,8 @@ zMat appendVectorToMatrix(zMat source, zVec vector){
     
     zMat result = allocZMatrix(source.rows, source.cols + 1);
 
-    for(int i = 0; i < source.rows; i++){
-        int j = 0;
+    for(unsigned int i = 0; i < source.rows; i++){
+        unsigned int j = 0;
         for(; j < source.cols; j++){
             #if VISUALIZE_DEBUG
             printf("%d\n", j);
@@ -1893,12 +1891,12 @@ zMat appendMatrixToMatrix(zMat source, zMat matrix){
     
     zMat result = allocZMatrix(source.rows, source.cols + matrix.cols);
 
-    for(int i = 0; i < source.rows; i++){
-        int j = 0;
+    for(unsigned int i = 0; i < source.rows; i++){
+        unsigned int j = 0;
         for(; j < source.cols; j++){
             ValueMatAt(result, i, j) = ValueMatAt(source, i, j);
         }
-        for(int k = 0; k < matrix.cols; k++){
+        for(unsigned int k = 0; k < matrix.cols; k++){
             ValueMatAt(result, i, k + j) = ValueMatAt(matrix, i, k);
         }
         
@@ -1988,10 +1986,10 @@ float _determinantExclusion(zMat source,
     skipCols[*noSkipCols] = col;
     (*noSkipCols)++;
 
-    if (row == source.rows - 1)
+    /*if (row == source.rows - 1)
     {
         printf("");
-    }
+    }*/
 
     // base case to return single element
     if (row == source.rows)
@@ -2163,11 +2161,11 @@ zMat inverseMatrix(zMat source){
     }
 
     // inverse = 1 / det * adj
-    zMat ret = mulMatrixesByScalar(adj, 1.0f / det);
+    zMat result = mulMatrixesByScalar(adj, 1.0f / det);
 
     freeZMatrix(&adj);
 
-    return ret;
+    return result;
 }
 
 /*
