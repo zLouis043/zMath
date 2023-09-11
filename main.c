@@ -3,222 +3,253 @@
 #define ZMATH_IMPLEMENTATION
 #include "src/zmath/zmath.h"
 
-int main(void){
+int main(int argc, char **argv){
     
-    printf("\n -----------------------------------------------\n");
-    printf("|                   VECTORS                     |\n");
-    printf(" -----------------------------------------------\n");
- 
-    printf("\nTEST: CREATE A NEW [VECTOR] {");
-        zVec v1 = newZVector(1.0f, 2.0f, 3.0f, 4.0f);
-        printVectorByIndex(1, v1);
-    printf("}\n");
+    if(argc < 2){
+        fprintf(stderr,"[USAGE]: %s <filename>\n",argv[0]);
+        exit(1);
+    }
 
-    printf("\nTEST: COPY FROM [VECTOR 1] TO [VECTOR 2] {");
+    const char *filename = argv[1];
+
+    FILE *fp = fopen(filename, "w");
+
+    fprintf(fp, "\n -----------------------------------------------\n");
+    fprintf(fp, "|                   VECTORS                     |\n");
+    fprintf(fp, " -----------------------------------------------\n");
+ 
+    fprintf(fp, "\nTEST: CREATE A NEW [VECTOR] {");
+        zVec v1 = newZVector(1.0f, 2.0f, 3.0f, 4.0f);
+        printVectorByIndex(fp, 1, v1);
+    fprintf(fp, "}\n");
+
+    fprintf(fp, "\nTEST: COPY FROM [VECTOR 1] TO [VECTOR 2] {");
         zVec v2;
         copyPtrVector(&v1, &v2);
-        printVectorByIndex(2, v2);
-    printf("}\n");
+        printVectorByIndex(fp, 2, v2);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: SUM [VECTOR 1]AND [VECTOR 2] {");
+    fprintf(fp, "\nTEST: SUM [VECTOR 1]AND [VECTOR 2] {");
         zVec v3 = sumVector(v1, v2);
-        printVectorByLabel("SUM VECTOR", v3);
-    printf("}\n");
+        printVectorByLabel(fp, "SUM VECTOR", v3);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: SUM [VECTOR 1] BY A SCALAR [2] {");
+    fprintf(fp, "\nTEST: SUM [VECTOR 1] BY A SCALAR [2] {");
         v3 = sumVectorByScalar(v1, 2.0f);
-        printVectorByLabel("SUM VECTOR", v3);
-    printf("}\n");
+        printVectorByLabel(fp, "SUM VECTOR", v3);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: SUBTRACT [VECTOR 1] AND [VECTOR 2] {");
+    fprintf(fp, "\nTEST: SUBTRACT [VECTOR 1] AND [VECTOR 2] {");
         zVec v4 = subVector(v1, v2);
-        printVectorByLabel("SUB VECTOR", v4);
-    printf("}\n");
+        printVectorByLabel(fp, "SUB VECTOR", v4);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: SUBTRACT [VECTOR 1] BY A SCALAR [2] {");
+    fprintf(fp, "\nTEST: SUBTRACT [VECTOR 1] BY A SCALAR [2] {");
         v4 = subVectorByScalar(v1, 2.0f);
-        printVectorByLabel("SUB VECTOR", v4);
+        printVectorByLabel(fp, "SUB VECTOR", v4);
 
         freeZVector(&v4);
-    printf("}\n");
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: MULTIPLY [VECTOR 1] AND [VECTOR 2] {");
+    fprintf(fp, "\nTEST: MULTIPLY [VECTOR 1] AND [VECTOR 2] {");
         zVec v5 = multVector(v1, v2);
-        printVectorByLabel("PROD VECTOR", v5);
-    printf("}\n");
+        printVectorByLabel(fp, "PROD VECTOR", v5);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: MULTIPLY [VECTOR 1] BY A SCALAR [2] {");
+    fprintf(fp, "\nTEST: MULTIPLY [VECTOR 1] BY A SCALAR [2] {");
         v5 = multVectorByScalar(v1, 2.0f);
-        printVectorByLabel("PROD VECTOR", v5);
+        printVectorByLabel(fp, "PROD VECTOR", v5);
 
         freeZVector(&v5);
-    printf("}\n");
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: DIVIDE [VECTOR 1] AND [VECTOR 2] {");
+    fprintf(fp, "\nTEST: DIVIDE [VECTOR 1] AND [VECTOR 2] {");
         zVec v6 = divVector(v1, v2);
-        printVectorByLabel("DIV VECTOR", v6);
-    printf("}\n");
+        printVectorByLabel(fp, "DIV VECTOR", v6);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: DIVIDE [VECTOR 1] BY A SCALAR [2] {");
+    fprintf(fp, "\nTEST: DIVIDE [VECTOR 1] BY A SCALAR [2] {");
         v6 = divVectorByScalar(v1, 2.0f);
-        printVectorByLabel("DIV VECTOR", v6);
+        printVectorByLabel(fp, "DIV VECTOR", v6);
 
         freeZVector(&v6);
-    printf("}\n");
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: RAISE THE [VECTOR 1] TO THE POWER OF [4] {");
+    fprintf(fp, "\nTEST: RAISE THE [VECTOR 1] TO THE POWER OF [4] {");
         zVec v7 = powerVectorToExp(v1, 4);
-        printVectorByLabel("RAISED VECTOR", v7);
+        printVectorByLabel(fp, "RAISED VECTOR", v7);
 
         freeZVector(&v7);
-    printf("}\n");
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: CREATE A NEW [VECTOR 8] ORTHOGONAL TO [VECTOR 1] {");
+    fprintf(fp, "\nTEST: CREATE A NEW [VECTOR 8] ORTHOGONAL TO [VECTOR 1] {");
         zVec v8 = newZVector(-2.0f, 1.0f , -4.0f, 3.0f);
-        printVectorByLabel("ORTHOGONAL VECTOR", v8);
-    printf("}\n");
+        printVectorByLabel(fp, "ORTHOGONAL VECTOR", v8);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: CROSS PRODUCT BETWEEN [VECTOR 9] AND [VECTOR 10] {");
+    fprintf(fp, "\nTEST: CROSS PRODUCT BETWEEN [VECTOR 9] AND [VECTOR 10] {");
         zVec v9 = newZVector(-2.0f, 1.0f, -4.0);
         zVec v10 = newZVector(3.0f, 6.0f, -2.0);
 
         zVec v11 = crossProduct(v9, v10);
-        printVectorByLabel("CROSS PRODUCT VECTOR", v11);
+        printVectorByLabel(fp, "CROSS PRODUCT VECTOR", v11);
         
         freeZVector(&v9);
         freeZVector(&v10);
         freeZVector(&v11);
-    printf("}\n");
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: NORMALIZE [VECTOR 12] WITH MAGNITUDE OF [%f] AFTER COPING IT FROM [VECTOR 3] {", magnitude(v3));
+    fprintf(fp, "\nTEST: NORMALIZE [VECTOR 12] WITH MAGNITUDE OF [%f] AFTER COPING IT FROM [VECTOR 3] {", magnitude(v3));
         zVec v12 = copyVector(v3);
         normalizeVector(&v12);
-        printVectorByLabel("NORMALIZED VECTOR", v12);
-    printf("}\n");
+        printVectorByLabel(fp, "NORMALIZED VECTOR", v12);
+    fprintf(fp, "}\n");
 
-    printf("\n----------------------------------------------------------------\n");
+    fprintf(fp, "\n----------------------------------------------------------------\n");
 
-        printf("\n> Are [VECTOR 1] and [VECTOR 3] equal: %s\n", areVecEqual(v1, v3) ? "True" : "False"); 
-        printf("\n> Dot product between [VECTOR 1] and [VECTOR 3]: %f\n", dotProduct(v1, v3));
-        printf("\n> Are [VECTOR 1] and [VECTOR 8] orthogonal: %s\n", areVecOrthogonal(v1, v8) ? "True" : "False");
-        printf("\n> Magnitude of [VECTOR 3]: %f\n", magnitude(v3));
-        printf("\n> Is [VECTOR 12] normalized : %s\n", isNormalized(v12) ? "True" : "False");
+        fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 3] equal: %s\n", areVecEqual(v1, v3) ? "True" : "False"); 
+        fprintf(fp, "\n> Dot product between [VECTOR 1] and [VECTOR 3]: %f\n", dotProduct(v1, v3));
+        fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 8] orthogonal: %s\n", areVecOrthogonal(v1, v8) ? "True" : "False");
+        fprintf(fp, "\n> Magnitude of [VECTOR 3]: %f\n", magnitude(v3));
+        fprintf(fp, "\n> Is [VECTOR 12] normalized : %s\n", isNormalized(v12) ? "True" : "False");
 
 
     freeZVector(&v1);
     freeZVector(&v3);
     freeZVector(&v8); 
 
-    printf("\n -----------------------------------------------\n");
-    printf("|                   MATRIXES                    |\n");
-    printf(" -----------------------------------------------\n\n");
+    fprintf(fp, "\n -----------------------------------------------\n");
+    fprintf(fp, "|                   MATRIXES                    |\n");
+    fprintf(fp, " -----------------------------------------------\n\n");
 
-    printf("\nTEST: CREATE A NEW [MATRIX 1] {");
+    fprintf(fp, "\nTEST: CREATE A NEW [MATRIX 1] {");
         zMat mat1 = newZMatrix(2 ,4  ,1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f);
-        printMatrixByIndex(1, mat1);
-    printf("}\n");
+        printMatrixByIndex(fp, 1, mat1);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: CREATE A NEW [MATRIX 2] AS AN IDENTITY MATRIX OF DIMENSION [6]{");
+    fprintf(fp, "\nTEST: CREATE A NEW [MATRIX 2] AS AN IDENTITY MATRIX OF DIMENSION [6]{");
         zMat mat2 = idZMatrix(3);
-        printMatrixByIndex(2, mat2);
-    printf("}\n");
+        printMatrixByIndex(fp, 2, mat2);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: COPY THE POINTER AND DIMENSIONS FROM [MATRIX 1] TO [MATRIX 2] {");
+    fprintf(fp, "\nTEST: COPY THE POINTER AND DIMENSIONS FROM [MATRIX 1] TO [MATRIX 2] {");
         copyZMatrix(&mat1, &mat2);
-        printMatrixByIndex(2, mat2);
-    printf("}\n");  
+        printMatrixByIndex(fp, 2, mat2);
+    fprintf(fp, "}\n");  
 
-    printf("\nTEST: CONVERT [VECTOR 13] TO [MATRIX 3] {");
+    fprintf(fp, "\nTEST: CONVERT [VECTOR 13] TO [MATRIX 3] {");
         zVec v13 = newZVector(1.0f, 2.0f, 3.0f);
-        printVectorByIndex(13, v13);
+        printVectorByIndex(fp, 13, v13);
         zMat mat3 = vecToZMatrix(v13, VERTICAL); 
-        printMatrixByIndex(3, mat3);
-    printf("}\n"); 
+        printMatrixByIndex(fp, 3, mat3);
+    fprintf(fp, "}\n"); 
 
-    printf("\nTEST: CONVERT [MATRIX 4] TO [VECTOR 14] {");
+    fprintf(fp, "\nTEST: CONVERT [MATRIX 4] TO [VECTOR 14] {");
         zMat mat4 = idZMatrix(3);
-        printMatrixByIndex(4, mat4);
+        printMatrixByIndex(fp, 4, mat4);
         zVec v14 = matrixToZVector(mat4);
-        printVectorByIndex(14, v14);
-    printf("}\n"); 
+        printVectorByIndex(fp, 14, v14);
+    fprintf(fp, "}\n"); 
 
-    printf("\nTEST: TAKE FROM [MATRIX 4] THE 2TH ROW {");
+    fprintf(fp, "\nTEST: TAKE FROM [MATRIX 4] THE 2TH ROW {");
         mat4 = newRandomFloatMatrix(3, 3, 0.0f, 2.0f);
-        printMatrixByIndex(4, mat4);
+        printMatrixByIndex(fp, 4, mat4);
         zVec v15 = vecFromMatrixRow(mat4, 2);
-        printVectorByLabel("2TH ROW TAKEN FROM [MATRIX 4]", v15);
-    printf("}\n");
+        printVectorByLabel(fp, "2TH ROW TAKEN FROM [MATRIX 4]", v15);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: TAKE FROM [MATRIX 4] THE 3TH COL {");
+    fprintf(fp, "\nTEST: TAKE FROM [MATRIX 4] THE 3TH COL {");
         mat4 = newRandomFloatMatrix(3, 3, 0.0f, 2.0f);
-        printMatrixByIndex(4, mat4);
+        printMatrixByIndex(fp, 4, mat4);
         zVec v16 = vecFromMatrixCol(mat4, 3);
-        printVectorByLabel("3TH COL TAKEN FROM [MATRIX 4]", v16);
-    printf("}\n");
+        printVectorByLabel(fp, "3TH COL TAKEN FROM [MATRIX 4]", v16);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: OPERATION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {\n\n");
+    fprintf(fp, "\nTEST: OPERATION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {\n\n");
         zMat mat5 = newDefaultZMatrix(3, 3, 5.0f);
         zMat mat6 = newDefaultZMatrix(3, 3, 6.0f);
-        printf("\nOP: SUM BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
+        fprintf(fp, "\nOP: SUM BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
             zMat mat7 = addMatrixes(mat5, mat6);
-            printMatrixByLabel("SUM MATRIX", mat1);
-        printf("}\n"); 
-        printf("\nOP: SUBTRACTION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
+            printMatrixByLabel(fp, "SUM MATRIX", mat1);
+        fprintf(fp, "}\n"); 
+        fprintf(fp, "\nOP: SUBTRACTION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
             mat7 = subMatrixes(mat5, mat6);
-            printMatrixByLabel("SUB MATRIX", mat1);
-            printf("}\n"); 
-        printf("\nOP: PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
+            printMatrixByLabel(fp, "SUB MATRIX", mat1);
+        fprintf(fp, "}\n"); 
+        fprintf(fp, "\nOP: PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
             mat7 = mulMatrixes(mat5, mat6);
-            printMatrixByLabel("PROD MATRIX", mat1);
-        printf("}\n"); 
-        printf("\nOP: DIVISION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
+            printMatrixByLabel(fp, "PROD MATRIX", mat1);
+        fprintf(fp, "}\n"); 
+        fprintf(fp, "\nOP: DIVISION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
             mat7 = divMatrixes(mat5, mat6);
-            printMatrixByLabel("DIV MATRIX", mat1);;
-        printf("}\n\n");
-        printf("\nOP: ROWS PER COLS PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
+            printMatrixByLabel(fp, "DIV MATRIX", mat1);;
+        fprintf(fp, "}\n\n");
+        fprintf(fp, "\nOP: ROWS PER COLS PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
             mat7 = rowsColsProd(mat5, mat6);
-            printMatrixByLabel("ROWS PER COLS PRODUCTS MATRIX", mat1);
-        printf("}\n\n"); 
-    printf("}\n"); 
+            printMatrixByLabel(fp, "ROWS PER COLS PRODUCTS MATRIX", mat1);
+        fprintf(fp, "}\n\n"); 
+    fprintf(fp, "}\n"); 
 
-    printf("\nTEST: TRANSPOSE [MATRIX 8] {");
+    fprintf(fp, "\nTEST: TRANSPOSE [MATRIX 8] {");
         zMat mat8 = newRandomFloatMatrix(3, 3, 0.0f, 3.0f);
-        printMatrixByIndex(8, mat8);
+        printMatrixByIndex(fp, 8, mat8);
         mat8 = transposedMatrix(mat8);
-        printMatrixByLabel("TRANSPOSED MATRIX", mat8);
-    printf("}\n");
+        printMatrixByLabel(fp, "TRANSPOSED MATRIX", mat8);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: [MATRIX 9] TO ROW ECHELON FORM {");
+    fprintf(fp, "\nTEST: [MATRIX 9] TO ROW ECHELON FORM {");
         zMat mat9 = newRandomIntMatrix(3, 3, -5, 5);
-        printMatrixByIndex(9, mat9);
+        printMatrixByIndex(fp, 9, mat9);
         matrixToRowEchelonForm(&mat9);
-        printMatrixByLabel("CONVERTED MATRIX", mat9);
-    printf("}\n");
+        printMatrixByLabel(fp, "CONVERTED MATRIX", mat9);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: APPEND [VECTOR 17] TO [MATRIX 10] {");
+    fprintf(fp, "\nTEST: APPEND [VECTOR 17] TO [MATRIX 10] {");
         zMat mat10 = newRandomIntMatrix(3, 3, -5, 5);
-        printMatrixByIndex(10, mat10);
+        printMatrixByIndex(fp, 10, mat10);
         zVec v17 = newDefaultZVector(3, 7);
-        printVectorByLabel("VECTOR TO APPEND", v17);
+        printVectorByLabel(fp, "VECTOR TO APPEND", v17);
         mat10 = appendVectorToMatrix(mat10, v17);
-        printMatrixByLabel("EXPANDED MATRIX", mat10);
-    printf("}\n");
+        printMatrixByLabel(fp, "EXPANDED MATRIX", mat10);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: APPEND [MATRIX 12] TO [MATRIX 11] {");
+    fprintf(fp, "\nTEST: APPEND [MATRIX 12] TO [MATRIX 11] {");
         zMat mat11 = newRandomIntMatrix(3, 4, -3, 2);
-        printMatrixByIndex(11, mat11);
+        printMatrixByIndex(fp, 11, mat11);
         zMat mat12 = newRandomIntMatrix(3, 3, -1, 7);
-        printMatrixByLabel("MATRIX TO APPEND", mat12);
+        printMatrixByLabel(fp, "MATRIX TO APPEND", mat12);
         mat11 = appendMatrixToMatrix(mat11, mat12);
-        printMatrixByLabel("EXPANDED MATRIX", mat11);
-    printf("}\n");
+        printMatrixByLabel(fp, "EXPANDED MATRIX", mat11);
+    fprintf(fp, "}\n");
 
-    printf("\nTEST: DETERMINANT OF [MATRIX 13] {");
+    fprintf(fp, "\nTEST: DETERMINANT OF [MATRIX 13] {");
         zMat mat13 = newRandomIntMatrix(3, 3, -2, 4);
-        printMatrixByIndex(13, mat13);
+        printMatrixByIndex(fp, 13, mat13);
         float det = determinantExclusion(mat13);
-        printf("   | THE DETERMINANT OF [MATRIX 13] IS: {\n   |\tDet: %f;\n   | }\n\n", det);
-    printf("}\n");
+        fprintf(fp, "   | THE DETERMINANT OF [MATRIX 13] IS: {\n   |\tDet: %f;\n   | }\n\n", det);
+    fprintf(fp, "}\n");
+
+    fclose(fp);
+
+    freeZMatrix(&mat1);
+    freeZMatrix(&mat2);
+    freeZMatrix(&mat3);
+    freeZMatrix(&mat4);
+    freeZMatrix(&mat5);
+    freeZMatrix(&mat6);
+    freeZMatrix(&mat7);
+    freeZMatrix(&mat8);
+    freeZMatrix(&mat9);
+    freeZMatrix(&mat10);
+    freeZMatrix(&mat11);
+    freeZMatrix(&mat12);
+    freeZMatrix(&mat13);
+    
+    freeZVector(&v13);
+    freeZVector(&v14);
+    freeZVector(&v15);
+    freeZVector(&v16);
+    freeZVector(&v17);
 
     return 0;
 }

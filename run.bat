@@ -1,5 +1,5 @@
 @ECHO OFF
 
 cd bin && make
-call zmath
+call zmath output.txt
 cd ..

@@ -117,17 +117,17 @@ extern zVec NULL_VECTOR;
 /*!
     Prints the dimensions of the vector and its components.
 */
-void printVector(zVec vector);
+void printVector(FILE* fp, zVec vector);
 
 /*!
     Prints the dimensions of the vector by its label and its components.
 */
-void printVectorByLabel(const char* label, zVec vector);
+void printVectorByLabel(FILE* fp, const char* label, zVec vector);
 
 /*!
     Prints the dimensions of the vector by its index and its components.
 */
-void printVectorByIndex(int index, zVec vector);
+void printVectorByIndex(FILE* fp, int index, zVec vector);
 
 /*!
     Free the vector and sets its dimension to 0.
@@ -380,21 +380,21 @@ extern zMat NULL_MATRIX;
     Prints the information about a matrix.
     @param mat The matrix to print.
 */
-void printMatrix(zMat mat);
+void printMatrix(FILE *fp, zMat mat);
 
 /*!
     Prints the information about a matrix with a labe.
     @param label The label of the matrix.
     @param mat The matrix to print.
 */
-void printMatrixByLabel(const char* label, zMat mat);
+void printMatrixByLabel(FILE *fp, const char* label, zMat mat);
 
 /*!
     Prints the information about a matrix with an index.
     @param index The index of the matrix.
     @param mat The matrix to print.
 */
-void printMatrixByIndex(unsigned  index, zMat mat);
+void printMatrixByIndex(FILE *fp, unsigned  index, zMat mat);
 
 /*!
     Frees the matrix and set the rows and cols to 0.
@@ -812,35 +812,35 @@ zVec NULL_VECTOR = {0, NULL};
 
 /*
 */
-void printVector(zVec vector){
-    printf("\n\n   | Vector of size %zu: {\n   |\t[", DIM(vector));
+void printVector(FILE* fp, zVec vector){
+    fprintf(fp ,"\n\n   | Vector of size %zu: {\n   |\t[", DIM(vector));
     for(size_t i = 0; i < DIM(vector); i++){
-        printf(" %f", ValueAt(vector, i));
-        printf("%c", (i < DIM(vector) - 1 ? ',' : ' '));
+        fprintf(fp ," %f", ValueAt(vector, i));
+        fprintf(fp ,"%c", (i < DIM(vector) - 1 ? ',' : ' '));
     }
-    printf("]\n   |  }\n\n");
+    fprintf(fp ,"]\n   |  }\n\n");
 }
 
 /*
 */
-void printVectorByLabel(const char* label, zVec vector){
-    printf("\n\n   | [%s] of size %zu: {\n   |\t[", label, DIM(vector));
+void printVectorByLabel(FILE* fp, const char* label, zVec vector){
+    fprintf(fp ,"\n\n   | [%s] of size %zu: {\n   |\t[", label, DIM(vector));
     for(size_t i = 0; i < DIM(vector); i++){
-        printf(" %f", ValueAt(vector, i));
-        printf("%c", (i < DIM(vector) - 1 ? ',' : ' '));
+        fprintf(fp ," %f", ValueAt(vector, i));
+        fprintf(fp ,"%c", (i < DIM(vector) - 1 ? ',' : ' '));
     }
-    printf("]\n   |  }\n\n");
+    fprintf(fp ,"]\n   |  }\n\n");
 }
 
 /*
 */
-void printVectorByIndex(int index, zVec vector){
-    printf("\n\n   | [VECTOR %d] of size %zu: {\n   |\t[", index, DIM(vector));
+void printVectorByIndex(FILE* fp, int index, zVec vector){
+    fprintf(fp ,"\n\n   | [VECTOR %d] of size %zu: {\n   |\t[", index, DIM(vector));
     for(size_t i = 0; i < DIM(vector); i++){
-        printf(" %f", ValueAt(vector, i));
-        printf("%c", (i < DIM(vector) - 1 ? ',' : ' '));
+        fprintf(fp ," %f", ValueAt(vector, i));
+        fprintf(fp ,"%c", (i < DIM(vector) - 1 ? ',' : ' '));
     }
-    printf("]\n   |  }\n\n");
+    fprintf(fp ,"]\n   |  }\n\n");
 }
 
 /*
@@ -1184,107 +1184,107 @@ zMat NULL_MATRIX = {0, 0, NULL};
 
 /*
 */
-void printMatrix(zMat mat){
+void printMatrix(FILE *fp, zMat mat){
 	
 	int spaces = 11;
-	printf("\n\n   | Matrix of size %zux%zu: {\n", mat.rows, mat.cols);
-	printf("   |\t%c   ", LEFT_UP_CORNER);
+	fprintf(fp, "\n\n   | Matrix of size %zux%zu: {\n", mat.rows, mat.cols);
+	fprintf(fp, "   |\t%c   ", LEFT_UP_CORNER);
 	for(int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
-			printf(" ");
+			fprintf(fp, " ");
 		}	
 	}
-	printf("%c   \n", RIGHT_UP_CORNER);
+	fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
 	
 	
 	for(int i = 0; i < mat.rows; i++){
 		
-		printf("   |\t%c   ", SIDE_CHAR);
+		fprintf(fp, "   |\t%c   ", SIDE_CHAR);
 		
 		for(int j = 0; j < mat.cols; j++){
-			printf("%-11f", ValueMatAt(mat, i, j));
+			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
 		}		
-		printf("%c\n", SIDE_CHAR);
+		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
 	
-	printf("   |\t%c   ", LEFT_DOWN_CORNER);
+	fprintf(fp, "   |\t%c   ", LEFT_DOWN_CORNER);
 	for(int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
-			printf(" ");
+			fprintf(fp, " ");
 		}
 	}
-	printf("%c   \n", RIGHT_DOWN_CORNER);
-    printf("   |  }\n\n");
+	fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+    fprintf(fp, "   |  }\n\n");
 }
 
 /*
 */
-void printMatrixByLabel(const char* label, zMat mat){
+void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 	
 	int spaces = 11;
-	printf("\n\n   | [%s] of size %zux%zu: {\n", label, mat.rows, mat.cols);
-	printf("   |\t%c   ", LEFT_UP_CORNER);
+	fprintf(fp, "\n\n   | [%s] of size %zux%zu: {\n", label, mat.rows, mat.cols);
+	fprintf(fp, "   |\t%c   ", LEFT_UP_CORNER);
 	for(int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
-			printf(" ");
+			fprintf(fp, " ");
 		}	
 	}
-	printf("%c   \n", RIGHT_UP_CORNER);
+	fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
 	
 	
 	for(int i = 0; i < mat.rows; i++){
 		
-		printf("   |\t%c   ", SIDE_CHAR);
+		fprintf(fp, "   |\t%c   ", SIDE_CHAR);
 		
 		for(int j = 0; j < mat.cols; j++){
-			printf("%-11f", ValueMatAt(mat, i, j));
+			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
 		}		
-		printf("%c\n", SIDE_CHAR);
+		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
 	
-	printf("   |\t%c   ", LEFT_DOWN_CORNER);
+	fprintf(fp, "   |\t%c   ", LEFT_DOWN_CORNER);
 	for(int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
-			printf(" ");
+			fprintf(fp, " ");
 		}
 	}
-	printf("%c   \n", RIGHT_DOWN_CORNER);
-    printf("   |  }\n\n");
+	fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+    fprintf(fp, "   |  }\n\n");
 }
 
 /*
 */
-void printMatrixByIndex(unsigned int index, zMat mat){
+void printMatrixByIndex(FILE *fp, unsigned int index, zMat mat){
 	
 	int spaces = 11;
-	printf("\n\n   | [MATRIX %d] of size %zux%zu: {\n", index, mat.rows, mat.cols);
-	printf("   |\t%c   ", LEFT_UP_CORNER);
+	fprintf(fp, "\n\n   | [MATRIX %d] of size %zux%zu: {\n", index, mat.rows, mat.cols);
+	fprintf(fp, "   |\t%c   ", LEFT_UP_CORNER);
 	for(int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
-			printf(" ");
+			fprintf(fp, " ");
 		}	
 	}
-	printf("%c   \n", RIGHT_UP_CORNER);
+	fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
 	
 	
 	for(int i = 0; i < mat.rows; i++){
 		
-		printf("   |\t%c   ", SIDE_CHAR);
+		fprintf(fp, "   |\t%c   ", SIDE_CHAR);
 		
 		for(int j = 0; j < mat.cols; j++){
-			printf("%-11f", ValueMatAt(mat, i, j));
+			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
 		}		
-		printf("%c\n", SIDE_CHAR);
+		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
 	
-	printf("   |\t%c   ", LEFT_DOWN_CORNER);
+	fprintf(fp, "   |\t%c   ", LEFT_DOWN_CORNER);
 	for(int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
-			printf(" ");
+			fprintf(fp, " ");
 		}
 	}
-	printf("%c   \n", RIGHT_DOWN_CORNER);
-    printf("   |  }\n\n");
+	fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+    fprintf(fp, "   |  }\n\n");
 }
 
 /*
