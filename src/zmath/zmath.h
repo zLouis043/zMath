@@ -47,22 +47,41 @@
 void _zassert(bool condition, const char* message, const char* filepath, size_t line);
 
 /*!
+    Gives a random float random in a certain range.
+    @param min The minimum value.
+    @param max The maximum value.
+    @return a random float value.
 */
 float float_rand( float min, float max );
 
 /*!
+    Gives a random int random in a certain range.
+    @param min The minimum value.
+    @param max The maximum value.
+    @return a random int value.
 */
 int int_rand( int min, int max );
    
 /*!
+    Swap two int numbers.
+    @param a the pointer to the first number.
+    @param b the pointer to the second number.
 */
 void swapInt(int* a, int* b);
 
 /*!
+    Swap two float numbers.
+    @param a the pointer to the first number.
+    @param b the pointer to the second number.
 */
 void swapFloat(float* a, float* b);
 
-/*
+/*!
+    Checks if the array contains a value.
+    @param arr The pointer to the array.
+    @param n The number of elements in the array 
+    @param target The target element.
+    @return if the element exists in the array
 */
 char arrContains(void **arr, int n, void *target);
 
