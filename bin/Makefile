@@ -152,78 +152,6 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/main.c.s
 .PHONY : main.c.s
 
-src/zmath/zmath.obj: src/zmath/zmath.c.obj
-.PHONY : src/zmath/zmath.obj
-
-# target to build an object file
-src/zmath/zmath.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zmath.c.obj
-.PHONY : src/zmath/zmath.c.obj
-
-src/zmath/zmath.i: src/zmath/zmath.c.i
-.PHONY : src/zmath/zmath.i
-
-# target to preprocess a source file
-src/zmath/zmath.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zmath.c.i
-.PHONY : src/zmath/zmath.c.i
-
-src/zmath/zmath.s: src/zmath/zmath.c.s
-.PHONY : src/zmath/zmath.s
-
-# target to generate assembly for a file
-src/zmath/zmath.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zmath.c.s
-.PHONY : src/zmath/zmath.c.s
-
-src/zmath/zmatrix.obj: src/zmath/zmatrix.c.obj
-.PHONY : src/zmath/zmatrix.obj
-
-# target to build an object file
-src/zmath/zmatrix.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj
-.PHONY : src/zmath/zmatrix.c.obj
-
-src/zmath/zmatrix.i: src/zmath/zmatrix.c.i
-.PHONY : src/zmath/zmatrix.i
-
-# target to preprocess a source file
-src/zmath/zmatrix.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zmatrix.c.i
-.PHONY : src/zmath/zmatrix.c.i
-
-src/zmath/zmatrix.s: src/zmath/zmatrix.c.s
-.PHONY : src/zmath/zmatrix.s
-
-# target to generate assembly for a file
-src/zmath/zmatrix.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zmatrix.c.s
-.PHONY : src/zmath/zmatrix.c.s
-
-src/zmath/zvec.obj: src/zmath/zvec.c.obj
-.PHONY : src/zmath/zvec.obj
-
-# target to build an object file
-src/zmath/zvec.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zvec.c.obj
-.PHONY : src/zmath/zvec.c.obj
-
-src/zmath/zvec.i: src/zmath/zvec.c.i
-.PHONY : src/zmath/zvec.i
-
-# target to preprocess a source file
-src/zmath/zvec.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zvec.c.i
-.PHONY : src/zmath/zvec.c.i
-
-src/zmath/zvec.s: src/zmath/zvec.c.s
-.PHONY : src/zmath/zvec.s
-
-# target to generate assembly for a file
-src/zmath/zvec.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\zmath.dir\build.make CMakeFiles/zmath.dir/src/zmath/zvec.c.s
-.PHONY : src/zmath/zvec.c.s
-
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -236,15 +164,6 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
-	@echo ... src/zmath/zmath.obj
-	@echo ... src/zmath/zmath.i
-	@echo ... src/zmath/zmath.s
-	@echo ... src/zmath/zmatrix.obj
-	@echo ... src/zmath/zmatrix.i
-	@echo ... src/zmath/zmatrix.s
-	@echo ... src/zmath/zvec.obj
-	@echo ... src/zmath/zvec.i
-	@echo ... src/zmath/zvec.s
 .PHONY : help
 
 

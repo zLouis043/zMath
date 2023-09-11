@@ -82,67 +82,19 @@ CMakeFiles/zmath.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/zmath.dir/main.c.s"
 	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\zMath\zMath\main.c -o CMakeFiles\zmath.dir\main.c.s
 
-CMakeFiles/zmath.dir/src/zmath/zmath.c.obj: CMakeFiles/zmath.dir/flags.make
-CMakeFiles/zmath.dir/src/zmath/zmath.c.obj: D:/zMath/zMath/src/zmath/zmath.c
-CMakeFiles/zmath.dir/src/zmath/zmath.c.obj: CMakeFiles/zmath.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\zMath\zMath\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/zmath.dir/src/zmath/zmath.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/zmath.dir/src/zmath/zmath.c.obj -MF CMakeFiles\zmath.dir\src\zmath\zmath.c.obj.d -o CMakeFiles\zmath.dir\src\zmath\zmath.c.obj -c D:\zMath\zMath\src\zmath\zmath.c
-
-CMakeFiles/zmath.dir/src/zmath/zmath.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/zmath.dir/src/zmath/zmath.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\zMath\zMath\src\zmath\zmath.c > CMakeFiles\zmath.dir\src\zmath\zmath.c.i
-
-CMakeFiles/zmath.dir/src/zmath/zmath.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/zmath.dir/src/zmath/zmath.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\zMath\zMath\src\zmath\zmath.c -o CMakeFiles\zmath.dir\src\zmath\zmath.c.s
-
-CMakeFiles/zmath.dir/src/zmath/zvec.c.obj: CMakeFiles/zmath.dir/flags.make
-CMakeFiles/zmath.dir/src/zmath/zvec.c.obj: D:/zMath/zMath/src/zmath/zvec.c
-CMakeFiles/zmath.dir/src/zmath/zvec.c.obj: CMakeFiles/zmath.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\zMath\zMath\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/zmath.dir/src/zmath/zvec.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/zmath.dir/src/zmath/zvec.c.obj -MF CMakeFiles\zmath.dir\src\zmath\zvec.c.obj.d -o CMakeFiles\zmath.dir\src\zmath\zvec.c.obj -c D:\zMath\zMath\src\zmath\zvec.c
-
-CMakeFiles/zmath.dir/src/zmath/zvec.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/zmath.dir/src/zmath/zvec.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\zMath\zMath\src\zmath\zvec.c > CMakeFiles\zmath.dir\src\zmath\zvec.c.i
-
-CMakeFiles/zmath.dir/src/zmath/zvec.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/zmath.dir/src/zmath/zvec.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\zMath\zMath\src\zmath\zvec.c -o CMakeFiles\zmath.dir\src\zmath\zvec.c.s
-
-CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj: CMakeFiles/zmath.dir/flags.make
-CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj: D:/zMath/zMath/src/zmath/zmatrix.c
-CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj: CMakeFiles/zmath.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\zMath\zMath\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj -MF CMakeFiles\zmath.dir\src\zmath\zmatrix.c.obj.d -o CMakeFiles\zmath.dir\src\zmath\zmatrix.c.obj -c D:\zMath\zMath\src\zmath\zmatrix.c
-
-CMakeFiles/zmath.dir/src/zmath/zmatrix.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/zmath.dir/src/zmath/zmatrix.c.i"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\zMath\zMath\src\zmath\zmatrix.c > CMakeFiles\zmath.dir\src\zmath\zmatrix.c.i
-
-CMakeFiles/zmath.dir/src/zmath/zmatrix.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/zmath.dir/src/zmath/zmatrix.c.s"
-	C:\msys64\mingw64\bin\cc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\zMath\zMath\src\zmath\zmatrix.c -o CMakeFiles\zmath.dir\src\zmath\zmatrix.c.s
-
 # Object files for target zmath
 zmath_OBJECTS = \
-"CMakeFiles/zmath.dir/main.c.obj" \
-"CMakeFiles/zmath.dir/src/zmath/zmath.c.obj" \
-"CMakeFiles/zmath.dir/src/zmath/zvec.c.obj" \
-"CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj"
+"CMakeFiles/zmath.dir/main.c.obj"
 
 # External object files for target zmath
 zmath_EXTERNAL_OBJECTS =
 
 zmath.exe: CMakeFiles/zmath.dir/main.c.obj
-zmath.exe: CMakeFiles/zmath.dir/src/zmath/zmath.c.obj
-zmath.exe: CMakeFiles/zmath.dir/src/zmath/zvec.c.obj
-zmath.exe: CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj
 zmath.exe: CMakeFiles/zmath.dir/build.make
 zmath.exe: CMakeFiles/zmath.dir/linkLibs.rsp
 zmath.exe: CMakeFiles/zmath.dir/objects1.rsp
 zmath.exe: CMakeFiles/zmath.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\zMath\zMath\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable zmath.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\zMath\zMath\bin\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable zmath.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\zmath.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

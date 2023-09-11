@@ -1,12 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/zmath.dir/main.c.obj"
   "CMakeFiles/zmath.dir/main.c.obj.d"
-  "CMakeFiles/zmath.dir/src/zmath/zmath.c.obj"
-  "CMakeFiles/zmath.dir/src/zmath/zmath.c.obj.d"
-  "CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj"
-  "CMakeFiles/zmath.dir/src/zmath/zmatrix.c.obj.d"
-  "CMakeFiles/zmath.dir/src/zmath/zvec.c.obj"
-  "CMakeFiles/zmath.dir/src/zmath/zvec.c.obj.d"
   "libzmath.dll.a"
   "zmath.exe"
   "zmath.exe.manifest"

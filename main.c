@@ -1,8 +1,11 @@
 #include <stdio.h>
 
-#include "src/zmath/zmath.h"
+/*#include "src/zmath/zmath.h"
 #include "src/zmath/zvec.h"
-#include "src/zmath/zmatrix.h"
+#include "src/zmath/zmatrix.h"*/
+
+#define ZMATH_IMPLEMENTATION
+#include "src/zmath/zmath.h"
 
 int main(void){
     
