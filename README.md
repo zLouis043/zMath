@@ -47,13 +47,13 @@ $ ./run.sh
 int main(void){
 
   zVec v1 = newZVector(1.0f, 2.0f, 3.0f, 4.0f);
-  printV(v1);
+  printVector(v1);
 
-  zVec v2 = newDefaultVector(4, 1.0f);
-  printV(v2);
+  zVec v2 = newDefaultZVector(4, 1.0f);
+  printVector(v2);
 
   zVec v3 = sumVector(v1, v2);
-  printV(v3);
+  printVector(v3);
 
   return 0;
 
