@@ -6,11 +6,20 @@
 
 #include "zmath.h"
 
+/*
+*/
 void _zassert(bool condition, const char* message, const char* filepath, size_t line){
     if(!condition){
-        fprintf(stderr, "[ERROR] : %s:%zu > %s\n", filepath, line, message);
+        fprintf(stderr, "\n[ERROR] : %s:%zu > %s\n", filepath, line, message);
         #if EXIT_ON_ASSERT_FAILURE 
             exit(EXIT_FAILURE);
         #endif
     }
+}
+
+/*
+*/
+float float_rand( float min, float max ){
+    float scale = rand() / (float) RAND_MAX; 
+    return min + scale * ( max - min );      
 }
