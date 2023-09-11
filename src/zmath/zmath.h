@@ -116,16 +116,24 @@ extern zVec NULL_VECTOR;
 
 /*!
     Prints the dimensions of the vector and its components.
+    @param fp The file to write the vector.
+    @param vector The vector to print.
 */
 void printVector(FILE* fp, zVec vector);
 
 /*!
     Prints the dimensions of the vector by its label and its components.
+    @param fp The file to write the vector.
+    @param label The vector label.
+    @param vector The vector to print.
 */
 void printVectorByLabel(FILE* fp, const char* label, zVec vector);
 
 /*!
     Prints the dimensions of the vector by its index and its components.
+    @param fp The file to write the vector.
+    @param index The vector index.
+    @param vector The vector to print.
 */
 void printVectorByIndex(FILE* fp, int index, zVec vector);
 
@@ -378,12 +386,14 @@ extern zMat NULL_MATRIX;
 
 /*!
     Prints the information about a matrix.
+    @param fp The file to write the matrix.
     @param mat The matrix to print.
 */
 void printMatrix(FILE *fp, zMat mat);
 
 /*!
-    Prints the information about a matrix with a labe.
+    Prints the information about a matrix with a label.
+    @param fp The file to write the matrix.
     @param label The label of the matrix.
     @param mat The matrix to print.
 */
@@ -391,6 +401,7 @@ void printMatrixByLabel(FILE *fp, const char* label, zMat mat);
 
 /*!
     Prints the information about a matrix with an index.
+    @param fp The file to write the matrix.
     @param index The index of the matrix.
     @param mat The matrix to print.
 */
