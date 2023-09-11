@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdarg.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include "zmath.h"
 
@@ -22,4 +23,26 @@ void _zassert(bool condition, const char* message, const char* filepath, size_t 
 float float_rand( float min, float max ){
     float scale = rand() / (float) RAND_MAX; 
     return min + scale * ( max - min );      
+}
+
+/*!
+*/
+int int_rand( int min, int max ){
+        return (rand() % (max - min)) + min;
+}
+
+/*
+*/
+void swapInt(int* a, int* b){
+
+    *a ^= *b;
+    *b = *a ^ *b;
+    *a ^= *b;
+
+}
+
+/*
+*/
+void swapFloat(float* a, float* b){
+    swapInt((int*)a, (int*)b);
 }

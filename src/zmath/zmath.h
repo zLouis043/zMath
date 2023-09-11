@@ -12,6 +12,7 @@
     Flag that if activated will print debug information.
 */
 #define VISUALIZE_DEBUG 0
+#define VISUALIZE_STEPS 0
 
 #define EQUAL_ERROR "Dimension mismatch."
 #define ALLOC_ERROR "Allocation failure."
@@ -34,11 +35,6 @@
  */
 #define MIN(n, m) (n < m ? n : m)
 
-
-/*!
-*/
-#define SWAP(x, y) { float temp = x; x = y; y = temp; }
-
 /*!
     Checks if the condition is true and printf an error message and exit the program if it is false.
     @param condition The condition to check.
@@ -49,7 +45,19 @@ void _zassert(bool condition, const char* message, const char* filepath, size_t 
 /*!
 */
 float float_rand( float min, float max );
+
+/*!
+*/
+int int_rand( int min, int max );
    
+/*!
+*/
+void swapInt(int* a, int* b);
+
+/*!
+*/
+void swapFloat(float* a, float* b);
+
 /*!
     Checks if the condition is true and printf an error message and exit the program if it is false.
     @param condition The condition to check.

@@ -264,12 +264,12 @@ zVec powerVectorToExp(zVec vector, size_t exponent){
         for(size_t j = 0; j < exponent; j++){
             ValueAt(result, i) *= ValueAt(vector, i);
 
-            #if VISUALIZE_DEBUG
+            #if VISUALIZE_STEPS
             printf("%f -> %f |", ValueAt(result, i) / ValueAt(vector, i), ValueAt(result, i));
             #endif
         }
 
-        #if VISUALIZE_DEBUG
+        #if VISUALIZE_STEPS
         printf("\n");
         #endif
     }

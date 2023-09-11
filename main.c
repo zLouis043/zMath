@@ -144,6 +144,20 @@ int main(void){
         printVectorByIndex(14, v14);
     printf("}\n"); 
 
+    printf("\nTEST: TAKE FROM [MATRIX 4] THE 2TH ROW {");
+        mat4 = newRandomFloatMatrix(3, 3, 0.0f, 2.0f);
+        printMatrixByIndex(4, mat4);
+        zVec v15 = vecFromMatrixRow(mat4, 2);
+        printVectorByLabel("2TH ROW TAKEN FROM [MATRIX 4]", v15);
+    printf("}\n");
+
+    printf("\nTEST: TAKE FROM [MATRIX 4] THE 3TH COL {");
+        mat4 = newRandomFloatMatrix(3, 3, 0.0f, 2.0f);
+        printMatrixByIndex(4, mat4);
+        zVec v16 = vecFromMatrixCol(mat4, 3);
+        printVectorByLabel("3TH COL TAKEN FROM [MATRIX 4]", v16);
+    printf("}\n");
+
     printf("\nTEST: OPERATION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {\n\n");
         zMat mat5 = newDefaultZMatrix(3, 3, 5.0f);
         zMat mat6 = newDefaultZMatrix(3, 3, 6.0f);
@@ -170,10 +184,17 @@ int main(void){
     printf("}\n"); 
 
     printf("\nTEST: TRANSPOSE [MATRIX 8] {");
-        zMat mat8 = newRandomMatrix(3, 3, 0.0f, 3.0f);
+        zMat mat8 = newRandomFloatMatrix(3, 3, 0.0f, 3.0f);
         printMatrixByIndex(8, mat8);
         mat8 = transposedMatrix(mat8);
         printMatrixByLabel("TRANSPOSED MATRIX", mat8);
+    printf("}\n");
+
+    printf("\nTEST: [MATRIX 9] TO ROW ECHELON FORM {");
+        zMat mat9 = newRandomIntMatrix(3, 3, 1, 5);
+        printMatrixByIndex(9, mat9);
+        matrixToRowEchelonForm(&mat9);
+        printMatrixByLabel("CONVERTED MATRIX", mat9);
     printf("}\n");
 
     return 0;

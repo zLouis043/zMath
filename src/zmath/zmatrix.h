@@ -26,7 +26,7 @@ void printMatrixByLabel(const char* label, zMat mat);
 
 /*!
 */
-void printMatrixByIndex(int index, zMat mat);
+void printMatrixByIndex(unsigned  index, zMat mat);
 
 /*!
 */
@@ -46,7 +46,11 @@ zMat newZeroZMatrix(unsigned int rows, unsigned int cols);
 
 /*!
 */
-zMat newRandomMatrix(unsigned int rows, unsigned int cols, float min, float max);
+zMat newRandomFloatMatrix(unsigned int rows, unsigned int cols, float min, float max);
+
+/*!
+*/
+zMat newRandomIntMatrix(unsigned int rows, unsigned int cols, int min, int max);
 
 /*!
 */
@@ -67,6 +71,14 @@ zMat vecToZMatrix(zVec source, Direction dir);
 /*!
 */
 zVec matrixToZVector(zMat source);
+
+/*!
+*/
+zVec vecFromMatrixRow(zMat source, unsigned int row);
+
+/*!
+*/
+zVec vecFromMatrixCol(zMat source, unsigned int col);
 
 /*!
 */
@@ -108,6 +120,29 @@ zMat rowsColsProd(zMat matrix1, zMat matrix2);
 */
 zMat transposedMatrix(zMat source);
 
+/*!
+*/
+bool swapRows(zMat *source, unsigned int row1, unsigned int row2);
+
+/*!
+*/
+bool addRows(zMat *source, unsigned int row1, unsigned int row2);
+
+/*!
+*/
+bool mulRows(zMat *source, unsigned int row, int scalar);
+
+/*!
+*/
+bool addmulRows(zMat *source, unsigned int row1, unsigned int row2, int scalar);
+
+/*!
+*/
+void matrixToRowEchelonForm(zMat *source);
+
+/*!
+*/
+void matrixToReducedRowEchelonForm(zMat *source);
 
 #define STRAIGHT_LINE 196
 #define LEFT_UP_CORNER 218

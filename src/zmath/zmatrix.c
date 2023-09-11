@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
+
 #include "zmath.h"
 #include "zvec.h"
 #include "zmatrix.h"
@@ -82,7 +83,7 @@ void printMatrixByLabel(const char* label, zMat mat){
 
 /*
 */
-void printMatrixByIndex(int index, zMat mat){
+void printMatrixByIndex(unsigned int index, zMat mat){
 	
 	int spaces = 11;
 	printf("\n\n   | [MATRIX %d] of size %zux%zu: {\n", index, mat.rows, mat.cols);
@@ -177,13 +178,29 @@ zMat newZeroZMatrix(unsigned int rows, unsigned int cols){
 
 /*
 */
-zMat newRandomMatrix(unsigned int rows, unsigned int cols, float min, float max){
+zMat newRandomFloatMatrix(unsigned int rows, unsigned int cols, float min, float max){
 
     zMat result = allocZMatrix(rows, cols);
 
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
             ValueMatAt(result, i, j) = float_rand(min, max);
+        }
+    }
+
+    return result;
+   
+}
+
+/*
+*/
+zMat newRandomIntMatrix(unsigned int rows, unsigned int cols, int min, int max){
+
+    zMat result = allocZMatrix(rows, cols);
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            ValueMatAt(result, i, j) = (float)int_rand(min, max);
         }
     }
 
@@ -294,6 +311,40 @@ zVec matrixToZVector(zMat source){
         for(int j = 0; j < source.cols; j++){
             result.elements[j + i * source.cols] = ValueMatAt(source, i, j);
         }
+    }
+
+    return result;
+}
+
+/*
+*/
+zVec vecFromMatrixRow(zMat source, unsigned int row){
+
+    row--;
+
+    if(row > source.rows){ return NULL_VECTOR; }
+
+    zVec result = allocZVector(source.cols);   
+
+    for(int i = 0; i < source.cols; i++){
+        result.elements[i] = ValueMatAt(source, row, i);
+    }
+
+    return result;
+}
+
+/*
+*/
+zVec vecFromMatrixCol(zMat source, unsigned int col){
+
+    col--;
+
+    if(col > source.cols){ return NULL_VECTOR; }
+
+    zVec result = allocZVector(source.rows);   
+
+    for(int i = 0; i < source.cols; i++){
+        result.elements[i] = ValueMatAt(source, i, col);
     }
 
     return result;
@@ -476,4 +527,147 @@ zMat transposedMatrix(zMat source){
     }
 
     return result;
+}
+
+/*
+*/
+bool swapRows(zMat *source, unsigned int row1, unsigned int row2){
+
+
+    if(row1 >= source->rows || row2 >= source->rows || row1 == row2){
+        return false;
+    }
+
+    float* tmp = source->elements[row1];
+    source->elements[row1] = source->elements[row2];
+    source->elements[row2] = tmp;
+
+    return true;
+}
+
+/*
+*/
+bool addRows(zMat *source, unsigned int row1, unsigned int row2){
+
+
+    if(row1 >= source->rows || row2 >= source->rows || row1 == row2){
+        return false;
+    }
+
+    for(int i = 0; i < source->cols; i++){
+        source->elements[row1][i] += source->elements[row2][i];
+    }
+
+    return true;
+}
+
+/*
+*/
+bool mulRows(zMat *source, unsigned int row, int scalar){
+
+
+    if(row >= source->rows || scalar == 0.0f){
+        return false;
+    }
+
+    for(int i = 0; i < source->cols; i++){
+        source->elements[row][i] *= scalar;
+    }
+
+    return true;
+}
+
+/*
+*/
+bool addmulRows(zMat *source, unsigned int row1, unsigned int row2, int scalar){
+
+
+    if(row1 >= source->rows || row2 >= source->rows || 
+       scalar == 0.0f || row1 == row2){
+        return false;
+    }
+
+    for(int i = 0; i < source->cols; i++){
+        source->elements[row1][i] += source->elements[row2][i] * scalar;
+    }
+}
+
+/*
+*/
+void matrixToRowEchelonForm(zMat *source){
+
+    unsigned int curRow = 0;
+
+    for(int i = 0; i < source->cols; i++){
+        
+        #if VISUALIZE_STEPS
+        printMatrixByIndex(curRow, *source);
+        #endif
+
+        unsigned int row = curRow;
+
+        if(row >= source->rows) break;
+
+        for(; row < source->rows; row++){
+            if(source->elements[row][i] != 0.0f) break;
+        }
+
+        if(row == source->rows) continue;
+
+        swapRows(source, curRow, row);
+
+        float factor = 1 / source->elements[curRow][i];
+
+        for(unsigned int col = i; col < source->cols; col++){
+            source->elements[curRow][col] *= factor;
+        }
+
+        for(row = curRow + 1; row < source->rows; row++){
+            addmulRows(source, row, curRow, -1 * source->elements[row][i]);
+        }
+
+        curRow++;
+
+    }
+
+}
+
+/*
+*/
+void matrixToReducedRowEchelonForm(zMat *source){
+
+    unsigned int curRow = 0;
+
+    for(int i = 0; i < source->cols; i++){
+        
+        #if VISUALIZE_STEPS
+        printMatrixByIndex(curRow, *source);
+        #endif
+
+        unsigned int row = curRow;
+
+        if(row >= source->rows) break;
+
+        for(; row < source->rows; row++){
+            if(source->elements[row][i] != 0.0f) break;
+        }
+
+        if(row == source->rows) continue;
+
+        swapRows(source, curRow, row);
+
+        float factor = 1 / source->elements[curRow][i];
+
+        for(unsigned int col = i; col < source->cols; col++){
+            source->elements[curRow][col] *= factor;
+        }
+
+        for(row = 0; row < source->rows; row++){
+            if(row == curRow) continue;
+            addmulRows(source, row, curRow, -1 * source->elements[row][i]);
+        }
+
+        curRow++;
+
+    }
 }
