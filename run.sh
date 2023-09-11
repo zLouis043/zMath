@@ -2,5 +2,5 @@
 
 cd bin
 make
-./zmath
+./zmath output.txt
 cd ..
