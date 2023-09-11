@@ -19,7 +19,17 @@ extern zVec NULL_VECTOR;
 /*!
     Prints the dimensions of the vector and its components.
 */
-void printV(zVec vector);
+void printVector(zVec vector);
+
+/*!
+    Prints the dimensions of the vector by its label and its components.
+*/
+void printVectorByLabel(const char* label, zVec vector);
+
+/*!
+    Prints the dimensions of the vector by its index and its components.
+*/
+void printVectorByIndex(int index, zVec vector);
 
 /*!
     Free the vector and sets its dimension to 0.
@@ -38,7 +48,7 @@ void copyPtrVector(zVec* source, zVec* dest);
     @param dim The dimension of the vector.
     @return The memory allocated. 
 */
-zVec allocVector(size_t dim);
+zVec allocZVector(size_t dim);
 
 /*!
     Create a new vector of dim Dimension with every component in the vector equal to 0.

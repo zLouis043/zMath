@@ -2,6 +2,11 @@
 
 #include <stdbool.h>
 
+typedef enum {
+    HORIZONTAL = 0,
+    VERTICAL = 1
+}Direction;
+
 typedef struct zMatrix{
     unsigned int rows;
     unsigned int cols;
@@ -16,11 +21,19 @@ void printMatrix(zMat mat);
 
 /*!
 */
+void printMatrixByLabel(const char* label, zMat mat);
+
+/*!
+*/
+void printMatrixByIndex(int index, zMat mat);
+
+/*!
+*/
 void freeZMatrix(zMat* mat);
 
 /*!
 */
-void copyPtrMatrix(zMat *source, zMat *dest);
+void copyZMatrix(zMat *source, zMat *dest);
 
 /*!
 */
@@ -28,31 +41,72 @@ zMat allocZMatrix(unsigned int rows, unsigned int cols);
 
 /*!
 */
-zMat newZeroMatrix(unsigned int rows, unsigned int cols);
+zMat newZeroZMatrix(unsigned int rows, unsigned int cols);
 
 /*!
 */
-zMat newDefaultMatrix(unsigned int rows, unsigned int cols, float value);
+zMat newRandomMatrix(unsigned int rows, unsigned int cols, float min, float max);
 
 /*!
 */
-zMat idMatrix(unsigned int dim);
+zMat newDefaultZMatrix(unsigned int rows, unsigned int cols, float value);
 
 /*!
 */
-zMat newZMatrix(unsigned int rows, unsigned int cols, ...);
+zMat idZMatrix(unsigned int dim);
 
 /*!
 */
-zMat copyMatrix(zMat source);
+zMat _newZMatrix(unsigned int rows, unsigned int cols, unsigned int numVals, ...);
 
 /*!
 */
-zVec getMatRow(zMat source, unsigned int row);
+zMat vecToZMatrix(zVec source, Direction dir);
 
 /*!
 */
-zVec getMatCol(zMat source, unsigned int col);
+zVec matrixToZVector(zMat source);
+
+/*!
+*/
+zMat addMatrixes(zMat matrix1, zMat matrix2);
+
+/*!
+*/
+zMat addMatrixesByScalar(zMat matrix1, float scalar);
+
+/*!
+*/
+zMat subMatrixes(zMat matrix1, zMat matrix2);
+
+/*!
+*/
+zMat subMatrixesByScalar(zMat matrix1, float scalar);
+
+/*!
+*/
+zMat mulMatrixes(zMat matrix1, zMat matrix2);
+
+/*!
+*/
+zMat mulMatrixesByScalar(zMat matrix1, float scalar);
+
+/*!
+*/
+zMat divMatrixes(zMat matrix1, zMat matrix2);
+
+/*!
+*/
+zMat divMatrixesByScalar(zMat matrix1, float scalar);
+
+/*!
+*/
+zMat rowsColsProd(zMat matrix1, zMat matrix2);
+
+/*!
+*/
+zMat transposedMatrix(zMat source);
+
 
 #define STRAIGHT_LINE 196
 #define LEFT_UP_CORNER 218
@@ -63,6 +117,12 @@ zVec getMatCol(zMat source, unsigned int col);
 
 // double coords to single coord = rows * index + rows;
 #define ValueMatAt(matrix, x, y) (matrix.elements[x][y])
+
+// double coords to single coord = rows * index + rows;
+#define ValueMatPtrAt(matrix, x, y) (matrix->elements[x][y])
+
+#define newZMatrix(rows, cols, ...)  _newZMatrix(rows, cols, rows*cols, __VA_ARGS__)
+
 
 
 

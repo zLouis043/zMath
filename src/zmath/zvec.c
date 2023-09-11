@@ -12,8 +12,30 @@ zVec NULL_VECTOR = {0, NULL};
 
 /*
 */
-void printV(zVec vector){
+void printVector(zVec vector){
     printf("\n\n   | Vector of size %zu: {\n   |\t[", DIM(vector));
+    for(size_t i = 0; i < DIM(vector); i++){
+        printf(" %f", ValueAt(vector, i));
+        printf("%c", (i < DIM(vector) - 1 ? ',' : ' '));
+    }
+    printf("]\n   |  }\n\n");
+}
+
+/*
+*/
+void printVectorByLabel(const char* label, zVec vector){
+    printf("\n\n   | [%s] of size %zu: {\n   |\t[", label, DIM(vector));
+    for(size_t i = 0; i < DIM(vector); i++){
+        printf(" %f", ValueAt(vector, i));
+        printf("%c", (i < DIM(vector) - 1 ? ',' : ' '));
+    }
+    printf("]\n   |  }\n\n");
+}
+
+/*
+*/
+void printVectorByIndex(int index, zVec vector){
+    printf("\n\n   | [VECTOR %d] of size %zu: {\n   |\t[", index, DIM(vector));
     for(size_t i = 0; i < DIM(vector); i++){
         printf(" %f", ValueAt(vector, i));
         printf("%c", (i < DIM(vector) - 1 ? ',' : ' '));
@@ -37,7 +59,7 @@ void freeZVector(zVec* vector){
 void copyPtrVector(zVec* source, zVec* dest){
 
     if(dest->elements == NULL){ 
-        *dest= allocVector(source->dim); 
+        *dest= allocZVector(source->dim); 
     }
 
     dest->dim = source->dim;
@@ -47,7 +69,7 @@ void copyPtrVector(zVec* source, zVec* dest){
 
 /*
 */
-zVec allocVector(size_t dim){
+zVec allocZVector(size_t dim){
     zVec result;
     result.dim = dim;
     result.elements = malloc(dim);
@@ -61,7 +83,7 @@ zVec allocVector(size_t dim){
 */
 zVec newZeroVector(size_t dim){
 
-    zVec result = allocVector(dim);
+    zVec result = allocZVector(dim);
 
     for(size_t i = 0; i < dim; i++){
         ValueAt(result, i) = 0.0f;
@@ -75,7 +97,7 @@ zVec newZeroVector(size_t dim){
 */
 zVec newDefaultVector(size_t dim, float element){
 
-    zVec result = allocVector(dim);
+    zVec result = allocZVector(dim);
 
     for(size_t i = 0; i < dim; i++){
         ValueAt(result, i) = element;
@@ -89,7 +111,7 @@ zVec newDefaultVector(size_t dim, float element){
 */
 zVec _newZVector(size_t dim, ...){
 
-    zVec result = allocVector(dim);
+    zVec result = allocZVector(dim);
 
     va_list elem;
     va_start(elem, dim);
@@ -108,7 +130,7 @@ zVec _newZVector(size_t dim, ...){
 */
 zVec copyVector(zVec source){
 
-    zVec result = allocVector(DIM(source));
+    zVec result = allocZVector(DIM(source));
 
     for(size_t i = 0; i < DIM(source); i++){
         ValueAt(result , i) = ValueAt(source, i);
@@ -124,7 +146,7 @@ zVec sumVector(zVec vector1 , zVec vector2){
 
     zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
-    zVec result = allocVector(DIM(vector1));
+    zVec result = allocZVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
         ValueAt(result , i) = ValueAt(vector1, i) + ValueAt(vector2, i);
@@ -138,7 +160,7 @@ zVec sumVector(zVec vector1 , zVec vector2){
 */
 zVec sumVectorByScalar(zVec vector1 , float scalar){
 
-    zVec result = allocVector(DIM(vector1));
+    zVec result = allocZVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
         ValueAt(result , i) = ValueAt(vector1, i) + scalar;
@@ -153,7 +175,7 @@ zVec subVector(zVec vector1 , zVec vector2){
 
     zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
-    zVec result = allocVector(DIM(vector1));
+    zVec result = allocZVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
         ValueAt(result , i) = ValueAt(vector1, i) - ValueAt(vector2, i);
@@ -166,7 +188,7 @@ zVec subVector(zVec vector1 , zVec vector2){
 */
 zVec subVectorByScalar(zVec vector1 , float scalar){
 
-    zVec result = allocVector(DIM(vector1));
+    zVec result = allocZVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
         ValueAt(result , i) = ValueAt(vector1, i) - scalar;
@@ -181,7 +203,7 @@ zVec multVector(zVec vector1, zVec vector2){
 
     zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
-    zVec result = allocVector(DIM(vector1));
+    zVec result = allocZVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
         ValueAt(result , i) = ValueAt(vector1, i) * ValueAt(vector2, i);
@@ -194,7 +216,7 @@ zVec multVector(zVec vector1, zVec vector2){
 */
 zVec multVectorByScalar(zVec vector1, float scalar){
 
-    zVec result = allocVector(DIM(vector1));
+    zVec result = allocZVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
         ValueAt(result , i) = ValueAt(vector1, i) * scalar;
@@ -209,7 +231,7 @@ zVec divVector(zVec vector1, zVec vector2){
 
     zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
-    zVec result = allocVector(DIM(vector1));
+    zVec result = allocZVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
         ValueAt(result , i) = ValueAt(vector1, i) / ValueAt(vector2, i);
@@ -222,7 +244,7 @@ zVec divVector(zVec vector1, zVec vector2){
 */
 zVec divVectorByScalar(zVec vector1, float scalar){
 
-    zVec result = allocVector(DIM(vector1));
+    zVec result = allocZVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
         ValueAt(result , i) = ValueAt(vector1, i) / scalar;
@@ -264,7 +286,7 @@ zVec crossProduct(zVec vector1, zVec vector2){
         return NULL_VECTOR;
     }
 
-    zVec result = allocVector(3);
+    zVec result = allocZVector(3);
 
     ValueAt(result , 0 ) = (ValueAt(vector1, 1) * ValueAt( vector2, 2)) - (ValueAt(vector1 , 2) * ValueAt(vector2 , 1));
     ValueAt(result , 1 ) = -1 * (ValueAt(vector1, 0) * ValueAt( vector2, 2)) - (ValueAt(vector1 , 2) * ValueAt(vector2 , 0));
@@ -277,7 +299,7 @@ zVec crossProduct(zVec vector1, zVec vector2){
 */
 zVec normalizedVector(zVec vector){
 
-    zVec result = allocVector(DIM(vector));
+    zVec result = allocZVector(DIM(vector));
     float mag = magnitude(vector);
 
     for(size_t i = 0 ; i < DIM(vector); i++){
