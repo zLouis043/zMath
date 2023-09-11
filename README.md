@@ -1,18 +1,17 @@
 # zMath
- An intuitive Library for doing linear algebra calcualtions.
+ An intuitive single header library for doing linear algebra calcualtions.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/zLouis043/zMath/main)
 ![GitHub top language](https://img.shields.io/github/languages/top/zLouis043/zMath)
 
 ## How-To
-Just add the module needed in your projects.
-
-For example:
+Just include the header file your project and define its implementation: 
 
 ```c
 
-#include "zvec.h"
+#define ZMATH_IMPLEMENTATION
+#include "zmath.h"
 
 ```
 
@@ -42,7 +41,8 @@ $ ./run.sh
 
 #include <stdio.h>
 
-#include "src/zmath/zvec.h"
+#define ZMATH_IMPLEMENTATION
+#include "src/zmath/zmath.h"
 
 int main(void){
 
@@ -64,3 +64,5 @@ Output > | Vector of size 4: {
          |  }
 
 ```
+
+## TODO : FIND THE RANK OF THE MATRIX
