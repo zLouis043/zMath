@@ -793,16 +793,19 @@ int int_rand( int min, int max ){
 */
 void swapInt(int* a, int* b){
 
-    *a ^= *b;
-    *b = *a ^ *b;
-    *a ^= *b;
+    int* tmp = a;
+    a = b;
+    b = tmp;
 
 }
 
 /*
 */
 void swapFloat(float* a, float* b){
-    swapInt((int*)a, (int*)b);
+    
+    float* tmp = a;
+    a = b;
+    b = tmp;
 }
 
 /*
