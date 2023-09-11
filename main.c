@@ -5,8 +5,7 @@
 #include "src/zmath/zmatrix.h"
 
 int main(void){
-
-
+    
     printf("\n -----------------------------------------------\n");
     printf("|                   VECTORS                     |\n");
     printf(" -----------------------------------------------\n");
@@ -195,6 +194,31 @@ int main(void){
         printMatrixByIndex(9, mat9);
         matrixToRowEchelonForm(&mat9);
         printMatrixByLabel("CONVERTED MATRIX", mat9);
+    printf("}\n");
+
+    printf("\nTEST: APPEND [VECTOR 17] TO [MATRIX 10] {");
+        zMat mat10 = newRandomIntMatrix(3, 3, -5, 5);
+        printMatrixByIndex(10, mat10);
+        zVec v17 = newDefaultVector(3, 7);
+        printVectorByLabel("VECTOR TO APPEND", v17);
+        mat10 = appendVectorToMatrix(mat10, v17);
+        printMatrixByLabel("EXPANDED MATRIX", mat10);
+    printf("}\n");
+
+    printf("\nTEST: APPEND [MATRIX 12] TO [MATRIX 11] {");
+        zMat mat11 = newRandomIntMatrix(3, 4, -3, 2);
+        printMatrixByIndex(11, mat11);
+        zMat mat12 = newRandomIntMatrix(3, 3, -1, 7);
+        printMatrixByLabel("MATRIX TO APPEND", mat12);
+        mat11 = appendMatrixToMatrix(mat11, mat12);
+        printMatrixByLabel("EXPANDED MATRIX", mat11);
+    printf("}\n");
+
+    printf("\nTEST: DETERMINANT OF [MATRIX 13] {");
+        zMat mat13 = newRandomIntMatrix(3, 3, -2, 4);
+        printMatrixByIndex(13, mat13);
+        float det = determinantExclusion(mat13);
+        printf("   | THE DETERMINANT OF [MATRIX 13] IS: {\n   |\tDet: %f;\n   | }\n\n", det);
     printf("}\n");
 
     return 0;

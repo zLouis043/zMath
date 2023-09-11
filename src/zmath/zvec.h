@@ -235,6 +235,14 @@ float magnitude(zVec vector);
 #define ValueAt(vector, index) (vector.elements[index])
 
 /*!
+    Return the value of the specified vector at the specified index.
+    @param vector The vector from which to retrieve the value.
+    @param index The index where to retrieve the value.
+    @result The value at the specified index.
+*/
+#define ValuePtrAt(vector, index) (vector->elements[index])
+
+/*!
     Return the dimension of the specified vector.
     @param vector The vector from which we pick the dimension.
     @result The dimension of the vector.

@@ -144,6 +144,58 @@ void matrixToRowEchelonForm(zMat *source);
 */
 void matrixToReducedRowEchelonForm(zMat *source);
 
+/*!
+*/
+zMat appendVectorToMatrix(zMat source, zVec vector);
+
+/*!
+*/
+zMat appendMatrixToMatrix(zMat source, zMat matrix);
+
+/*!
+*/
+zMat subMatrix(zMat source, unsigned int remRow, unsigned int remCol);
+
+/*!
+*/
+float determinant(zMat source);
+
+/*
+*/
+float determinantExclusion(zMat source);
+
+/*
+*/
+float _determinantExclusion(zMat source,
+                            unsigned int row,
+                            unsigned int col,
+                            unsigned int *skipCols,
+                            unsigned int *noSkipCols);
+
+/*
+*/
+float cofactor(zMat source, unsigned int row, unsigned int col);
+
+/*
+*/
+zMat cofactorMatrix(zMat source);
+
+/*
+*/
+zMat adjugate(zMat source);
+
+/*
+*/
+bool invertible(zMat source);
+
+/*
+*/
+zMat inverseMatrix(zMat source);
+
+/*
+*/
+zMat inverseMatrixRREF(zMat source);
+
 #define STRAIGHT_LINE 196
 #define LEFT_UP_CORNER 218
 #define RIGHT_UP_CORNER 191

@@ -28,7 +28,7 @@ float float_rand( float min, float max ){
 /*!
 */
 int int_rand( int min, int max ){
-        return (rand() % (max - min)) + min;
+    return (rand() % (max - min)) + min;
 }
 
 /*
@@ -45,4 +45,18 @@ void swapInt(int* a, int* b){
 */
 void swapFloat(float* a, float* b){
     swapInt((int*)a, (int*)b);
+}
+
+/*
+*/
+char arrContains(void **arr, int n, void *target){
+    for (unsigned int i = 0; i < n; i++)
+    {
+        if (arr[i] == target)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
 }

@@ -6,18 +6,22 @@
 /*
     Flag that if activated will crush the program if an assertion fails.
 */
-#define EXIT_ON_ASSERT_FAILURE 0
+#define EXIT_ON_ASSERT_FAILURE 1
 
 /*
     Flag that if activated will print debug information.
 */
 #define VISUALIZE_DEBUG 0
+/*
+    Flag that if activated will print each step done in a function.
+*/
 #define VISUALIZE_STEPS 0
 
 #define EQUAL_ERROR "Dimension mismatch."
 #define ALLOC_ERROR "Allocation failure."
 #define PROD_ERROR  "Matrix 1 columns not equal to Matrix 2 rows."
 #define DIRECTION_ERROR "Invalid direction."
+#define SQUARE_ERROR "Matrix is not square."
 
 /*!
  * finds the maximum of two values
@@ -57,6 +61,10 @@ void swapInt(int* a, int* b);
 /*!
 */
 void swapFloat(float* a, float* b);
+
+/*
+*/
+char arrContains(void **arr, int n, void *target);
 
 /*!
     Checks if the condition is true and printf an error message and exit the program if it is false.

@@ -231,9 +231,11 @@ zVec divVector(zVec vector1, zVec vector2){
 
     zassert(DIM(vector1) == DIM(vector2), EQUAL_ERROR);
 
+
     zVec result = allocZVector(DIM(vector1));
 
     for(size_t i = 0; i < DIM(vector1); i++){
+        if(ValueAt(vector2 , i) == 0.0f) return NULL_VECTOR;
         ValueAt(result , i) = ValueAt(vector1, i) / ValueAt(vector2, i);
     }
 

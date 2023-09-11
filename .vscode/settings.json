@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
         "addmul",
+        "adjugate",
+        "cofactor",
         "DNUMARGS",
         "FNUMARGS",
         "INUMARGS",
@@ -10,6 +12,7 @@
         "occurances",
         "occurences",
         "printz",
+        "RREF",
         "uppercases",
         "ustr",
         "zassert",

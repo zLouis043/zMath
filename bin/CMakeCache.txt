@@ -257,6 +257,15 @@ zmathlib_IS_TOP_LEVEL:STATIC=OFF
 //Value Computed by CMake
 zmathlib_SOURCE_DIR:STATIC=D:/zMath/zMath/src/zmath
 
+//Value Computed by CMake
+zstringlib_BINARY_DIR:STATIC=D:/zMath/zMath/bin/src/util
+
+//Value Computed by CMake
+zstringlib_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+zstringlib_SOURCE_DIR:STATIC=D:/zMath/zMath/src/util
+
 
 ########################
 # INTERNAL cache entries
