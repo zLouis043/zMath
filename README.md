@@ -64,3 +64,5 @@ Output > | Vector of size 4: {
          |  }
 
 ```
+
+## TODO : FIND THE RANK OF THE MATRIX
