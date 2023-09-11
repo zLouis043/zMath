@@ -153,7 +153,7 @@ zVec allocZVector(size_t dim);
     @param dim The dimension of the vector.
     @return The new vector with every element in the vector equal to 0.
 */
-zVec newZeroVector(size_t dim);
+zVec newZeroZVector(size_t dim);
 
 /*!
     Create a new vector of dim Dimension with every component in the vector equal to to element.
@@ -161,7 +161,7 @@ zVec newZeroVector(size_t dim);
     @param element The element of which the vector will be filled.
     @returnThe new vector with every component in the vector equal to element.
 */
-zVec newDefaultVector(size_t dim, float element);
+zVec newDefaultZVector(size_t dim, float element);
 
 /*!
     Create a new vector of dim Dimension.
@@ -881,7 +881,7 @@ zVec allocZVector(size_t dim){
 
 /*
 */
-zVec newZeroVector(size_t dim){
+zVec newZeroZVector(size_t dim){
 
     zVec result = allocZVector(dim);
 
@@ -895,7 +895,7 @@ zVec newZeroVector(size_t dim){
 
 /*
 */
-zVec newDefaultVector(size_t dim, float element){
+zVec newDefaultZVector(size_t dim, float element){
 
     zVec result = allocZVector(dim);
 

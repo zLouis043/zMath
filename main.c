@@ -198,7 +198,7 @@ int main(void){
     printf("\nTEST: APPEND [VECTOR 17] TO [MATRIX 10] {");
         zMat mat10 = newRandomIntMatrix(3, 3, -5, 5);
         printMatrixByIndex(10, mat10);
-        zVec v17 = newDefaultVector(3, 7);
+        zVec v17 = newDefaultZVector(3, 7);
         printVectorByLabel("VECTOR TO APPEND", v17);
         mat10 = appendVectorToMatrix(mat10, v17);
         printMatrixByLabel("EXPANDED MATRIX", mat10);
