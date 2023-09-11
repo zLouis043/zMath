@@ -191,7 +191,7 @@ int main(void){
     printf("}\n");
 
     printf("\nTEST: [MATRIX 9] TO ROW ECHELON FORM {");
-        zMat mat9 = newRandomIntMatrix(3, 3, 1, 5);
+        zMat mat9 = newRandomIntMatrix(3, 3, -5, 5);
         printMatrixByIndex(9, mat9);
         matrixToRowEchelonForm(&mat9);
         printMatrixByLabel("CONVERTED MATRIX", mat9);
