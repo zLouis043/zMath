@@ -4,7 +4,8 @@
 
 typedef enum {
     HORIZONTAL = 0,
-    VERTICAL = 1
+    VERTICAL = 1,
+    DIR_COUNT,
 }Direction;
 
 typedef struct zMatrix{

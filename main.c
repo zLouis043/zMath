@@ -132,12 +132,14 @@ int main(void){
 
     printf("\nTEST: CONVERT [VECTOR 13] TO [MATRIX 3] {");
         zVec v13 = newZVector(1.0f, 2.0f, 3.0f);
-        zMat mat3 = vecToZMatrix(v13, HORIZONTAL); 
+        printVectorByIndex(13, v13);
+        zMat mat3 = vecToZMatrix(v13, VERTICAL); 
         printMatrixByIndex(3, mat3);
     printf("}\n"); 
 
     printf("\nTEST: CONVERT [MATRIX 4] TO [VECTOR 14] {");
         zMat mat4 = idZMatrix(3);
+        printMatrixByIndex(4, mat4);
         zVec v14 = matrixToZVector(mat4);
         printVectorByIndex(14, v14);
     printf("}\n"); 

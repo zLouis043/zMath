@@ -257,13 +257,13 @@ zMat _newZMatrix(unsigned int rows, unsigned int cols, unsigned int numVals, ...
 */
 zMat vecToZMatrix(zVec source, Direction dir){
 
-    zassert(dir < 2, "Invalid direction");
+    zassert(dir < DIR_COUNT, DIRECTION_ERROR);
 
     zMat result;
 
     switch(dir){
         case HORIZONTAL: {
-            result = allocZMatrix(1, source.dim);
+            result = allocZMatrix(1, DIM(source));
 
             for(int i = 0; i < result.cols; i++){
                 ValueMatAt(result, 0, i) = source.elements[i];

@@ -16,6 +16,7 @@
 #define EQUAL_ERROR "Dimension mismatch."
 #define ALLOC_ERROR "Allocation failure."
 #define PROD_ERROR  "Matrix 1 columns not equal to Matrix 2 rows."
+#define DIRECTION_ERROR "Invalid direction."
 
 /*!
  * finds the maximum of two values
