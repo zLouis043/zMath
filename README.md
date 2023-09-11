@@ -6,7 +6,9 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/zLouis043/zMath)
 
 ## How-To
-Just add the zstring.h file to your project's headers and the include and define its IMPLEMENTATION 
+Just add the module needed in your projects.
+
+For example:
 
 ```c
 
