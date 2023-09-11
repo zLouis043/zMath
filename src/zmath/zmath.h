@@ -86,7 +86,7 @@ void swapFloat(float* a, float* b);
     @param target The target element.
     @return if the element exists in the array
 */
-char arrContains(void **arr, int n, void *target);
+bool arrContains(unsigned int *arr, int n, float target);
 
 /*!
     Checks if the condition is true and printf an error message and exit the program if it is false.
@@ -796,16 +796,16 @@ void swapFloat(float* a, float* b){
 
 /*
 */
-char arrContains(void **arr, int n, void *target){
+bool arrContains(unsigned int *arr, int n, float target){
     for (unsigned int i = 0; i < n; i++)
     {
         if (arr[i] == target)
         {
-            return 1;
+            return true;
         }
     }
 
-    return 0;
+    return false;
 }
 
 zVec NULL_VECTOR = {0, NULL};
@@ -1988,7 +1988,7 @@ float _determinantExclusion(zMat source,
         {
             if (skipCols[*noSkipCols - 1] != 0)
             {
-                while (arrContains(&skipCols, *noSkipCols, &i))
+                while (arrContains(skipCols, *noSkipCols, i))
                 {
                     i--;
                 }
@@ -2005,7 +2005,7 @@ float _determinantExclusion(zMat source,
     for (unsigned int i = 1; i <= source.cols; i++)
     {
         // skip excluded cols
-        if (arrContains(&skipCols, *noSkipCols, &i))
+        if (arrContains(skipCols, *noSkipCols, i))
         {
             continue;
         }
