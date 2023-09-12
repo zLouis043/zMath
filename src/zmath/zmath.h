@@ -797,8 +797,10 @@ zMat inverseMatrixRREF(zMat source);
 #include <stdbool.h>
 #include <time.h>
 
+#if VISUALIZE_RATIONAL
 #define ZSTRING_IMPLEMENTATION
 #include "zstring.h"
+#endif
 
 /*
 */
@@ -1249,7 +1251,12 @@ zMat NULL_MATRIX = {0, 0, NULL};
 */
 void printMatrix(FILE *fp, zMat mat){
 	
+	#if VISUALIZE_RATIONAL
 	int spaces = 12;
+    #else
+    int spaces = 11;
+    #endif
+
 	fprintf(fp, "\n\n   | Matrix of size %ux%u: {\n", mat.rows, mat.cols);
 	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
@@ -1289,7 +1296,12 @@ void printMatrix(FILE *fp, zMat mat){
 */
 void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 	
+	#if VISUALIZE_RATIONAL
 	int spaces = 12;
+    #else
+    int spaces = 11;
+    #endif
+
 	fprintf(fp, "\n\n   | [%s] of size %ux%u: {\n", label, mat.rows, mat.cols);
 	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
@@ -1329,7 +1341,12 @@ void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 */
 void printMatrixByIndex(FILE *fp, unsigned int index, zMat mat){
 	
+    #if VISUALIZE_RATIONAL
 	int spaces = 12;
+    #else
+    int spaces = 11;
+    #endif
+
 	fprintf(fp, "\n\n   | [MATRIX %d] of size %ux%u: {\n", index, mat.rows, mat.cols);
 	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){

@@ -108,10 +108,18 @@ int main(int argc, char **argv){
 
     fprintf(fp, "\n----------------------------------------------------------------\n");
 
-        fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 3] equal: %s\n", areVecEqual(v1, v3) ? "True" : "False"); 
+        fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 3] equal: %s\n", areVecEqual(v1, v3) ? "True" : "False");
+        #if VISUALIZE_RATIONAL 
         fprintf(fp, "\n> Dot product between [VECTOR 1] and [VECTOR 3]: %s\n", rationalizeFloatToStr(dotProduct(v1, v3), 3).data);
+        #else
+        fprintf(fp, "\n> Dot product between [VECTOR 1] and [VECTOR 3]: %f\n", dotProduct(v1, v3));
+        #endif
         fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 8] orthogonal: %s\n", areVecOrthogonal(v1, v8) ? "True" : "False");
+        #if VISUALIZE_RATIONAL 
         fprintf(fp, "\n> Magnitude of [VECTOR 3]: %s\n", rationalizeFloatToStr(magnitude(v3), 3).data);
+        #else
+        fprintf(fp, "\n> Magnitude of [VECTOR 3]: %f\n", magnitude(v3));
+        #endif
         fprintf(fp, "\n> Is [VECTOR 12] normalized : %s\n", isNormalized(v12) ? "True" : "False");
 
 
