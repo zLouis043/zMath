@@ -30,7 +30,11 @@
  * @param m the second value
  * @return the larger element
  */
-#define MAX(n, m) (n > m ? n : m)
+#define MAX(n, m) ({\
+    __auto_type _a = (n);\
+    __auto_type _b = (m);\
+    _a > _b ? _a : _b;\
+})
 
 /*!
  * finds the minimum of two values
@@ -38,7 +42,14 @@
  * @param m the second value
  * @return the smaller element
  */
-#define MIN(n, m) (n < m ? n : m)
+#define MIN(n, m) ({\
+    __auto_type _a = (n);\
+    __auto_type _b = (m);\
+    _a < _b ? _a : _b;\
+})
+
+#define alloc(count, type) \
+    (type*)malloc((count) * sizeof(type))\
 
 /*!
     Checks if the condition is true and printf an error message and exit the program if it is false.
@@ -750,6 +761,7 @@ zMat inverseMatrixRREF(zMat source);
 // double coords to single coord = rows * index + rows;
 #define ValueMatPtrAt(matrix, x, y) (matrix->elements[x][y])
 
+
 #define newZMatrix(rows, cols, ...)  _newZMatrix(rows, cols, rows*cols, __VA_ARGS__)
 
 #endif // ZMATRIX_DEF
@@ -883,7 +895,7 @@ void copyPtrVector(zVec* source, zVec* dest){
 zVec allocZVector(size_t dim){
     zVec result;
     result.dim = dim;
-    result.elements = malloc(dim);
+    result.elements = alloc(dim, float);
 
     zassert(result.elements != NULL, ALLOC_ERROR);
 
@@ -1331,9 +1343,9 @@ zMat allocZMatrix(unsigned int rows, unsigned int cols){
     result.rows = rows;
     result.cols = cols;
 
-    result.elements = malloc(rows * sizeof(float));
+    result.elements = (float**)malloc(rows*sizeof(float*));
     for(unsigned int i=0; i<rows; i++){
-        result.elements[i] = malloc(cols * sizeof(float));
+        result.elements[i] = (float*)malloc(cols*sizeof(float));
     }
 
     zassert(result.elements != NULL, ALLOC_ERROR);
@@ -1712,6 +1724,26 @@ zMat transposedMatrix(zMat source){
     return result;
 }
 
+float* copyRow(zMat source, unsigned int row){
+    float* result = alloc(source.cols, float);
+    for(unsigned int i = 0; i < source.cols; i++){
+        result[i] = ValueMatAt(source, row, i);
+    }
+    return result;
+}
+
+void transferRow(zMat *source, unsigned int row1, unsigned int row2){
+    for(unsigned int i = 0; i < source->cols; i++){
+        ValueMatPtrAt(source, row1, i) = ValueMatPtrAt(source, row1, i);
+    }
+}
+
+void copyVecToARow(zMat *source, float* vec, unsigned int row){
+    for(unsigned int i = 0; i < source->cols; i++){
+        ValueMatPtrAt(source, row, i) = vec[i];
+    }
+}
+
 /*
 */
 bool swapRows(zMat *source, unsigned int row1, unsigned int row2){
@@ -1721,9 +1753,14 @@ bool swapRows(zMat *source, unsigned int row1, unsigned int row2){
         return false;
     }
 
-    float* tmp = source->elements[row1];
+    /*float* tmp = source->elements[row1];
     source->elements[row1] = source->elements[row2];
-    source->elements[row2] = tmp;
+    source->elements[row2] = tmp;*/
+    float* tmp = copyRow(*source, row1);
+    transferRow(source, row1, row2);
+    copyVecToARow(source, tmp, row2);
+
+    
 
     return true;
 }
@@ -1738,7 +1775,8 @@ bool addRows(zMat *source, unsigned int row1, unsigned int row2){
     }
 
     for(unsigned int i = 0; i < source->cols; i++){
-        source->elements[row1][i] += source->elements[row2][i];
+        //source->elements[row1][i] += source->elements[row2][i];
+        ValueMatPtrAt(source, row1, i) += ValueMatPtrAt(source, row2, i);
     }
 
     return true;
@@ -1754,7 +1792,7 @@ bool mulRows(zMat *source, unsigned int row, int scalar){
     }
 
     for(unsigned int i = 0; i < source->cols; i++){
-        source->elements[row][i] *= scalar;
+        ValueMatPtrAt(source, row, i)  *= scalar;
     }
 
     return true;
@@ -1771,7 +1809,8 @@ bool addmulRows(zMat *source, unsigned int row1, unsigned int row2, int scalar){
     }
 
     for(unsigned int i = 0; i < source->cols; i++){
-        source->elements[row1][i] += source->elements[row2][i] * scalar;
+        //source->elements[row1][i] += source->elements[row2][i] * scalar;
+        ValueMatPtrAt(source, row1, i) += ValueMatPtrAt(source, row2, i) * scalar;
     }
 
     return true;
@@ -1794,21 +1833,21 @@ void matrixToRowEchelonForm(zMat *source){
         if(row >= source->rows) break;
 
         for(; row < source->rows; row++){
-            if(source->elements[row][i] != 0.0f) break;
+            if(ValueMatPtrAt(source, row, i) != 0.0f) break;
         }
 
         if(row == source->rows) continue;
 
         swapRows(source, curRow, row);
 
-        float factor = 1 / source->elements[curRow][i];
+        float factor = 1 / ValueMatPtrAt(source, curRow, i);
 
         for(unsigned int col = i; col < source->cols; col++){
-            source->elements[curRow][col] *= factor;
+            ValueMatPtrAt(source, curRow, col) *= factor;
         }
 
         for(row = curRow + 1; row < source->rows; row++){
-            addmulRows(source, row, curRow, -1 * source->elements[row][i]);
+            addmulRows(source, row, curRow, -1 * ValueMatPtrAt(source, curRow, i));
         }
 
         curRow++;
@@ -1834,22 +1873,22 @@ void matrixToReducedRowEchelonForm(zMat *source){
         if(row >= source->rows) break;
 
         for(; row < source->rows; row++){
-            if(source->elements[row][i] != 0.0f) break;
+            if(ValueMatPtrAt(source, row, i) != 0.0f) break;
         }
 
         if(row == source->rows) continue;
 
         swapRows(source, curRow, row);
 
-        float factor = 1 / source->elements[curRow][i];
+        float factor = 1 / ValueMatPtrAt(source, curRow, i);
 
         for(unsigned int col = i; col < source->cols; col++){
-            source->elements[curRow][col] *= factor;
+            ValueMatPtrAt(source, curRow, col) *= factor;
         }
 
         for(row = 0; row < source->rows; row++){
             if(row == curRow) continue;
-            addmulRows(source, row, curRow, -1 * source->elements[row][i]);
+            addmulRows(source, row, curRow, -1 * ValueMatPtrAt(source, row, i));
         }
 
         curRow++;
@@ -1930,7 +1969,7 @@ zMat subMatrix(zMat source, unsigned int remRow, unsigned int remCol){
             }
 
             // assign value
-            result.elements[i][j] = source.elements[i + rowOffset][j + colOffset];
+            ValueMatAt(result, i, j) = ValueMatAt(source, i + rowOffset, j + colOffset);//source.elements[i + rowOffset][j + colOffset];
         }
     }
 
@@ -1949,7 +1988,7 @@ float determinant(zMat source){
     float result = 0.0f;
 
     for(unsigned int i = 0; i < source.cols; i++){
-        result += source.elements[0][i] * cofactor(source, 1, i + 1);
+        result += ValueMatAt(source, 0 , i) * cofactor(source, 1, i + 1);
     }
 
     return result;
@@ -2007,7 +2046,7 @@ float _determinantExclusion(zMat source,
                 (*noSkipCols)--;
             }
         }
-        return source.elements[row - 1][i - 1];
+        return ValueMatAt(source, row-1, i-1);//source.elements[row - 1][i - 1];
     }
 
     float result = 0.0f;
@@ -2023,11 +2062,11 @@ float _determinantExclusion(zMat source,
         }
 
         float res = 0.0f;
-        if (source.elements[row - 1][i - 1] != 0.0f)
+        if (ValueMatAt(source, row-1, i-1) != 0.0f)
         {
             // recursive
             res = cofactorSign *
-                  source.elements[row - 1][i - 1] *
+                  ValueMatAt(source, row-1, i-1) *
                   _determinantExclusion(source, row + 1, i, skipCols, noSkipCols);
         }
 
@@ -2087,7 +2126,7 @@ zMat cofactorMatrix(zMat source){
     {
         for (unsigned int j = 0; j < result.cols; j++)
         {
-            result.elements[i][j] = cofactor(source, i + 1, j + 1);
+            ValueMatAt(result, i, j) = cofactor(source, i + 1, j + 1);
         }
     }
 
@@ -2110,7 +2149,7 @@ zMat adjugate(zMat source){
     {
         for (unsigned int j = 0; j < result.cols; j++)
         {
-            result.elements[i][j] = cofactor(source, j + 1, i + 1);
+            ValueMatAt(result, i, j) = cofactor(source, j + 1, i + 1);
         }
     }
 
@@ -2149,9 +2188,9 @@ zMat inverseMatrix(zMat source){
     // expand across first row of the matrix
     for (unsigned int i = 0; i < source.cols; i++)
     {
-        if (source.elements[0][i] != 0.0f)
+        if (ValueMatAt(source, 0, i) != 0.0f)
         {
-            det += source.elements[0][i] * adj.elements[i][0]; // [c][0] because the adjugate is the transpose of the cofactor matrix
+            det += ValueMatAt(source, 0, i) * ValueMatAt(adj, i, 0); // [c][0] because the adjugate is the transpose of the cofactor matrix
         }
     }
 
@@ -2191,7 +2230,7 @@ zMat inverseMatrixRREF(zMat source){
     {
         for (unsigned int j = 0; j < result.cols; j++)
         {
-            result.elements[i][j] = opMat.elements[i][result.cols + j];
+            ValueMatAt(result, i, j) = ValueMatAt(opMat, i, result.cols + j);
         }
     }
 
