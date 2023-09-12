@@ -197,6 +197,20 @@ zVec newZeroZVector(size_t dim);
 zVec newDefaultZVector(size_t dim, float element);
 
 /*!
+    Create a new vector of dim Dimension with every component being randomly generated.
+    @param dim The dimension of the vector.
+    @return The new vector with every element in the vector equal to 0.
+*/
+zVec newRandomFloatZVector(size_t dim, float min, float max);
+
+/*!
+    Create a new vector of dim Dimension with every component being randomly generated.
+    @param dim The dimension of the vector.
+    @return The new vector with every element in the vector equal to 0.
+*/
+zVec newRandomIntZVector(size_t dim, float min, float max);
+
+/*!
     Create a new vector of dim Dimension.
     @param dim The dimension of the vector.
     @param ... The components of the vector.
@@ -797,6 +811,12 @@ zMat inverseMatrixRREF(zMat source);
 #include <stdbool.h>
 #include <time.h>
 
+#if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))_
+#include <unistd.h>
+#elif _WIN32
+#include <process.h>
+#endif 
+
 #if VISUALIZE_RATIONAL
 #define ZSTRING_IMPLEMENTATION
 #include "zstring.h"
@@ -970,6 +990,34 @@ zVec newDefaultZVector(size_t dim, float element){
 
     return result;
 
+}
+
+/*
+*/
+zVec newRandomFloatZVector(size_t dim, float min, float max){
+
+    zVec result = allocZVector(dim);
+
+    srand((unsigned)time(NULL) * _getpid());
+    for(size_t i = 0; i < dim; i++){
+        ValueAt(result, i) = float_rand(min, max);
+    }
+
+    return result;
+}
+
+/*
+*/
+zVec newRandomIntZVector(size_t dim, float min, float max){
+
+    zVec result = allocZVector(dim);
+
+    srand((unsigned)time(NULL) * _getpid());
+    for(size_t i = 0; i < dim; i++){
+        ValueAt(result, i) = int_rand(min, max);
+    }
+
+    return result;
 }
 
 /*
@@ -1448,7 +1496,7 @@ zMat newRandomFloatMatrix(unsigned int rows, unsigned int cols, float min, float
 
     zMat result = allocZMatrix(rows, cols);
     
-    srand((unsigned)time(NULL)); 
+    srand((unsigned)time(NULL) * _getpid()); 
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
             ValueMatAt(result, i, j) = float_rand(min, max);
@@ -1465,7 +1513,7 @@ zMat newRandomIntMatrix(unsigned int rows, unsigned int cols, int min, int max){
 
     zMat result = allocZMatrix(rows, cols);
 
-    srand((unsigned)time(NULL)); 
+    srand((unsigned)time(NULL) * _getpid()); 
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
             ValueMatAt(result, i, j) = (float)int_rand(min, max);
