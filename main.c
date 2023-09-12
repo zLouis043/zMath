@@ -109,9 +109,9 @@ int main(int argc, char **argv){
     fprintf(fp, "\n----------------------------------------------------------------\n");
 
         fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 3] equal: %s\n", areVecEqual(v1, v3) ? "True" : "False"); 
-        fprintf(fp, "\n> Dot product between [VECTOR 1] and [VECTOR 3]: %f\n", dotProduct(v1, v3));
+        fprintf(fp, "\n> Dot product between [VECTOR 1] and [VECTOR 3]: %s\n", rationalizeFloatToStr(dotProduct(v1, v3), 3).data);
         fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 8] orthogonal: %s\n", areVecOrthogonal(v1, v8) ? "True" : "False");
-        fprintf(fp, "\n> Magnitude of [VECTOR 3]: %f\n", magnitude(v3));
+        fprintf(fp, "\n> Magnitude of [VECTOR 3]: %s\n", rationalizeFloatToStr(magnitude(v3), 3).data);
         fprintf(fp, "\n> Is [VECTOR 12] normalized : %s\n", isNormalized(v12) ? "True" : "False");
 
 
@@ -203,8 +203,13 @@ int main(int argc, char **argv){
         printMatrixByIndex(fp, 9, mat9);
         zMat mat10 = newRandomIntMatrix(3, 3, -2, 7);
         printMatrixByIndex(fp, 10, mat10);
+        #if VISUALIZE_RATIONAL
+        zstring dot = rationalizeFloatToStr(dotProductMatrix(mat9, mat10),3);
+        fprintf(fp, "   | DOT PRODUCT: {\n   |\tDot Prod: %s;\n   | }\n", dot.data);
+        #else
         float dot = dotProductMatrix(mat9, mat10);
         fprintf(fp, "   | DOT PRODUCT: {\n   |\tDot Prod: %f;\n   | }\n", dot);
+        #endif
         fprintf(fp, "}\n");
 
     fprintf(fp, "\nTEST: [MATRIX 9] TO ROW ECHELON FORM {");
@@ -235,8 +240,13 @@ int main(int argc, char **argv){
     fprintf(fp, "\nTEST: DETERMINANT OF [MATRIX 13] {");
         zMat mat15 = newRandomIntMatrix(3, 3, -2, 4);
         printMatrixByIndex(fp, 15, mat15);
+        #if VISUALIZE_RATIONAL
+        zstring det = rationalizeFloatToStr(determinantExclusion(mat15),3);
+        fprintf(fp, "   | THE DETERMINANT OF [MATRIX 15] IS: {\n   |\tDet: %s;\n   | }\n\n", det.data);
+        #else
         float det = determinantExclusion(mat15);
         fprintf(fp, "   | THE DETERMINANT OF [MATRIX 15] IS: {\n   |\tDet: %f;\n   | }\n\n", det);
+        #endif
     fprintf(fp, "}\n");
 
     fclose(fp);

@@ -18,6 +18,8 @@
 */
 #define VISUALIZE_STEPS 0
 
+#define VISUALIZE_RATIONAL 1
+
 #define EQUAL_ERROR "Dimension mismatch."
 #define ALLOC_ERROR "Allocation failure."
 #define PROD_ERROR  "Matrix 1 columns not equal to Matrix 2 rows."
@@ -795,6 +797,9 @@ zMat inverseMatrixRREF(zMat source);
 #include <stdbool.h>
 #include <time.h>
 
+#define ZSTRING_IMPLEMENTATION
+#include "zstring.h"
+
 /*
 */
 void _zassert(bool condition, const char* message, const char* filepath, size_t line){
@@ -858,7 +863,12 @@ zVec NULL_VECTOR = {0, NULL};
 void printVector(FILE* fp, zVec vector){
     fprintf(fp ,"\n\n   | Vector of size %zu: {\n   |\t[", DIM(vector));
     for(size_t i = 0; i < DIM(vector); i++){
+        #if !VISUALIZE_RATIONAL
         fprintf(fp ," %f", ValueAt(vector, i));
+        #else
+        zstring value = rationalizeFloatToStr(ValueAt(vector, i), 3);
+        fprintf(fp, " %s", value.data);
+        #endif
         fprintf(fp ,"%c", (i < DIM(vector) - 1 ? ',' : ' '));
     }
     fprintf(fp ,"]\n   |  }\n\n");
@@ -869,7 +879,12 @@ void printVector(FILE* fp, zVec vector){
 void printVectorByLabel(FILE* fp, const char* label, zVec vector){
     fprintf(fp ,"\n\n   | [%s] of size %zu: {\n   |\t[", label, DIM(vector));
     for(size_t i = 0; i < DIM(vector); i++){
+        #if !VISUALIZE_RATIONAL 
         fprintf(fp ," %f", ValueAt(vector, i));
+        #else
+        zstring value = rationalizeFloatToStr(ValueAt(vector, i), 3);
+        fprintf(fp, " %s", value.data);
+        #endif
         fprintf(fp ,"%c", (i < DIM(vector) - 1 ? ',' : ' '));
     }
     fprintf(fp ,"]\n   |  }\n\n");
@@ -880,7 +895,12 @@ void printVectorByLabel(FILE* fp, const char* label, zVec vector){
 void printVectorByIndex(FILE* fp, int index, zVec vector){
     fprintf(fp ,"\n\n   | [VECTOR %d] of size %zu: {\n   |\t[", index, DIM(vector));
     for(size_t i = 0; i < DIM(vector); i++){
+        #if !VISUALIZE_RATIONAL 
         fprintf(fp ," %f", ValueAt(vector, i));
+        #else
+        zstring value = rationalizeFloatToStr(ValueAt(vector, i), 3);
+        fprintf(fp, " %s", value.data);
+        #endif
         fprintf(fp ,"%c", (i < DIM(vector) - 1 ? ',' : ' '));
     }
     fprintf(fp ,"]\n   |  }\n\n");
@@ -1229,7 +1249,7 @@ zMat NULL_MATRIX = {0, 0, NULL};
 */
 void printMatrix(FILE *fp, zMat mat){
 	
-	int spaces = 11;
+	int spaces = 12;
 	fprintf(fp, "\n\n   | Matrix of size %ux%u: {\n", mat.rows, mat.cols);
 	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
@@ -1245,7 +1265,12 @@ void printMatrix(FILE *fp, zMat mat){
 		fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
 		
 		for(unsigned int j = 0; j < mat.cols; j++){
+            #if !VISUALIZE_RATIONAL
 			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
+            #else
+            zstring value = rationalizeFloatToStr(ValueMatAt(mat, i, j), 3);
+            fprintf(fp, " %-11s", value.data);
+            #endif
 		}		
 		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
@@ -1264,7 +1289,7 @@ void printMatrix(FILE *fp, zMat mat){
 */
 void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 	
-	int spaces = 11;
+	int spaces = 12;
 	fprintf(fp, "\n\n   | [%s] of size %ux%u: {\n", label, mat.rows, mat.cols);
 	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
@@ -1280,7 +1305,12 @@ void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 		fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
 		
 		for(unsigned int j = 0; j < mat.cols; j++){
+            #if !VISUALIZE_RATIONAL
 			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
+            #else
+            zstring value = rationalizeFloatToStr(ValueMatAt(mat, i, j), 3);
+            fprintf(fp, " %-11s", value.data);
+            #endif
 		}		
 		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
@@ -1299,7 +1329,7 @@ void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 */
 void printMatrixByIndex(FILE *fp, unsigned int index, zMat mat){
 	
-	int spaces = 11;
+	int spaces = 12;
 	fprintf(fp, "\n\n   | [MATRIX %d] of size %ux%u: {\n", index, mat.rows, mat.cols);
 	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
@@ -1315,7 +1345,12 @@ void printMatrixByIndex(FILE *fp, unsigned int index, zMat mat){
 		fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
 		
 		for(unsigned int j = 0; j < mat.cols; j++){
+            #if !VISUALIZE_RATIONAL
 			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
+            #else
+            zstring value = rationalizeFloatToStr(ValueMatAt(mat, i, j), 3);
+            fprintf(fp, " %-11s", value.data);
+            #endif
 		}		
 		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
