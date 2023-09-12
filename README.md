@@ -65,4 +65,22 @@ Output > | Vector of size 4: {
 
 ```
 
-## TODO : FIND THE RANK OF THE MATRIX
+### TO ENABLE THE RATIONAL VISUALIZATION WHEN PRINTING VECTORS OR MATRICES
+
+Add the [zstring.h](https://github.com/zLouis043/zString) to your project and then in the **zmath.h** file go to :
+
+```c
+
+#define VISUALIZE_RATIONAL 0
+
+```
+
+and set it to :
+
+```c
+
+#define VISUALIZE_RATIONAL 1
+
+```
+
+#### TODO : FIND THE RANK OF THE MATRIX
