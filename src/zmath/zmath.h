@@ -762,12 +762,18 @@ zMat inverseMatrix(zMat source);
 */
 zMat inverseMatrixRREF(zMat source);
 
-#define STRAIGHT_LINE 196
-#define LEFT_UP_CORNER 218
-#define RIGHT_UP_CORNER 191
-#define SIDE_CHAR 179
-#define LEFT_DOWN_CORNER 192
-#define RIGHT_DOWN_CORNER 217
+#define sSTRAIGHT_LINE 196
+#define STRAIGHT_LINE '_'
+#define sLEFT_UP_CORNER 218
+#define LEFT_UP_CORNER '^'
+#define sRIGHT_UP_CORNER 191
+#define RIGHT_UP_CORNER '^'
+#define sSIDE_CHAR 179
+#define SIDE_CHAR '|'
+#define sLEFT_DOWN_CORNER 192
+#define LEFT_DOWN_CORNER 'v'
+#define sRIGHT_DOWN_CORNER 217
+#define RIGHT_DOWN_CORNER 'v'
 
 // double coords to single coord = rows * index + rows;
 #define ValueMatAt(matrix, x, y) (matrix.elements[x][y])
@@ -1225,7 +1231,7 @@ void printMatrix(FILE *fp, zMat mat){
 	
 	int spaces = 11;
 	fprintf(fp, "\n\n   | Matrix of size %ux%u: {\n", mat.rows, mat.cols);
-	fprintf(fp, "   |\t%c   ", LEFT_UP_CORNER);
+	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
@@ -1236,7 +1242,7 @@ void printMatrix(FILE *fp, zMat mat){
 	
 	for(unsigned int i = 0; i < mat.rows; i++){
 		
-		fprintf(fp, "   |\t%c   ", SIDE_CHAR);
+		fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
 		
 		for(unsigned int j = 0; j < mat.cols; j++){
 			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
@@ -1244,14 +1250,14 @@ void printMatrix(FILE *fp, zMat mat){
 		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
 	
-	fprintf(fp, "   |\t%c   ", LEFT_DOWN_CORNER);
+	fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
 		}
 	}
 	fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
-    fprintf(fp, "   |  }\n\n");
+    fprintf(fp, "   | }\n\n");
 }
 
 /*
@@ -1260,7 +1266,7 @@ void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 	
 	int spaces = 11;
 	fprintf(fp, "\n\n   | [%s] of size %ux%u: {\n", label, mat.rows, mat.cols);
-	fprintf(fp, "   |\t%c   ", LEFT_UP_CORNER);
+	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
@@ -1271,7 +1277,7 @@ void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 	
 	for(unsigned int i = 0; i < mat.rows; i++){
 		
-		fprintf(fp, "   |\t%c   ", SIDE_CHAR);
+		fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
 		
 		for(unsigned int j = 0; j < mat.cols; j++){
 			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
@@ -1279,14 +1285,14 @@ void printMatrixByLabel(FILE *fp, const char* label, zMat mat){
 		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
 	
-	fprintf(fp, "   |\t%c   ", LEFT_DOWN_CORNER);
+	fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
 		}
 	}
 	fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
-    fprintf(fp, "   |  }\n\n");
+    fprintf(fp, "   | }\n\n");
 }
 
 /*
@@ -1295,7 +1301,7 @@ void printMatrixByIndex(FILE *fp, unsigned int index, zMat mat){
 	
 	int spaces = 11;
 	fprintf(fp, "\n\n   | [MATRIX %d] of size %ux%u: {\n", index, mat.rows, mat.cols);
-	fprintf(fp, "   |\t%c   ", LEFT_UP_CORNER);
+	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
@@ -1306,7 +1312,7 @@ void printMatrixByIndex(FILE *fp, unsigned int index, zMat mat){
 	
 	for(unsigned int i = 0; i < mat.rows; i++){
 		
-		fprintf(fp, "   |\t%c   ", SIDE_CHAR);
+		fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
 		
 		for(unsigned int j = 0; j < mat.cols; j++){
 			fprintf(fp, "%-11f", ValueMatAt(mat, i, j));
@@ -1314,14 +1320,14 @@ void printMatrixByIndex(FILE *fp, unsigned int index, zMat mat){
 		fprintf(fp, "%c\n", SIDE_CHAR);
 	}
 	
-	fprintf(fp, "   |\t%c   ", LEFT_DOWN_CORNER);
+	fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
 	for(unsigned int i = 0; i < mat.cols; i++){
 		for(int i = 0; i < spaces; i++){
 			fprintf(fp, " ");
 		}
 	}
 	fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
-    fprintf(fp, "   |  }\n\n");
+    fprintf(fp, "   | }\n\n");
 }
 
 /*
