@@ -18,7 +18,7 @@
 */
 #define VISUALIZE_STEPS 0
 
-#define VISUALIZE_RATIONAL 1
+#define VISUALIZE_RATIONAL 0
 
 #define EQUAL_ERROR "Dimension mismatch."
 #define ALLOC_ERROR "Allocation failure."
