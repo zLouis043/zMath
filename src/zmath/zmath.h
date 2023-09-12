@@ -767,15 +767,15 @@ zMat inverseMatrixRREF(zMat source);
 #define sSTRAIGHT_LINE 196
 #define STRAIGHT_LINE '_'
 #define sLEFT_UP_CORNER 218
-#define LEFT_UP_CORNER '^'
+#define LEFT_UP_CORNER 'x'
 #define sRIGHT_UP_CORNER 191
-#define RIGHT_UP_CORNER '^'
+#define RIGHT_UP_CORNER 'x'
 #define sSIDE_CHAR 179
 #define SIDE_CHAR '|'
 #define sLEFT_DOWN_CORNER 192
-#define LEFT_DOWN_CORNER 'v'
+#define LEFT_DOWN_CORNER 'x'
 #define sRIGHT_DOWN_CORNER 217
-#define RIGHT_DOWN_CORNER 'v'
+#define RIGHT_DOWN_CORNER 'x'
 
 // double coords to single coord = rows * index + rows;
 #define ValueMatAt(matrix, x, y) (matrix.elements[x][y])
