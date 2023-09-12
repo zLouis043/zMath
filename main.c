@@ -198,36 +198,45 @@ int main(int argc, char **argv){
         printMatrixByLabel(fp, "TRANSPOSED MATRIX", mat8);
     fprintf(fp, "}\n");
 
-    fprintf(fp, "\nTEST: [MATRIX 9] TO ROW ECHELON FORM {");
+    fprintf(fp, "\nTEST: FIND THE DOT PRODUCT BETWEEN [MATRIX 9] AND [MATRIX 10] {");
         zMat mat9 = newRandomIntMatrix(3, 3, -5, 5);
         printMatrixByIndex(fp, 9, mat9);
-        matrixToRowEchelonForm(&mat9);
-        printMatrixByLabel(fp, "CONVERTED MATRIX", mat9);
+        zMat mat10 = newRandomIntMatrix(3, 3, -2, 7);
+        printMatrixByIndex(fp, 10, mat10);
+        float dot = dotProductMatrix(mat9, mat10);
+        fprintf(fp, "   | DOT PRODUCT: {\n   |\tDot Prod: %f;\n   | }\n", dot);
+        fprintf(fp, "}\n");
+
+    fprintf(fp, "\nTEST: [MATRIX 9] TO ROW ECHELON FORM {");
+        zMat mat11 = newRandomIntMatrix(3, 3, -5, 5);
+        printMatrixByIndex(fp, 11, mat11);
+        matrixToRowEchelonForm(&mat11);
+        printMatrixByLabel(fp, "CONVERTED MATRIX", mat11);
     fprintf(fp, "}\n");
 
-    fprintf(fp, "\nTEST: APPEND [VECTOR 17] TO [MATRIX 10] {");
-        zMat mat10 = newRandomIntMatrix(3, 3, -5, 5);
-        printMatrixByIndex(fp, 10, mat10);
+    fprintf(fp, "\nTEST: APPEND [VECTOR 17] TO [MATRIX 12] {");
+        zMat mat12 = newRandomIntMatrix(3, 3, -5, 5);
+        printMatrixByIndex(fp, 12, mat12);
         zVec v17 = newDefaultZVector(3, 7);
         printVectorByLabel(fp, "VECTOR TO APPEND", v17);
-        mat10 = appendVectorToMatrix(mat10, v17);
-        printMatrixByLabel(fp, "EXPANDED MATRIX", mat10);
+        mat12 = appendVectorToMatrix(mat12, v17);
+        printMatrixByLabel(fp, "EXPANDED MATRIX", mat12);
     fprintf(fp, "}\n");
 
-    fprintf(fp, "\nTEST: APPEND [MATRIX 12] TO [MATRIX 11] {");
-        zMat mat11 = newRandomIntMatrix(3, 4, -3, 2);
-        printMatrixByIndex(fp, 11, mat11);
-        zMat mat12 = newRandomIntMatrix(3, 3, -1, 7);
-        printMatrixByLabel(fp, "MATRIX TO APPEND", mat12);
-        mat11 = appendMatrixToMatrix(mat11, mat12);
-        printMatrixByLabel(fp, "EXPANDED MATRIX", mat11);
+    fprintf(fp, "\nTEST: APPEND [MATRIX 13] TO [MATRIX 14] {");
+        zMat mat13 = newRandomIntMatrix(3, 4, -3, 2);
+        printMatrixByIndex(fp, 13, mat11);
+        zMat mat14 = newRandomIntMatrix(3, 3, -1, 7);
+        printMatrixByLabel(fp, "MATRIX TO APPEND", mat14);
+        mat13 = appendMatrixToMatrix(mat13, mat14);
+        printMatrixByLabel(fp, "EXPANDED MATRIX", mat13);
     fprintf(fp, "}\n");
 
     fprintf(fp, "\nTEST: DETERMINANT OF [MATRIX 13] {");
-        zMat mat13 = newRandomIntMatrix(3, 3, -2, 4);
-        printMatrixByIndex(fp, 13, mat13);
-        float det = determinantExclusion(mat13);
-        fprintf(fp, "   | THE DETERMINANT OF [MATRIX 13] IS: {\n   |\tDet: %f;\n   | }\n\n", det);
+        zMat mat15 = newRandomIntMatrix(3, 3, -2, 4);
+        printMatrixByIndex(fp, 15, mat15);
+        float det = determinantExclusion(mat15);
+        fprintf(fp, "   | THE DETERMINANT OF [MATRIX 15] IS: {\n   |\tDet: %f;\n   | }\n\n", det);
     fprintf(fp, "}\n");
 
     fclose(fp);
@@ -245,6 +254,8 @@ int main(int argc, char **argv){
     freeZMatrix(&mat11);
     freeZMatrix(&mat12);
     freeZMatrix(&mat13);
+    freeZMatrix(&mat14);
+    freeZMatrix(&mat15);
     
     freeZVector(&v13);
     freeZVector(&v14);

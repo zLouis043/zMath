@@ -25,11 +25,11 @@
 #define SQUARE_ERROR "Matrix is not square."
 
 /*!
- * finds the maximum of two values
- * @param n the first value
- * @param m the second value
- * @return the larger element
- */
+    Finds the maximum of two values
+    @param n the first value
+    @param m the second value
+    @return the larger element
+*/
 #define MAX(n, m) ({\
     __auto_type _a = (n);\
     __auto_type _b = (m);\
@@ -37,19 +37,33 @@
 })
 
 /*!
- * finds the minimum of two values
- * @param n the first value
- * @param m the second value
- * @return the smaller element
- */
+    Finds the minimum of two values
+    @param n the first value
+    @param m the second value
+    @return the smaller element
+*/
 #define MIN(n, m) ({\
     __auto_type _a = (n);\
     __auto_type _b = (m);\
     _a < _b ? _a : _b;\
 })
 
+/*!
+    Alloc macro.
+    @param count The size of the chunk to allocate.
+    @param type The type of the chunk.
+*/
 #define alloc(count, type) \
     (type*)malloc((count) * sizeof(type))\
+
+/*!
+    Swap two values.
+*/
+#define swap(n, m) ({\
+    typeof(n) _tmp = (n);\
+    (n) = (m);\
+    (m) = _tmp;\
+})
 
 /*!
     Checks if the condition is true and printf an error message and exit the program if it is false.
@@ -1724,24 +1738,22 @@ zMat transposedMatrix(zMat source){
     return result;
 }
 
-float* copyRow(zMat source, unsigned int row){
-    float* result = alloc(source.cols, float);
-    for(unsigned int i = 0; i < source.cols; i++){
-        result[i] = ValueMatAt(source, row, i);
+/*
+*/
+float dotProductMatrix(zMat matrix1, zMat matrix2){
+    
+    if(matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols) return 0.0f;
+
+    float result = 0.0f;
+
+    for(unsigned int i = 0; i < matrix1.rows; i++){
+        for(unsigned int j = 0; j < matrix1.cols; j++){
+            result += ValueMatAt(matrix1, i, j) * ValueMatAt(matrix2, i, j);
+        }
     }
+
     return result;
-}
 
-void transferRow(zMat *source, unsigned int row1, unsigned int row2){
-    for(unsigned int i = 0; i < source->cols; i++){
-        ValueMatPtrAt(source, row1, i) = ValueMatPtrAt(source, row1, i);
-    }
-}
-
-void copyVecToARow(zMat *source, float* vec, unsigned int row){
-    for(unsigned int i = 0; i < source->cols; i++){
-        ValueMatPtrAt(source, row, i) = vec[i];
-    }
 }
 
 /*
@@ -1753,14 +1765,9 @@ bool swapRows(zMat *source, unsigned int row1, unsigned int row2){
         return false;
     }
 
-    /*float* tmp = source->elements[row1];
+    float* tmp = source->elements[row1];
     source->elements[row1] = source->elements[row2];
-    source->elements[row2] = tmp;*/
-    float* tmp = copyRow(*source, row1);
-    transferRow(source, row1, row2);
-    copyVecToARow(source, tmp, row2);
-
-    
+    source->elements[row2] = tmp; 
 
     return true;
 }
