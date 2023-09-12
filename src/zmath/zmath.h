@@ -811,7 +811,7 @@ zMat inverseMatrixRREF(zMat source);
 #include <stdbool.h>
 #include <time.h>
 
-#if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))_
+#if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
 #include <unistd.h>
 #elif _WIN32
 #include <process.h>

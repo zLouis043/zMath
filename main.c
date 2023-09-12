@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <errno.h>
 
 #define ZMATH_IMPLEMENTATION
 #include "src/zmath/zmath.h"
@@ -14,6 +15,11 @@ int main(int argc, char **argv){
 
     FILE *fp;
     fopen_s(&fp, filename, "w");
+
+    if(fp == NULL){
+        fprintf(stderr,"[ERROR] : Could not open file %s : %d", filename, errno);
+        exit(1);
+    }
 
     fprintf(fp, "\n -----------------------------------------------\n");
     fprintf(fp, "|                   VECTORS                     |\n");
