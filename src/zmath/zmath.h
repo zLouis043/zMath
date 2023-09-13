@@ -130,6 +130,12 @@ void MZ_swap_float(float* a, float* b);
 void MZ_print_value(FILE* fp, const char* label, const char* name_of_value, float value );
 
 /*!
+    @brief Sets a random starting point for producing a series of pseudo-random integers every time the function is called.
+    @param seed The seed of the random number generator.
+*/
+void _MZ_SRAND(unsigned int _Seed);
+
+/*!
     @brief Checks if the array contains a value.
     @param arr The pointer to the array.
     @param n The number of elements in the array 
@@ -144,6 +150,11 @@ bool MZ_is_in_array(unsigned int *arr, int n, float target);
     @param message The message to send if the condition is false.
 */
 #define MZ_assert(condition, message) _MZ_assert(condition, message, __FILE__, __LINE__)
+
+/*!
+    @brief Sets a random starting point for producing a series of pseudo-random integers every time the function is called.
+*/
+#define MZ_SRAND() _MZ_SRAND((unsigned)time(NULL) )
 
 #endif // ZMATH_DEF
 
@@ -930,6 +941,14 @@ bool MZ_is_in_array(unsigned int *arr, int n, float target){
     return false;
 }
 
+void _MZ_SRAND(unsigned int _Seed){
+    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+        srand((_Seed * getpid()); 
+    #elif _WIN32
+        srand(_Seed * _getpid()); 
+    #endif   
+}
+
 MZ_Vec NULL_VECTOR = {0, NULL};
 
 /*
@@ -1068,11 +1087,7 @@ MZ_Vec MZ_new_random_float_vector(size_t dim, float min, float max){
 
     MZ_Vec result = MZ_alloc_vector(dim);
 
-    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
-    srand((unsigned)time(NULL) * getpid()); 
-    #elif _WIN32
-    srand((unsigned)time(NULL) * _getpid()); 
-    #endif 
+    MZ_SRAND();
 
     for(size_t i = 0; i < dim; i++){
         MZ_VALUE_OF_VECTOR_AT(result, i) = MZ_rand_float(min, max);
@@ -1087,12 +1102,7 @@ MZ_Vec MZ_new_random_int_vector(size_t dim, float min, float max){
 
     MZ_Vec result = MZ_alloc_vector(dim);
 
-
-    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
-    srand((unsigned)time(NULL) * getpid()); 
-    #elif _WIN32
-    srand((unsigned)time(NULL) * _getpid()); 
-    #endif 
+    MZ_SRAND();
     
     for(size_t i = 0; i < dim; i++){
         MZ_VALUE_OF_VECTOR_AT(result, i) = MZ_rand_int(min, max);
@@ -1685,11 +1695,7 @@ MZ_Matrix MZ_new_random_float_matrix(unsigned int rows, unsigned int cols, float
 
     MZ_Matrix result = MZ_alloc_matrix(rows, cols);
     
-    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
-    srand((unsigned)time(NULL) * getpid()); 
-    #elif _WIN32
-    srand((unsigned)time(NULL) * _getpid()); 
-    #endif 
+    MZ_SRAND();
 
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
@@ -1707,11 +1713,7 @@ MZ_Matrix MZ_new_random_int_matrix(unsigned int rows, unsigned int cols, int min
 
     MZ_Matrix result = MZ_alloc_matrix(rows, cols);
 
-    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
-    srand((unsigned)time(NULL) * getpid()); 
-    #elif _WIN32
-    srand((unsigned)time(NULL) * _getpid()); 
-    #endif 
+    MZ_SRAND();
 
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
