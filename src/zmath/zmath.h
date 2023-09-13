@@ -32,7 +32,7 @@
     @param m the second value
     @return the larger element
 */
-#define zm_MAX(n, m) ({\
+#define ZM_MAX(n, m) ({\
     __auto_type _a = (n);\
     __auto_type _b = (m);\
     _a > _b ? _a : _b;\
@@ -44,7 +44,7 @@
     @param m the second value
     @return the smaller element
 */
-#define zm_MIN(n, m) ({\
+#define ZM_MIN(n, m) ({\
     __auto_type _a = (n);\
     __auto_type _b = (m);\
     _a < _b ? _a : _b;\
@@ -55,13 +55,13 @@
     @param count The size of the chunk to allocate.
     @param type The type of the chunk.
 */
-#define zm_alloc(count, type) \
+#define ZM_ALLOC(count, type) \
     (type*)malloc((count) * sizeof(type))\
 
 /*!
     Swap two values.
 */
-#define zm_swap(n, m) ({\
+#define ZM_SWAP(n, m) ({\
     typeof(n) _tmp = (n);\
     (n) = (m);\
     (m) = _tmp;\
@@ -957,7 +957,7 @@ void zm_copy_vector_pointer(zVec* source, zVec* dest){
 zVec zm_alloc_vector(size_t dim){
     zVec result;
     result.dim = dim;
-    result.elements = zm_alloc(dim, float);
+    result.elements = ZM_ALLOC(dim, float);
 
     zm_assert(result.elements != NULL, ALLOC_ERROR);
 
