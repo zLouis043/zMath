@@ -49,10 +49,10 @@ int main(void){
   MZ_Vec v1 = MZ_new_vector(1.0f, 2.0f, 3.0f, 4.0f);
   MZ_print_vector(stdout, v1);
 
-  MZ_zVec v2 = MZ_new_default_vector(4, 1.0f);
+  MZ_Vec v2 = MZ_new_default_vector(4, 1.0f);
   MZ_print_vector(stdout, v2);
 
-  MZ_zVec v3 = MZ_add_two_vectors(v1, v2);
+  MZ_Vec v3 = MZ_add_two_vectors(v1, v2);
   MZ_print_vector(stdout, v3);
 
   return 0;
