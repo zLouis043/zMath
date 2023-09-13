@@ -1082,6 +1082,7 @@ MZ_Vec MZ_new_random_int_vector(size_t dim, float min, float max){
 
     MZ_Vec result = MZ_alloc_vector(dim);
 
+
     srand((unsigned)time(NULL) * _getpid());
     for(size_t i = 0; i < dim; i++){
         MZ_VALUE_OF_VECTOR_AT(result, i) = MZ_rand_int(min, max);
@@ -1641,9 +1642,9 @@ MZ_Matrix MZ_alloc_matrix(unsigned int rows, unsigned int cols){
     result.rows = rows;
     result.cols = cols;
 
-    result.elements = (float**)malloc(rows*sizeof(float*));
+    result.elements = MZ_ALLOC(rows, float*);
     for(unsigned int i=0; i<rows; i++){
-        result.elements[i] = (float*)malloc(cols*sizeof(float));
+        result.elements[i] = MZ_ALLOC(cols, float);
     }
 
     MZ_assert(result.elements != NULL, MZ_ALLOC_ERROR);
@@ -1674,7 +1675,12 @@ MZ_Matrix MZ_new_random_float_matrix(unsigned int rows, unsigned int cols, float
 
     MZ_Matrix result = MZ_alloc_matrix(rows, cols);
     
+    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+    srand((unsigned)time(NULL) * getpid()); 
+    #elif _WIN32
     srand((unsigned)time(NULL) * _getpid()); 
+    #endif 
+
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
             MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_rand_float(min, max);
@@ -1691,7 +1697,12 @@ MZ_Matrix MZ_new_random_int_matrix(unsigned int rows, unsigned int cols, int min
 
     MZ_Matrix result = MZ_alloc_matrix(rows, cols);
 
+    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+    srand((unsigned)time(NULL) * getpid()); 
+    #elif _WIN32
     srand((unsigned)time(NULL) * _getpid()); 
+    #endif 
+
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
             MZ_VALUE_OF_MAT_AT(result, i, j) = (float)MZ_rand_int(min, max);
