@@ -24,11 +24,11 @@
 */
 #define VISUALIZE_RATIONAL 0
 
-#define ZM_EQUAL_ERROR      "Dimension mismatch."
-#define ZM_ALLOC_ERROR      "Allocation failure."
-#define ZM_PROD_ERROR       "Matrix 1 columns not equal to Matrix 2 rows."
-#define ZM_DIRECTION_ERROR  "Invalid direction."
-#define ZM_SQUARE_ERROR     "Matrix is not square."
+#define MZ_EQUAL_ERROR      "Dimension mismatch."
+#define MZ_ALLOC_ERROR      "Allocation failure."
+#define MZ_PROD_ERROR       "Matrix 1 columns not equal to Matrix 2 rows."
+#define MZ_DIRECTION_ERROR  "Invalid direction."
+#define MZ_SQUARE_ERROR     "Matrix is not square."
 
 /*!
     Finds the maximum of two values
@@ -36,7 +36,7 @@
     @param m the second value
     @return the larger element
 */
-#define ZM_MAX(n, m) ({\
+#define MZ_MAX(n, m) ({\
     __auto_type _a = (n);\
     __auto_type _b = (m);\
     _a > _b ? _a : _b;\
@@ -48,7 +48,7 @@
     @param m the second value
     @return the smaller element
 */
-#define ZM_MIN(n, m) ({\
+#define MZ_MIN(n, m) ({\
     __auto_type _a = (n);\
     __auto_type _b = (m);\
     _a < _b ? _a : _b;\
@@ -59,13 +59,13 @@
     @param count The size of the chunk to allocate.
     @param type The type of the chunk.
 */
-#define ZM_ALLOC(count, type) \
+#define MZ_ALLOC(count, type) \
     (type*)malloc((count) * sizeof(type))\
 
 /*!
     Swap two values.
 */
-#define ZM_SWAP(n, m) ({\
+#define MZ_SWAP(n, m) ({\
     typeof(n) _tmp = (n);\
     (n) = (m);\
     (m) = _tmp;\
@@ -76,7 +76,7 @@
     @param condition The condition to check.
     @param message The message to send if the condition is false.
 */
-void _zm_assert(bool condition, const char* message, const char* filepath, size_t line);
+void _MZ_assert(bool condition, const char* message, const char* filepath, size_t line);
 
 /*!
     Gives a random float random in a certain range.
@@ -84,7 +84,7 @@ void _zm_assert(bool condition, const char* message, const char* filepath, size_
     @param max The maximum value.
     @return a random float value.
 */
-float zm_rand_float( float min, float max );
+float MZ_rand_float( float min, float max );
 
 /*!
     Gives a random int random in a certain range.
@@ -92,21 +92,21 @@ float zm_rand_float( float min, float max );
     @param max The maximum value.
     @return a random int value.
 */
-int zm_rand_int( int min, int max );
+int MZ_rand_int( int min, int max );
    
 /*!
     Swap two int numbers.
     @param a the pointer to the first number.
     @param b the pointer to the second number.
 */
-void zm_swap_int(int* a, int* b);
+void MZ_swap_int(int* a, int* b);
 
 /*!
     Swap two float numbers.
     @param a the pointer to the first number.
     @param b the pointer to the second number.
 */
-void zm_swap_float(float* a, float* b);
+void MZ_swap_float(float* a, float* b);
 
 /*!
     Checks if the array contains a value.
@@ -115,14 +115,14 @@ void zm_swap_float(float* a, float* b);
     @param target The target element.
     @return if the element exists in the array
 */
-bool zm_is_in_array(unsigned int *arr, int n, float target);
+bool MZ_is_in_array(unsigned int *arr, int n, float target);
 
 /*!
     Checks if the condition is true and printf an error message and exit the program if it is false.
     @param condition The condition to check.
     @param message The message to send if the condition is false.
 */
-#define zm_assert(condition, message) _zm_assert(condition, message, __FILE__, __LINE__)
+#define MZ_assert(condition, message) _MZ_assert(condition, message, __FILE__, __LINE__)
 
 #endif // ZMATH_DEF
 
@@ -137,19 +137,19 @@ bool zm_is_in_array(unsigned int *arr, int n, float target);
 
 */
 
-typedef struct zm_Vec{
+typedef struct MZ_Vec{
     size_t dim;
     float *elements;
-}zm_Vec;
+}MZ_Vec;
 
-extern zm_Vec NULL_VECTOR;
+extern MZ_Vec NULL_VECTOR;
 
 /*!
     Prints the dimensions of the vector and its components.
     @param fp The file to write the vector.
     @param vector The vector to print.
 */
-void zm_print_vector(FILE* fp, zm_Vec vector);
+void MZ_print_vector(FILE* fp, MZ_Vec vector);
 
 /*!
     Prints the dimensions of the vector by its label and its components.
@@ -157,7 +157,7 @@ void zm_print_vector(FILE* fp, zm_Vec vector);
     @param label The vector label.
     @param vector The vector to print.
 */
-void zm_print_vector_by_label(FILE* fp, const char* label, zm_Vec vector);
+void MZ_print_vector_by_label(FILE* fp, const char* label, MZ_Vec vector);
 
 /*!
     Prints the dimensions of the vector by its index and its components.
@@ -165,70 +165,70 @@ void zm_print_vector_by_label(FILE* fp, const char* label, zm_Vec vector);
     @param index The vector index.
     @param vector The vector to print.
 */
-void zm_print_vector_by_index(FILE* fp, int index, zm_Vec vector);
+void MZ_print_vector_by_index(FILE* fp, int index, MZ_Vec vector);
 
 /*!
     Free the vector and sets its dimensions to 0.
 */
-void zm_free_vector(zm_Vec* vector);
+void MZ_free_vector(MZ_Vec* vector);
 
 /*!
     Copy one vector into another.
     @param source The vector to copy.
     @param dest The destination vector.
 */
-void zm_copy_vector_pointer(zm_Vec* source, zm_Vec* dest);
+void MZ_copy_vector_pointer(MZ_Vec* source, MZ_Vec* dest);
 
 /*!
     Allocate memory for the vector.
     @param dim The dimensions of the vector.
     @return The memory allocated. 
 */
-zm_Vec zm_alloc_vector(size_t dim);
+MZ_Vec MZ_alloc_vector(size_t dim);
 
 /*!
-    Create a new vector of ZM_DIM_OF_VECTOR dimensions with every component in the vector equal to 0.
+    Create a new vector of MZ_DIM_OF_VECTOR dimensions with every component in the vector equal to 0.
     @param dim The dimensions of the vector.
     @return The new vector with every element in the vector equal to 0.
 */
-zm_Vec zm_new_zero_vector(size_t dim);
+MZ_Vec MZ_new_zero_vector(size_t dim);
 
 /*!
-    Create a new vector of ZM_DIM_OF_VECTOR dimensions with every component in the vector equal to to element.
+    Create a new vector of MZ_DIM_OF_VECTOR dimensions with every component in the vector equal to to element.
     @param dim The dimensions of the vector.
     @param element The element of which the vector will be filled.
     @returnThe new vector with every component in the vector equal to element.
 */
-zm_Vec zm_new_default_vector(size_t dim, float element);
+MZ_Vec MZ_new_default_vector(size_t dim, float element);
 
 /*!
-    Create a new vector of ZM_DIM_OF_VECTOR dimensions with every component being randomly generated.
+    Create a new vector of MZ_DIM_OF_VECTOR dimensions with every component being randomly generated.
     @param dim The dimensions of the vector.
     @return The new vector with every element in the vector equal to 0.
 */
-zm_Vec zm_new_random_float_vector(size_t dim, float min, float max);
+MZ_Vec MZ_new_random_float_vector(size_t dim, float min, float max);
 
 /*!
     Create a new vector of dimensions with every component being randomly generated.
     @param dim The dimensions of the vector.
     @return The new vector with every element in the vector equal to 0.
 */
-zm_Vec zm_new_random_int_vector(size_t dim, float min, float max);
+MZ_Vec MZ_new_random_int_vector(size_t dim, float min, float max);
 
 /*!
-    Create a new vector of ZM_DIM_OF_VECTOR dimensions.
+    Create a new vector of MZ_DIM_OF_VECTOR dimensions.
     @param dim The dimensions of the vector.
     @param ... The components of the vector.
-    @return The new vector of ZM_DIM_OF_VECTOR dimensions.
+    @return The new vector of MZ_DIM_OF_VECTOR dimensions.
 */
-zm_Vec _zm_new_vector(size_t dim, ...);
+MZ_Vec _MZ_new_vector(size_t dim, ...);
 
 /*!
     Copy the dimensions and the components from a vector to another one.
     @param source The vector to copy.
     @return The copy of the vector.
 */
-zm_Vec zm_copy_vector(zm_Vec source);
+MZ_Vec MZ_copy_vector(MZ_Vec source);
 
 /*!
     Sums the two vectors.
@@ -236,7 +236,7 @@ zm_Vec zm_copy_vector(zm_Vec source);
     @param vector2
     @return The sum between vector1 and vector2.
 */
-zm_Vec zm_add_two_vectors(zm_Vec vector1 , zm_Vec vector2);
+MZ_Vec MZ_add_two_vectors(MZ_Vec vector1 , MZ_Vec vector2);
 
 /*!
     Sums a vector and a scalar.
@@ -244,7 +244,7 @@ zm_Vec zm_add_two_vectors(zm_Vec vector1 , zm_Vec vector2);
     @param scalar
     @return The sum between vector1 and a scalar.
 */
-zm_Vec zm_add_vector_with_scalar(zm_Vec vector1 , float scalar);
+MZ_Vec MZ_add_vector_with_scalar(MZ_Vec vector1 , float scalar);
 
 /*!
     Sums the two vectors.
@@ -252,7 +252,7 @@ zm_Vec zm_add_vector_with_scalar(zm_Vec vector1 , float scalar);
     @param vector2
     @return The sum between vector1 and vector2.
 */
-zm_Vec zm_subtract_two_vectors(zm_Vec vector1 , zm_Vec vector2);
+MZ_Vec MZ_subtract_two_vectors(MZ_Vec vector1 , MZ_Vec vector2);
 
 /*!
     Subtract a vector and a scalar.
@@ -260,7 +260,7 @@ zm_Vec zm_subtract_two_vectors(zm_Vec vector1 , zm_Vec vector2);
     @param scalar
     @return The subtraction between vector1 and a scalar.
 */
-zm_Vec zm_subtract_vector_with_scalar(zm_Vec vector1 , float scalar);
+MZ_Vec MZ_subtract_vector_with_scalar(MZ_Vec vector1 , float scalar);
 
 /*!
     Multiply two vectors.
@@ -268,7 +268,7 @@ zm_Vec zm_subtract_vector_with_scalar(zm_Vec vector1 , float scalar);
     @param vector2
     @return The product between vector1 and  vector2.
 */
-zm_Vec zm_multiply_two_vectors(zm_Vec vector1, zm_Vec vector2);
+MZ_Vec MZ_multiply_two_vectors(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
     Multiply a vector and a scalar.
@@ -276,7 +276,7 @@ zm_Vec zm_multiply_two_vectors(zm_Vec vector1, zm_Vec vector2);
     @param scalar
     @return The product between vector1 and a scalar.
 */
-zm_Vec zm_multiply_vector_by_scalar(zm_Vec vector1, float scalar);
+MZ_Vec MZ_multiply_vector_by_scalar(MZ_Vec vector1, float scalar);
 
 /*!
     Divide two vectors.
@@ -284,7 +284,7 @@ zm_Vec zm_multiply_vector_by_scalar(zm_Vec vector1, float scalar);
     @param vector2
     @return The division between vector1 and  vector2.
 */
-zm_Vec zm_divide_two_vectors(zm_Vec vector1, zm_Vec vector2);
+MZ_Vec MZ_divide_two_vectors(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
     Divide a vector and a scalar.
@@ -292,7 +292,7 @@ zm_Vec zm_divide_two_vectors(zm_Vec vector1, zm_Vec vector2);
     @param scalar
     @return The division between vector1 and a scalar.
 */
-zm_Vec zm_divide_vector_by_scalar(zm_Vec vector1, float scalar);
+MZ_Vec MZ_divide_vector_by_scalar(MZ_Vec vector1, float scalar);
 
 /*!
     Raise every component of a vector to the exponent given.
@@ -300,7 +300,7 @@ zm_Vec zm_divide_vector_by_scalar(zm_Vec vector1, float scalar);
     @param exponent The exponent of the power.
     @return The vector raised to the exponent.
 */
-zm_Vec zm_raise_vector_to_exp(zm_Vec vector, size_t exponent);
+MZ_Vec MZ_raise_vector_to_exp(MZ_Vec vector, size_t exponent);
 
 /*!
     The cross product between two vectors.
@@ -308,20 +308,20 @@ zm_Vec zm_raise_vector_to_exp(zm_Vec vector, size_t exponent);
     @param vector2
     @return The cross product between two vectors.
 */
-zm_Vec zm_cross_product(zm_Vec vector1, zm_Vec vector2);
+MZ_Vec MZ_cross_product(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
     This function return the normalized version of a vector given.
     @param vector The vector to normalize.
     @return The normalized vector.
 */
-zm_Vec zm_normalized_vector(zm_Vec vector);
+MZ_Vec MZ_normalized_vector(MZ_Vec vector);
 
 /*!
     This function return the normalized version of a vector given.
     @param vector The vector pointer to normalize.
 */
-void zm_normalize_vector(zm_Vec* vector);
+void MZ_normalize_vector(MZ_Vec* vector);
 
 /*!
     Checks if two vectors are equal.
@@ -329,7 +329,7 @@ void zm_normalize_vector(zm_Vec* vector);
     @param vector2
     @return true if they are equal false if otherwise.
 */
-bool zm_are_two_vectors_equal(zm_Vec vector1, zm_Vec vector2);
+bool MZ_are_two_vectors_equal(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
     Checks if the two vectors are orthogonal.
@@ -337,14 +337,14 @@ bool zm_are_two_vectors_equal(zm_Vec vector1, zm_Vec vector2);
     @param vector2.
     @return true if they are orthogonal false if otherwise
 */
-bool zm_are_two_vectors_orthogonal(zm_Vec vector1, zm_Vec vector2);
+bool MZ_are_two_vectors_orthogonal(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
     Checks if the vector is normalized.
     @param vector The vector.
     @return true if the vector is normalized.
 */
-bool zm_is_vector_normalized(zm_Vec vector);
+bool MZ_is_vector_normalized(MZ_Vec vector);
 
 /*!
     This functions return the dot product of two vectors.
@@ -352,14 +352,14 @@ bool zm_is_vector_normalized(zm_Vec vector);
     @param vector2
     @return The dot product of the two vectors.
 */
-float zm_dot_two_vectors(zm_Vec vector1, zm_Vec vector2);
+float MZ_dot_two_vectors(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
     This function return the magnitude of a vector.
     @param vector 
     @return The magnitude of the vector.
 */
-float zm_magnitude_of_vector(zm_Vec vector);
+float MZ_magnitude_of_vector(MZ_Vec vector);
 
 
 /*!
@@ -367,14 +367,14 @@ float zm_magnitude_of_vector(zm_Vec vector);
     @param type The type of the arguments.
     @param ... The variable arguments.
 */
-#define ZM_NUM_OF_ARGS(type, ...) (sizeof((type[]){0.0f, ##__VA_ARGS__}) / sizeof(type) - 1) 
+#define MZ_NUM_OF_ARGS(type, ...) (sizeof((type[]){0.0f, ##__VA_ARGS__}) / sizeof(type) - 1) 
 
 /*!
-    Create a new vector of ZM_DIM_OF_VECTOR dimensions.
+    Create a new vector of MZ_DIM_OF_VECTOR dimensions.
     @param ... The components of the vector.
-    @result The new vector of ZM_DIM_OF_VECTOR dimensions.
+    @result The new vector of MZ_DIM_OF_VECTOR dimensions.
 */
-#define zm_new_vector(...) _zm_new_vector(ZM_NUM_OF_ARGS(float, ##__VA_ARGS__), __VA_ARGS__)
+#define MZ_new_vector(...) _MZ_new_vector(MZ_NUM_OF_ARGS(float, ##__VA_ARGS__), __VA_ARGS__)
 
 /*!
     Return the value of the specified vector at the specified index.
@@ -382,7 +382,7 @@ float zm_magnitude_of_vector(zm_Vec vector);
     @param index The index where to retrieve the value.
     @result The value at the specified index.
 */
-#define ZM_VALUE_OF_VECTOR_AT(vector, index) (vector.elements[index])
+#define MZ_VALUE_OF_VECTOR_AT(vector, index) (vector.elements[index])
 
 /*!
     Return the value of the specified vector at the specified index.
@@ -390,19 +390,19 @@ float zm_magnitude_of_vector(zm_Vec vector);
     @param index The index where to retrieve the value.
     @result The value at the specified index.
 */
-#define ZM_VALUE_OF_VECTOR_POINTER_AT(vector, index) (vector->elements[index])
+#define MZ_VALUE_OF_VECTOR_POINTER_AT(vector, index) (vector->elements[index])
 
 /*!
     Return the dimensions of the specified vector.
     @param vector The vector from which we pick the dimensions.
     @result The dimensions of the vector.
 */
-#define ZM_DIM_OF_VECTOR(vector) (vector.dim)
+#define MZ_DIM_OF_VECTOR(vector) (vector.dim)
 
 #endif // ZVEC_DEF
 
-#ifndef ZMATRIX_DEF
-#define ZMATRIX_DEF
+#ifndef MATRIX_DEF
+#define MATRIX_DEF
 
 /*!
     The direction of the vec to matrix conversion
@@ -420,20 +420,20 @@ typedef enum {
     @param cols The number of columns.
     @param elements The elements of the matrix.
 */
-typedef struct zm_Matrix{
+typedef struct MZ_Matrix{
     unsigned int rows;
     unsigned int cols;
     float** elements;
-}zm_Matrix;
+}MZ_Matrix;
 
-extern zm_Matrix NULL_MATRIX;
+extern MZ_Matrix NULL_MATRIX;
 
 /*!
     Prints the information about a matrix.
     @param fp The file to write the matrix.
     @param mat The matrix to print.
 */
-void zm_print_matrix(FILE *fp, zm_Matrix mat);
+void MZ_print_matrix(FILE *fp, MZ_Matrix mat);
 
 /*!
     Prints the information about a matrix with a label.
@@ -441,7 +441,7 @@ void zm_print_matrix(FILE *fp, zm_Matrix mat);
     @param label The label of the matrix.
     @param mat The matrix to print.
 */
-void zm_print_matrix_by_label(FILE *fp, const char* label, zm_Matrix mat);
+void MZ_print_matrix_by_label(FILE *fp, const char* label, MZ_Matrix mat);
 
 /*!
     Prints the information about a matrix with an index.
@@ -449,20 +449,20 @@ void zm_print_matrix_by_label(FILE *fp, const char* label, zm_Matrix mat);
     @param index The index of the matrix.
     @param mat The matrix to print.
 */
-void zm_print_matrix_by_index(FILE *fp, unsigned  index, zm_Matrix mat);
+void MZ_print_matrix_by_index(FILE *fp, unsigned  index, MZ_Matrix mat);
 
 /*!
     Frees the matrix and set the rows and cols to 0.
     @param mat The matrix to free.
 */
-void zm_free_matrix(zm_Matrix* mat);
+void MZ_free_matrix(MZ_Matrix* mat);
 
 /*!
     Copy the source matrix to the destination matrix by the pointer.
     @param source The source matrix to copy.
     @param dest The destination matrix.
 */
-void zm_copy_matrix_pointer(zm_Matrix *source, zm_Matrix *dest);
+void MZ_copy_matrix_pointer(MZ_Matrix *source, MZ_Matrix *dest);
 
 /*!
     Allocate memory chunk to the matrix through its rows and cols.
@@ -470,7 +470,7 @@ void zm_copy_matrix_pointer(zm_Matrix *source, zm_Matrix *dest);
     @param cols The cols of the matrix.
     @return The allocated memory chunk.
 */
-zm_Matrix zm_alloc_matrix(unsigned int rows, unsigned int cols);
+MZ_Matrix MZ_alloc_matrix(unsigned int rows, unsigned int cols);
 
 /*!
     Create a matrix of rows * cols dimensions all set to 0.
@@ -478,7 +478,7 @@ zm_Matrix zm_alloc_matrix(unsigned int rows, unsigned int cols);
     @param cols The cols of the matrix.
     @return The matrix of rows * cols dimensions all set to 0.
 */
-zm_Matrix zm_new_zero_matrix(unsigned int rows, unsigned int cols);
+MZ_Matrix MZ_new_zero_matrix(unsigned int rows, unsigned int cols);
 
 /*!
     Create a matrix of rows * cols dimensions filled with random float values.
@@ -488,7 +488,7 @@ zm_Matrix zm_new_zero_matrix(unsigned int rows, unsigned int cols);
     @param max The maximum value.
     @return The matrix of rows * cols dimensions filled with random float values.
 */
-zm_Matrix zm_new_random_float_matrix(unsigned int rows, unsigned int cols, float min, float max);
+MZ_Matrix MZ_new_random_float_matrix(unsigned int rows, unsigned int cols, float min, float max);
 
 /*!
     Create a matrix of rows * cols dimensions filled with random int values.
@@ -498,7 +498,7 @@ zm_Matrix zm_new_random_float_matrix(unsigned int rows, unsigned int cols, float
     @param max The maximum value.
     @return The matrix of rows * cols dimensions filled with random int values.
 */
-zm_Matrix zm_new_random_int_matrix(unsigned int rows, unsigned int cols, int min, int max);
+MZ_Matrix MZ_new_random_int_matrix(unsigned int rows, unsigned int cols, int min, int max);
 
 /*!
     Create a matrix of rows * cols dimensions all set to a certain value.
@@ -507,14 +507,14 @@ zm_Matrix zm_new_random_int_matrix(unsigned int rows, unsigned int cols, int min
     @param value The value used to fill the matrix.
     @return The matrix of rows * cols dimensions all set to a certain value.
 */
-zm_Matrix zm_new_default_matrix(unsigned int rows, unsigned int cols, float value);
+MZ_Matrix MZ_new_default_matrix(unsigned int rows, unsigned int cols, float value);
 
 /*!
     Create a matrix of rows * cols dimensions all set to 0.0f except for the main diagonal that is set to 1.0f.
     @param dim The rows of the matrix.
     @return The matrix of rows * cols dimensions all set to 0.0f except for the main diagonal that is set to 1.0f. 
 */
-zm_Matrix zm_new_identity_matrix(unsigned int dim);
+MZ_Matrix MZ_new_identity_matrix(unsigned int dim);
 
 /*!
     Create a matrix of rows * cols dimensions.
@@ -523,7 +523,7 @@ zm_Matrix zm_new_identity_matrix(unsigned int dim);
     @param numVals the number of values inside the matrix.
     @return The matrix of rows * cols dimensions with the values specified.
 */
-zm_Matrix _zm_new_matrix(unsigned int rows, unsigned int cols, unsigned int numVals, ...);
+MZ_Matrix _MZ_new_matrix(unsigned int rows, unsigned int cols, unsigned int numVals, ...);
 
 /*!
     Create a Row or a Col Matrix from a vector.
@@ -531,14 +531,14 @@ zm_Matrix _zm_new_matrix(unsigned int rows, unsigned int cols, unsigned int numV
     @param dir Whether it will be a Row Matrix or a Col Matrix.
     @return The vector converted to a Matrix.
 */
-zm_Matrix zm_Vector_to_matrix(zm_Vec source, Direction dir);
+MZ_Matrix MZ_Vector_to_matrix(MZ_Vec source, Direction dir);
 
 /*!
     Create a vector from a matrix.
     @param source The source matrix.
     @return The vector converted from the Matrix.
 */
-zm_Vec zm_Matrix_to_vector(zm_Matrix source);
+MZ_Vec MZ_Matrix_to_vector(MZ_Matrix source);
 
 /*!
     Create a vector from a matrix's row.
@@ -546,7 +546,7 @@ zm_Vec zm_Matrix_to_vector(zm_Matrix source);
     @param row The row that will be converted to a vector.
     @return The vector converted from the Matrix's row.
 */
-zm_Vec zm_get_vector_from_matrix_row(zm_Matrix source, unsigned int row);
+MZ_Vec MZ_get_vector_from_matrix_row(MZ_Matrix source, unsigned int row);
 
 /*!
     Create a vector from a matrix's col.
@@ -554,7 +554,7 @@ zm_Vec zm_get_vector_from_matrix_row(zm_Matrix source, unsigned int row);
     @param col The col that will be converted to a vector.
     @return The vector converted from the Matrix's col.
 */
-zm_Vec zm_get_vector_from_matrix_col(zm_Matrix source, unsigned int col);
+MZ_Vec MZ_get_vector_from_matrix_col(MZ_Matrix source, unsigned int col);
 
 /*!
     Add two matrices together.
@@ -562,7 +562,7 @@ zm_Vec zm_get_vector_from_matrix_col(zm_Matrix source, unsigned int col);
     @param matrix2.
     @return The sum of the two matrices.
 */
-zm_Matrix zm_add_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2);
+MZ_Matrix MZ_add_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 /*!
     Add a scalar to every single element of the matrix.
@@ -570,7 +570,7 @@ zm_Matrix zm_add_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2);
     @param scalar.
     @return The sum of every single element of the matrix to a certain scalar.
 */
-zm_Matrix zm_add_matrix_with_scalar(zm_Matrix matrix1, float scalar);
+MZ_Matrix MZ_add_matrix_with_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
     Subtract two matrices together.
@@ -578,7 +578,7 @@ zm_Matrix zm_add_matrix_with_scalar(zm_Matrix matrix1, float scalar);
     @param matrix2.
     @return The subtracted of the two matrices.
 */
-zm_Matrix zm_subtract_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2);
+MZ_Matrix MZ_subtract_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 /*!
     Subtract a scalar to every single element of the matrix.
@@ -586,7 +586,7 @@ zm_Matrix zm_subtract_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2);
     @param scalar.
     @return The subtracted of every single element of the matrix to a certain scalar.
 */
-zm_Matrix zm_subtract_matrix_with_scalar(zm_Matrix matrix1, float scalar);
+MZ_Matrix MZ_subtract_matrix_with_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
     Multiply two matrices together.
@@ -594,7 +594,7 @@ zm_Matrix zm_subtract_matrix_with_scalar(zm_Matrix matrix1, float scalar);
     @param matrix2.
     @return The product of the two matrices.
 */
-zm_Matrix zm_multiply_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2);
+MZ_Matrix MZ_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 /*!
     Multiply a scalar to every single element of the matrix.
@@ -602,7 +602,7 @@ zm_Matrix zm_multiply_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2);
     @param scalar.
     @return The product of every single element of the matrix to a certain scalar.
 */
-zm_Matrix zm_multiply_matrix_by_scalar(zm_Matrix matrix1, float scalar);
+MZ_Matrix MZ_multiply_matrix_by_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
     Divide two matrices together.
@@ -610,7 +610,7 @@ zm_Matrix zm_multiply_matrix_by_scalar(zm_Matrix matrix1, float scalar);
     @param matrix2.
     @return The division of the two matrices.
 */
-zm_Matrix zm_divide_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2);
+MZ_Matrix MZ_divide_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 /*!
     Divide a scalar to every single element of the matrix.
@@ -618,7 +618,7 @@ zm_Matrix zm_divide_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2);
     @param scalar.
     @return The division of every single element of the matrix to a certain scalar.
 */
-zm_Matrix zm_divide_matrix_by_scalar(zm_Matrix matrix1, float scalar);
+MZ_Matrix MZ_divide_matrix_by_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
     Multiply two matrices together by the rows per cols product.
@@ -626,14 +626,14 @@ zm_Matrix zm_divide_matrix_by_scalar(zm_Matrix matrix1, float scalar);
     @param matrix2
     @return The product of two matrices together by the rows per cols product.
 */
-zm_Matrix zm_dot_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2);
+MZ_Matrix MZ_dot_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 /*!
     Transpose a matrix.
     @param source The matrix to transpose.
     @return The transposed matrix.
 */
-zm_Matrix zm_transposed_matrix(zm_Matrix source);
+MZ_Matrix MZ_transposed_matrix(MZ_Matrix source);
 
 /*!
     Swap two rows in a matrix.
@@ -642,7 +642,7 @@ zm_Matrix zm_transposed_matrix(zm_Matrix source);
     @param row2.
     @return The matrix in which row1 and row2 have been swapped.
 */
-bool zm_swap_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int row2);
+bool MZ_swap_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int row2);
 
 /*!
     Add two rows in a matrix.
@@ -651,7 +651,7 @@ bool zm_swap_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int 
     @param row2.
     @return The matrix in which row1 and row2 have been added.
 */
-bool zm_add_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int row2);
+bool MZ_add_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int row2);
 
 /*!
     Multiply two rows in a matrix.
@@ -660,7 +660,7 @@ bool zm_add_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int r
     @param row2.
     @return The matrix in which row1 and row2 have been multiplied.
 */
-bool zm_multiply_two_matrix_rows(zm_Matrix *source, unsigned int row, int scalar);
+bool MZ_multiply_two_matrix_rows(MZ_Matrix *source, unsigned int row, int scalar);
 
 /*!
     Multiply one row to a scalar and then add it to the other row.
@@ -669,21 +669,21 @@ bool zm_multiply_two_matrix_rows(zm_Matrix *source, unsigned int row, int scalar
     @param row2.
     @return The matrix in which row2 have been multiplied to a scalar and then add it to the row1.
 */
-bool zm_multiply_add_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int row2, int scalar);
+bool MZ_multiply_add_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int row2, int scalar);
 
 /*!
     Convert a matrix to its Row Echelon Form.
     @param source The source matrix.
     @return The Row Echelon Form of the Matrix.
 */
-void zm_to_echelon_form(zm_Matrix *source);
+void MZ_to_echelon_form(MZ_Matrix *source);
 
 /*!
     Convert a matrix to its Reduced Row Echelon Form.
     @param source The source matrix.
     @return The Reduced Row Echelon Form of the Matrix.
 */
-void zm_to_reduced_echelon_form(zm_Matrix *source);
+void MZ_to_reduced_echelon_form(MZ_Matrix *source);
 
 /*!
     Append a vector to a matrix.
@@ -691,7 +691,7 @@ void zm_to_reduced_echelon_form(zm_Matrix *source);
     @param vector The vector to append.
     @return The matrix with the added vector.
 */
-zm_Matrix zm_append_vector_to_matrix(zm_Matrix source, zm_Vec vector);
+MZ_Matrix MZ_append_vector_to_matrix(MZ_Matrix source, MZ_Vec vector);
 
 /*!
     Append a matrix to a matrix.
@@ -699,7 +699,7 @@ zm_Matrix zm_append_vector_to_matrix(zm_Matrix source, zm_Vec vector);
     @param matrix The matrix to append.
     @return The matrix with the added matrix.
 */
-zm_Matrix zm_append_matrix_to_matrix(zm_Matrix source, zm_Matrix matrix);
+MZ_Matrix MZ_append_matrix_to_matrix(MZ_Matrix source, MZ_Matrix matrix);
 
 /*!
     Remove a row and a col from a matrix.
@@ -708,21 +708,21 @@ zm_Matrix zm_append_matrix_to_matrix(zm_Matrix source, zm_Matrix matrix);
     @param remCol The col to remove.
     @return The sub Matrix with the row and col removed.
 */
-zm_Matrix zm_get_sub_matrix(zm_Matrix source, unsigned int remRow, unsigned int remCol);
+MZ_Matrix MZ_get_sub_matrix(MZ_Matrix source, unsigned int remRow, unsigned int remCol);
 
 /*!
     Find the determinant of a matrix.
     @param source The source Matrix.
     @return The determinant of the matrix.
 */
-float zm_determinant_of_matrix_old(zm_Matrix source);
+float MZ_determinant_of_matrix_old(MZ_Matrix source);
 
 /*!
     Find the determinant of a matrix through cofactor expansion with an exclusion list.
     @param source The source Matrix.
     @return The determinant of the matrix.
 */
-float zm_determinant_of_matrix(zm_Matrix source);
+float MZ_determinant_of_matrix(MZ_Matrix source);
 
 /*!
     Calculate the determinant of a matrix through cofactor expansion using an exclusion list.
@@ -733,7 +733,7 @@ float zm_determinant_of_matrix(zm_Matrix source);
     @param noSkipCols The number of columns in the list to skip.
     @return The determinant.
 */
-float _zm_determinant_of_matrix(zm_Matrix source,
+float _MZ_determinant_of_matrix(MZ_Matrix source,
                             unsigned int row,
                             unsigned int col,
                             unsigned int *skipCols,
@@ -746,42 +746,42 @@ float _zm_determinant_of_matrix(zm_Matrix source,
     @param col The col index.
     @return The cofactor value.
 */
-float zm_cofactor_of_matrix_at_coord(zm_Matrix source, unsigned int row, unsigned int col);
+float MZ_cofactor_of_matrix_at_coord(MZ_Matrix source, unsigned int row, unsigned int col);
 
 /*!
     Calculates the matrix in which the elements are the cofactor of every element of the source matrix.
     @param source The source matrix.
     @return The matrix in which the elements are the cofactor of every element of the source matrix.
 */
-zm_Matrix zm_cofactor_matrix(zm_Matrix source);
+MZ_Matrix MZ_cofactor_matrix(MZ_Matrix source);
 
 /*!
     Find the transpose of the cofactor Matrix.
     @param source The source matrix.
     @return The transpose of the cofactor Matrix.
 */
-zm_Matrix zm_adjugate_matrix(zm_Matrix source);
+MZ_Matrix MZ_adjugate_matrix(MZ_Matrix source);
 
 /*!
     Checks if the matrix is invertible.
     @param source The source matrix.
     @return true if the matrix is invertible and false otherwise.
 */
-bool zm_is_matrix_invertible(zm_Matrix source);
+bool MZ_is_matrix_invertible(MZ_Matrix source);
 
 /*!
     Calculates the inverse of the source matrix.
     @param source The source matrix.
     @return The inverse of the source matrix.
 */
-zm_Matrix zm_inverse_of_matrix(zm_Matrix source);
+MZ_Matrix MZ_inverse_of_matrix(MZ_Matrix source);
 
 /*!
     Calculates the inverse of the source matrix using Gaussian Elimination.
     @param source The source matrix.
     @return The inverse of the source matrix.
 */
-zm_Matrix zm_inverse_of_matrix_by_rref(zm_Matrix source);
+MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
 
 #define sSTRAIGHT_LINE 196
 #define STRAIGHT_LINE '_'
@@ -797,13 +797,13 @@ zm_Matrix zm_inverse_of_matrix_by_rref(zm_Matrix source);
 #define RIGHT_DOWN_CORNER 'x'
 
 // double coords to single coord = rows * index + rows;
-#define ZM_VALUE_OF_MAT_AT(matrix, x, y) (matrix.elements[x][y])
+#define MZ_VALUE_OF_MAT_AT(matrix, x, y) (matrix.elements[x][y])
 
 // double coords to single coord = rows * index + rows;
-#define ZM_VALUE_OF_MAT_POINTER_AT(matrix, x, y) (matrix->elements[x][y])
+#define MZ_VALUE_OF_MAT_POINTER_AT(matrix, x, y) (matrix->elements[x][y])
 
 
-#define zm_new_matrix(rows, cols, ...)  _zm_new_matrix(rows, cols, rows*cols, __VA_ARGS__)
+#define MZ_new_matrix(rows, cols, ...)  _MZ_new_matrix(rows, cols, rows*cols, __VA_ARGS__)
 
 #endif // ZMATRIX_DEF
 
@@ -829,7 +829,7 @@ zm_Matrix zm_inverse_of_matrix_by_rref(zm_Matrix source);
 
 /*
 */
-void _zm_assert(bool condition, const char* message, const char* filepath, size_t line){
+void _MZ_assert(bool condition, const char* message, const char* filepath, size_t line){
     if(!condition){
         fprintf(stderr, "\n[ERROR] : %s:%zu > %s\n", filepath, line, message);
         #if EXIT_ON_ASSERT_FAILURE 
@@ -840,20 +840,20 @@ void _zm_assert(bool condition, const char* message, const char* filepath, size_
 
 /*
 */
-float zm_rand_float( float min, float max ){
+float MZ_rand_float( float min, float max ){
     float scale = rand() / (float) RAND_MAX; 
     return min + scale * ( max - min );      
 }
 
 /*!
 */
-int zm_rand_int( int min, int max ){
+int MZ_rand_int( int min, int max ){
     return (rand() % (max - min)) + min;
 }
 
 /*
 */
-void zm_swap_int(int* a, int* b){
+void MZ_swap_int(int* a, int* b){
 
     int* tmp = a;
     a = b;
@@ -863,7 +863,7 @@ void zm_swap_int(int* a, int* b){
 
 /*
 */
-void zm_swap_float(float* a, float* b){
+void MZ_swap_float(float* a, float* b){
     
     float* tmp = a;
     a = b;
@@ -872,7 +872,7 @@ void zm_swap_float(float* a, float* b){
 
 /*
 */
-bool zm_is_in_array(unsigned int *arr, int n, float target){
+bool MZ_is_in_array(unsigned int *arr, int n, float target){
     for (int i = 0; i < n; i++){
         if (arr[i] == target)
         {
@@ -883,61 +883,61 @@ bool zm_is_in_array(unsigned int *arr, int n, float target){
     return false;
 }
 
-zm_Vec NULL_VECTOR = {0, NULL};
+MZ_Vec NULL_VECTOR = {0, NULL};
 
 /*
 */
-void zm_print_vector(FILE* fp, zm_Vec vector){
-    fprintf(fp ,"\n\n   | Vector of size %zu: {\n   |\t[", ZM_DIM_OF_VECTOR(vector));
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector); i++){
+void MZ_print_vector(FILE* fp, MZ_Vec vector){
+    fprintf(fp ,"\n\n   | Vector of size %zu: {\n   |\t[", MZ_DIM_OF_VECTOR(vector));
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
         #if !VISUALIZE_RATIONAL
-        fprintf(fp ," %f", ZM_VALUE_OF_VECTOR_AT(vector, i));
+        fprintf(fp ," %f", MZ_VALUE_OF_VECTOR_AT(vector, i));
         #else
-        zstring value = rationalizeFloatToStr(ZM_VALUE_OF_VECTOR_AT(vector, i), 3);
+        zstring value = rationalizeFloatToStr(MZ_VALUE_OF_VECTOR_AT(vector, i), 3);
         fprintf(fp, " %s", value.data);
         #endif
-        fprintf(fp ,"%c", (i < ZM_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
+        fprintf(fp ,"%c", (i < MZ_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
     }
     fprintf(fp ,"]\n   |  }\n\n");
 }
 
 /*
 */
-void zm_print_vector_by_label(FILE* fp, const char* label, zm_Vec vector){
-    fprintf(fp ,"\n\n   | [%s] of size %zu: {\n   |\t[", label, ZM_DIM_OF_VECTOR(vector));
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector); i++){
+void MZ_print_vector_by_label(FILE* fp, const char* label, MZ_Vec vector){
+    fprintf(fp ,"\n\n   | [%s] of size %zu: {\n   |\t[", label, MZ_DIM_OF_VECTOR(vector));
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
         #if !VISUALIZE_RATIONAL 
-        fprintf(fp ," %f", ZM_VALUE_OF_VECTOR_AT(vector, i));
+        fprintf(fp ," %f", MZ_VALUE_OF_VECTOR_AT(vector, i));
         #else
-        zstring value = rationalizeFloatToStr(ZM_VALUE_OF_VECTOR_AT(vector, i), 3);
+        zstring value = rationalizeFloatToStr(MZ_VALUE_OF_VECTOR_AT(vector, i), 3);
         fprintf(fp, " %s", value.data);
         #endif
-        fprintf(fp ,"%c", (i < ZM_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
+        fprintf(fp ,"%c", (i < MZ_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
     }
     fprintf(fp ,"]\n   |  }\n\n");
 }
 
 /*
 */
-void zm_print_vector_by_index(FILE* fp, int index, zm_Vec vector){
-    fprintf(fp ,"\n\n   | [VECTOR %d] of size %zu: {\n   |\t[", index, ZM_DIM_OF_VECTOR(vector));
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector); i++){
+void MZ_print_vector_by_index(FILE* fp, int index, MZ_Vec vector){
+    fprintf(fp ,"\n\n   | [VECTOR %d] of size %zu: {\n   |\t[", index, MZ_DIM_OF_VECTOR(vector));
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
         #if !VISUALIZE_RATIONAL 
-        fprintf(fp ," %f", ZM_VALUE_OF_VECTOR_AT(vector, i));
+        fprintf(fp ," %f", MZ_VALUE_OF_VECTOR_AT(vector, i));
         #else
-        zstring value = rationalizeFloatToStr(ZM_VALUE_OF_VECTOR_AT(vector, i), 3);
+        zstring value = rationalizeFloatToStr(MZ_VALUE_OF_VECTOR_AT(vector, i), 3);
         fprintf(fp, " %s", value.data);
         #endif
-        fprintf(fp ,"%c", (i < ZM_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
+        fprintf(fp ,"%c", (i < MZ_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
     }
     fprintf(fp ,"]\n   |  }\n\n");
 }
 
 /*
 */
-void zm_free_vector(zm_Vec* vector){
+void MZ_free_vector(MZ_Vec* vector){
 
-    zm_assert(vector != NULL, "Vector must not be NULL.");
+    MZ_assert(vector != NULL, "Vector must not be NULL.");
 
     free(vector->elements);
     vector->elements = NULL;
@@ -946,10 +946,10 @@ void zm_free_vector(zm_Vec* vector){
 
 /*
 */
-void zm_copy_vector_pointer(zm_Vec* source, zm_Vec* dest){
+void MZ_copy_vector_pointer(MZ_Vec* source, MZ_Vec* dest){
 
     if(dest->elements == NULL){ 
-        *dest= zm_alloc_vector(source->dim); 
+        *dest= MZ_alloc_vector(source->dim); 
     }
 
     dest->dim = source->dim;
@@ -959,24 +959,24 @@ void zm_copy_vector_pointer(zm_Vec* source, zm_Vec* dest){
 
 /*
 */
-zm_Vec zm_alloc_vector(size_t dim){
-    zm_Vec result;
+MZ_Vec MZ_alloc_vector(size_t dim){
+    MZ_Vec result;
     result.dim = dim;
-    result.elements = ZM_ALLOC(dim, float);
+    result.elements = MZ_ALLOC(dim, float);
 
-    zm_assert(result.elements != NULL, ZM_ALLOC_ERROR);
+    MZ_assert(result.elements != NULL, MZ_ALLOC_ERROR);
 
     return result;
 }
 
 /*
 */
-zm_Vec zm_new_zero_vector(size_t dim){
+MZ_Vec MZ_new_zero_vector(size_t dim){
 
-    zm_Vec result = zm_alloc_vector(dim);
+    MZ_Vec result = MZ_alloc_vector(dim);
 
     for(size_t i = 0; i < dim; i++){
-        ZM_VALUE_OF_VECTOR_AT(result, i) = 0.0f;
+        MZ_VALUE_OF_VECTOR_AT(result, i) = 0.0f;
     }
 
     return result;
@@ -985,12 +985,12 @@ zm_Vec zm_new_zero_vector(size_t dim){
 
 /*
 */
-zm_Vec zm_new_default_vector(size_t dim, float element){
+MZ_Vec MZ_new_default_vector(size_t dim, float element){
 
-    zm_Vec result = zm_alloc_vector(dim);
+    MZ_Vec result = MZ_alloc_vector(dim);
 
     for(size_t i = 0; i < dim; i++){
-        ZM_VALUE_OF_VECTOR_AT(result, i) = element;
+        MZ_VALUE_OF_VECTOR_AT(result, i) = element;
     }
 
     return result;
@@ -999,13 +999,13 @@ zm_Vec zm_new_default_vector(size_t dim, float element){
 
 /*
 */
-zm_Vec zm_new_random_float_vector(size_t dim, float min, float max){
+MZ_Vec MZ_new_random_float_vector(size_t dim, float min, float max){
 
-    zm_Vec result = zm_alloc_vector(dim);
+    MZ_Vec result = MZ_alloc_vector(dim);
 
     srand((unsigned)time(NULL) * _getpid());
     for(size_t i = 0; i < dim; i++){
-        ZM_VALUE_OF_VECTOR_AT(result, i) = zm_rand_float(min, max);
+        MZ_VALUE_OF_VECTOR_AT(result, i) = MZ_rand_float(min, max);
     }
 
     return result;
@@ -1013,13 +1013,13 @@ zm_Vec zm_new_random_float_vector(size_t dim, float min, float max){
 
 /*
 */
-zm_Vec zm_new_random_int_vector(size_t dim, float min, float max){
+MZ_Vec MZ_new_random_int_vector(size_t dim, float min, float max){
 
-    zm_Vec result = zm_alloc_vector(dim);
+    MZ_Vec result = MZ_alloc_vector(dim);
 
     srand((unsigned)time(NULL) * _getpid());
     for(size_t i = 0; i < dim; i++){
-        ZM_VALUE_OF_VECTOR_AT(result, i) = zm_rand_int(min, max);
+        MZ_VALUE_OF_VECTOR_AT(result, i) = MZ_rand_int(min, max);
     }
 
     return result;
@@ -1027,15 +1027,15 @@ zm_Vec zm_new_random_int_vector(size_t dim, float min, float max){
 
 /*
 */
-zm_Vec _zm_new_vector(size_t dim, ...){
+MZ_Vec _MZ_new_vector(size_t dim, ...){
 
-    zm_Vec result = zm_alloc_vector(dim);
+    MZ_Vec result = MZ_alloc_vector(dim);
 
     va_list elem;
     va_start(elem, dim);
 
     for(size_t i = 0 ; i < dim; i++){
-        ZM_VALUE_OF_VECTOR_AT(result, i) = va_arg(elem, double);
+        MZ_VALUE_OF_VECTOR_AT(result, i) = va_arg(elem, double);
     }
 
     va_end(elem);
@@ -1046,12 +1046,12 @@ zm_Vec _zm_new_vector(size_t dim, ...){
 
 /*
 */
-zm_Vec zm_copy_vector(zm_Vec source){
+MZ_Vec MZ_copy_vector(MZ_Vec source){
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(source));
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(source));
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(source); i++){
-        ZM_VALUE_OF_VECTOR_AT(result , i) = ZM_VALUE_OF_VECTOR_AT(source, i);
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(source); i++){
+        MZ_VALUE_OF_VECTOR_AT(result , i) = MZ_VALUE_OF_VECTOR_AT(source, i);
     }
 
     return result;
@@ -1060,14 +1060,14 @@ zm_Vec zm_copy_vector(zm_Vec source){
 
 /*
 */
-zm_Vec zm_add_two_vectors(zm_Vec vector1 , zm_Vec vector2){
+MZ_Vec MZ_add_two_vectors(MZ_Vec vector1 , MZ_Vec vector2){
 
-    zm_assert(ZM_DIM_OF_VECTOR(vector1) == ZM_DIM_OF_VECTOR(vector2), ZM_EQUAL_ERROR);
+    MZ_assert(MZ_DIM_OF_VECTOR(vector1) == MZ_DIM_OF_VECTOR(vector2), MZ_EQUAL_ERROR);
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(vector1));
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(vector1));
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        ZM_VALUE_OF_VECTOR_AT(result , i) = ZM_VALUE_OF_VECTOR_AT(vector1, i) + ZM_VALUE_OF_VECTOR_AT(vector2, i);
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        MZ_VALUE_OF_VECTOR_AT(result , i) = MZ_VALUE_OF_VECTOR_AT(vector1, i) + MZ_VALUE_OF_VECTOR_AT(vector2, i);
     }
 
     return result;
@@ -1076,12 +1076,12 @@ zm_Vec zm_add_two_vectors(zm_Vec vector1 , zm_Vec vector2){
 
 /*
 */
-zm_Vec zm_add_vector_with_scalar(zm_Vec vector1 , float scalar){
+MZ_Vec MZ_add_vector_with_scalar(MZ_Vec vector1 , float scalar){
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(vector1));
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(vector1));
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        ZM_VALUE_OF_VECTOR_AT(result , i) = ZM_VALUE_OF_VECTOR_AT(vector1, i) + scalar;
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        MZ_VALUE_OF_VECTOR_AT(result , i) = MZ_VALUE_OF_VECTOR_AT(vector1, i) + scalar;
     }
 
     return result;
@@ -1089,14 +1089,14 @@ zm_Vec zm_add_vector_with_scalar(zm_Vec vector1 , float scalar){
     
 /*
 */
-zm_Vec zm_subtract_two_vectors(zm_Vec vector1 , zm_Vec vector2){
+MZ_Vec MZ_subtract_two_vectors(MZ_Vec vector1 , MZ_Vec vector2){
 
-    zm_assert(ZM_DIM_OF_VECTOR(vector1) == ZM_DIM_OF_VECTOR(vector2), ZM_EQUAL_ERROR);
+    MZ_assert(MZ_DIM_OF_VECTOR(vector1) == MZ_DIM_OF_VECTOR(vector2), MZ_EQUAL_ERROR);
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(vector1));
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(vector1));
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        ZM_VALUE_OF_VECTOR_AT(result , i) = ZM_VALUE_OF_VECTOR_AT(vector1, i) - ZM_VALUE_OF_VECTOR_AT(vector2, i);
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        MZ_VALUE_OF_VECTOR_AT(result , i) = MZ_VALUE_OF_VECTOR_AT(vector1, i) - MZ_VALUE_OF_VECTOR_AT(vector2, i);
     }
 
     return result;  
@@ -1104,12 +1104,12 @@ zm_Vec zm_subtract_two_vectors(zm_Vec vector1 , zm_Vec vector2){
 
 /*
 */
-zm_Vec zm_subtract_vector_with_scalar(zm_Vec vector1 , float scalar){
+MZ_Vec MZ_subtract_vector_with_scalar(MZ_Vec vector1 , float scalar){
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(vector1));
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(vector1));
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        ZM_VALUE_OF_VECTOR_AT(result , i) = ZM_VALUE_OF_VECTOR_AT(vector1, i) - scalar;
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        MZ_VALUE_OF_VECTOR_AT(result , i) = MZ_VALUE_OF_VECTOR_AT(vector1, i) - scalar;
     }
 
     return result;
@@ -1117,14 +1117,14 @@ zm_Vec zm_subtract_vector_with_scalar(zm_Vec vector1 , float scalar){
 
 /*
 */
-zm_Vec zm_multiply_two_vectors(zm_Vec vector1, zm_Vec vector2){
+MZ_Vec MZ_multiply_two_vectors(MZ_Vec vector1, MZ_Vec vector2){
 
-    zm_assert(ZM_DIM_OF_VECTOR(vector1) == ZM_DIM_OF_VECTOR(vector2), ZM_EQUAL_ERROR);
+    MZ_assert(MZ_DIM_OF_VECTOR(vector1) == MZ_DIM_OF_VECTOR(vector2), MZ_EQUAL_ERROR);
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(vector1));
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(vector1));
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        ZM_VALUE_OF_VECTOR_AT(result , i) = ZM_VALUE_OF_VECTOR_AT(vector1, i) * ZM_VALUE_OF_VECTOR_AT(vector2, i);
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        MZ_VALUE_OF_VECTOR_AT(result , i) = MZ_VALUE_OF_VECTOR_AT(vector1, i) * MZ_VALUE_OF_VECTOR_AT(vector2, i);
     }
 
     return result;  
@@ -1132,12 +1132,12 @@ zm_Vec zm_multiply_two_vectors(zm_Vec vector1, zm_Vec vector2){
 
 /*
 */
-zm_Vec zm_multiply_vector_by_scalar(zm_Vec vector1, float scalar){
+MZ_Vec MZ_multiply_vector_by_scalar(MZ_Vec vector1, float scalar){
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(vector1));
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(vector1));
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        ZM_VALUE_OF_VECTOR_AT(result , i) = ZM_VALUE_OF_VECTOR_AT(vector1, i) * scalar;
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        MZ_VALUE_OF_VECTOR_AT(result , i) = MZ_VALUE_OF_VECTOR_AT(vector1, i) * scalar;
     }
 
     return result;
@@ -1145,16 +1145,16 @@ zm_Vec zm_multiply_vector_by_scalar(zm_Vec vector1, float scalar){
 
 /*
 */
-zm_Vec zm_divide_two_vectors(zm_Vec vector1, zm_Vec vector2){
+MZ_Vec MZ_divide_two_vectors(MZ_Vec vector1, MZ_Vec vector2){
 
-    zm_assert(ZM_DIM_OF_VECTOR(vector1) == ZM_DIM_OF_VECTOR(vector2), ZM_EQUAL_ERROR);
+    MZ_assert(MZ_DIM_OF_VECTOR(vector1) == MZ_DIM_OF_VECTOR(vector2), MZ_EQUAL_ERROR);
 
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(vector1));
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(vector1));
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        if(ZM_VALUE_OF_VECTOR_AT(vector2 , i) == 0.0f) return NULL_VECTOR;
-        ZM_VALUE_OF_VECTOR_AT(result , i) = ZM_VALUE_OF_VECTOR_AT(vector1, i) / ZM_VALUE_OF_VECTOR_AT(vector2, i);
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        if(MZ_VALUE_OF_VECTOR_AT(vector2 , i) == 0.0f) return NULL_VECTOR;
+        MZ_VALUE_OF_VECTOR_AT(result , i) = MZ_VALUE_OF_VECTOR_AT(vector1, i) / MZ_VALUE_OF_VECTOR_AT(vector2, i);
     }
 
     return result;  
@@ -1162,12 +1162,12 @@ zm_Vec zm_divide_two_vectors(zm_Vec vector1, zm_Vec vector2){
 
 /*
 */
-zm_Vec zm_divide_vector_by_scalar(zm_Vec vector1, float scalar){
+MZ_Vec MZ_divide_vector_by_scalar(MZ_Vec vector1, float scalar){
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(vector1));
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(vector1));
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        ZM_VALUE_OF_VECTOR_AT(result , i) = ZM_VALUE_OF_VECTOR_AT(vector1, i) / scalar;
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        MZ_VALUE_OF_VECTOR_AT(result , i) = MZ_VALUE_OF_VECTOR_AT(vector1, i) / scalar;
     }
 
     return result;
@@ -1175,17 +1175,17 @@ zm_Vec zm_divide_vector_by_scalar(zm_Vec vector1, float scalar){
 
 /*
 */
-zm_Vec zm_raise_vector_to_exp(zm_Vec vector, size_t exponent){
+MZ_Vec MZ_raise_vector_to_exp(MZ_Vec vector, size_t exponent){
 
-    zm_Vec result = zm_copy_vector(vector);
+    MZ_Vec result = MZ_copy_vector(vector);
     
     printf("\n");
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(result); i++){
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(result); i++){
         for(size_t j = 0; j < exponent; j++){
-            ZM_VALUE_OF_VECTOR_AT(result, i) *= ZM_VALUE_OF_VECTOR_AT(vector, i);
+            MZ_VALUE_OF_VECTOR_AT(result, i) *= MZ_VALUE_OF_VECTOR_AT(vector, i);
 
             #if VISUALIZE_STEPS
-            printf("%f -> %f |", ZM_VALUE_OF_VECTOR_AT(result, i) / ZM_VALUE_OF_VECTOR_AT(vector, i), ZM_VALUE_OF_VECTOR_AT(result, i));
+            printf("%f -> %f |", MZ_VALUE_OF_VECTOR_AT(result, i) / MZ_VALUE_OF_VECTOR_AT(vector, i), MZ_VALUE_OF_VECTOR_AT(result, i));
             #endif
         }
 
@@ -1200,30 +1200,30 @@ zm_Vec zm_raise_vector_to_exp(zm_Vec vector, size_t exponent){
 
 /*
 */
-zm_Vec zm_cross_product(zm_Vec vector1, zm_Vec vector2){
+MZ_Vec MZ_cross_product(MZ_Vec vector1, MZ_Vec vector2){
 
-    if(ZM_DIM_OF_VECTOR(vector1) != 3 || ZM_DIM_OF_VECTOR(vector2) != 3){
+    if(MZ_DIM_OF_VECTOR(vector1) != 3 || MZ_DIM_OF_VECTOR(vector2) != 3){
         return NULL_VECTOR;
     }
 
-    zm_Vec result = zm_alloc_vector(3);
+    MZ_Vec result = MZ_alloc_vector(3);
 
-    ZM_VALUE_OF_VECTOR_AT(result , 0 ) = (ZM_VALUE_OF_VECTOR_AT(vector1, 1) * ZM_VALUE_OF_VECTOR_AT( vector2, 2)) - (ZM_VALUE_OF_VECTOR_AT(vector1 , 2) * ZM_VALUE_OF_VECTOR_AT(vector2 , 1));
-    ZM_VALUE_OF_VECTOR_AT(result , 1 ) = -1 * (ZM_VALUE_OF_VECTOR_AT(vector1, 0) * ZM_VALUE_OF_VECTOR_AT( vector2, 2)) - (ZM_VALUE_OF_VECTOR_AT(vector1 , 2) * ZM_VALUE_OF_VECTOR_AT(vector2 , 0));
-    ZM_VALUE_OF_VECTOR_AT(result , 2 ) = (ZM_VALUE_OF_VECTOR_AT(vector1, 0) * ZM_VALUE_OF_VECTOR_AT( vector2, 1)) - (ZM_VALUE_OF_VECTOR_AT(vector1 , 1) * ZM_VALUE_OF_VECTOR_AT(vector2 , 0));
+    MZ_VALUE_OF_VECTOR_AT(result , 0 ) = (MZ_VALUE_OF_VECTOR_AT(vector1, 1) * MZ_VALUE_OF_VECTOR_AT( vector2, 2)) - (MZ_VALUE_OF_VECTOR_AT(vector1 , 2) * MZ_VALUE_OF_VECTOR_AT(vector2 , 1));
+    MZ_VALUE_OF_VECTOR_AT(result , 1 ) = -1 * (MZ_VALUE_OF_VECTOR_AT(vector1, 0) * MZ_VALUE_OF_VECTOR_AT( vector2, 2)) - (MZ_VALUE_OF_VECTOR_AT(vector1 , 2) * MZ_VALUE_OF_VECTOR_AT(vector2 , 0));
+    MZ_VALUE_OF_VECTOR_AT(result , 2 ) = (MZ_VALUE_OF_VECTOR_AT(vector1, 0) * MZ_VALUE_OF_VECTOR_AT( vector2, 1)) - (MZ_VALUE_OF_VECTOR_AT(vector1 , 1) * MZ_VALUE_OF_VECTOR_AT(vector2 , 0));
 
     return result;
 }
 
 /*
 */
-zm_Vec zm_normalized_vector(zm_Vec vector){
+MZ_Vec MZ_normalized_vector(MZ_Vec vector){
 
-    zm_Vec result = zm_alloc_vector(ZM_DIM_OF_VECTOR(vector));
-    float mag = zm_magnitude_of_vector(vector);
+    MZ_Vec result = MZ_alloc_vector(MZ_DIM_OF_VECTOR(vector));
+    float mag = MZ_magnitude_of_vector(vector);
 
-    for(size_t i = 0 ; i < ZM_DIM_OF_VECTOR(vector); i++){
-        ZM_VALUE_OF_VECTOR_AT(result, i ) = ZM_VALUE_OF_VECTOR_AT(vector, i) / mag;
+    for(size_t i = 0 ; i < MZ_DIM_OF_VECTOR(vector); i++){
+        MZ_VALUE_OF_VECTOR_AT(result, i ) = MZ_VALUE_OF_VECTOR_AT(vector, i) / mag;
     }
 
     return result;
@@ -1232,9 +1232,9 @@ zm_Vec zm_normalized_vector(zm_Vec vector){
 
 /*
 */
-void zm_normalize_vector(zm_Vec* vector){
+void MZ_normalize_vector(MZ_Vec* vector){
 
-    float mag = zm_magnitude_of_vector(*vector);
+    float mag = MZ_magnitude_of_vector(*vector);
 
     for(size_t i = 0 ; i < vector->dim; i++){
         vector->elements[i] /= mag;
@@ -1243,12 +1243,12 @@ void zm_normalize_vector(zm_Vec* vector){
 
 /*
 */
-bool zm_are_two_vectors_equal(zm_Vec vector1, zm_Vec vector2){
+bool MZ_are_two_vectors_equal(MZ_Vec vector1, MZ_Vec vector2){
 
-    if(ZM_DIM_OF_VECTOR(vector1) != ZM_DIM_OF_VECTOR(vector2)) return false;
+    if(MZ_DIM_OF_VECTOR(vector1) != MZ_DIM_OF_VECTOR(vector2)) return false;
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        if(ZM_VALUE_OF_VECTOR_AT(vector1, i) != ZM_VALUE_OF_VECTOR_AT(vector2, i)) return false;
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        if(MZ_VALUE_OF_VECTOR_AT(vector1, i) != MZ_VALUE_OF_VECTOR_AT(vector2, i)) return false;
     }
 
     return true;
@@ -1257,27 +1257,27 @@ bool zm_are_two_vectors_equal(zm_Vec vector1, zm_Vec vector2){
 
 /*
 */
-bool zm_are_two_vectors_orthogonal(zm_Vec vector1, zm_Vec vector2){
-    return zm_dot_two_vectors(vector1, vector2) == 0; 
+bool MZ_are_two_vectors_orthogonal(MZ_Vec vector1, MZ_Vec vector2){
+    return MZ_dot_two_vectors(vector1, vector2) == 0; 
 }
 
 /*
 */
-bool zm_is_vector_normalized(zm_Vec vector){
+bool MZ_is_vector_normalized(MZ_Vec vector){
 
-    return fabs(zm_magnitude_of_vector(vector) - 1.0) < 0.0001;
+    return fabs(MZ_magnitude_of_vector(vector) - 1.0) < 0.0001;
 }
 
 /*
 */
-float zm_dot_two_vectors(zm_Vec vector1, zm_Vec vector2){
+float MZ_dot_two_vectors(MZ_Vec vector1, MZ_Vec vector2){
 
-    zm_assert(ZM_DIM_OF_VECTOR(vector1) == ZM_DIM_OF_VECTOR(vector2), ZM_EQUAL_ERROR);
+    MZ_assert(MZ_DIM_OF_VECTOR(vector1) == MZ_DIM_OF_VECTOR(vector2), MZ_EQUAL_ERROR);
 
     float result = 0.0f;
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector1); i++){
-        result += ZM_VALUE_OF_VECTOR_AT(vector1, i) * ZM_VALUE_OF_VECTOR_AT(vector2, i);
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector1); i++){
+        result += MZ_VALUE_OF_VECTOR_AT(vector1, i) * MZ_VALUE_OF_VECTOR_AT(vector2, i);
     }
 
     return result;
@@ -1286,23 +1286,23 @@ float zm_dot_two_vectors(zm_Vec vector1, zm_Vec vector2){
 
 /*
 */
-float zm_magnitude_of_vector(zm_Vec vector){
+float MZ_magnitude_of_vector(MZ_Vec vector){
 
     float result = 0.0f;
 
-    for(size_t i = 0; i < ZM_DIM_OF_VECTOR(vector); i++){
-        result += ZM_VALUE_OF_VECTOR_AT(vector, i) * ZM_VALUE_OF_VECTOR_AT(vector, i);
+    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
+        result += MZ_VALUE_OF_VECTOR_AT(vector, i) * MZ_VALUE_OF_VECTOR_AT(vector, i);
     }
 
     return sqrt(result);
 
 }
 
-zm_Matrix NULL_MATRIX = {0, 0, NULL};
+MZ_Matrix NULL_MATRIX = {0, 0, NULL};
 
 /*
 */
-void zm_print_matrix(FILE *fp, zm_Matrix mat){
+void MZ_print_matrix(FILE *fp, MZ_Matrix mat){
 	
 	#if VISUALIZE_RATIONAL
 	int spaces = 12;
@@ -1326,9 +1326,9 @@ void zm_print_matrix(FILE *fp, zm_Matrix mat){
 		
 		for(unsigned int j = 0; j < mat.cols; j++){
             #if !VISUALIZE_RATIONAL
-			fprintf(fp, "%-11f", ZM_VALUE_OF_MAT_AT(mat, i, j));
+			fprintf(fp, "%-11f", MZ_VALUE_OF_MAT_AT(mat, i, j));
             #else
-            zstring value = rationalizeFloatToStr(ZM_VALUE_OF_MAT_AT(mat, i, j), 3);
+            zstring value = rationalizeFloatToStr(MZ_VALUE_OF_MAT_AT(mat, i, j), 3);
             fprintf(fp, " %-11s", value.data);
             #endif
 		}		
@@ -1347,7 +1347,7 @@ void zm_print_matrix(FILE *fp, zm_Matrix mat){
 
 /*
 */
-void zm_print_matrix_by_label(FILE *fp, const char* label, zm_Matrix mat){
+void MZ_print_matrix_by_label(FILE *fp, const char* label, MZ_Matrix mat){
 	
 	#if VISUALIZE_RATIONAL
 	int spaces = 12;
@@ -1371,9 +1371,9 @@ void zm_print_matrix_by_label(FILE *fp, const char* label, zm_Matrix mat){
 		
 		for(unsigned int j = 0; j < mat.cols; j++){
             #if !VISUALIZE_RATIONAL
-			fprintf(fp, "%-11f", ZM_VALUE_OF_MAT_AT(mat, i, j));
+			fprintf(fp, "%-11f", MZ_VALUE_OF_MAT_AT(mat, i, j));
             #else
-            zstring value = rationalizeFloatToStr(ZM_VALUE_OF_MAT_AT(mat, i, j), 3);
+            zstring value = rationalizeFloatToStr(MZ_VALUE_OF_MAT_AT(mat, i, j), 3);
             fprintf(fp, " %-11s", value.data);
             #endif
 		}		
@@ -1392,7 +1392,7 @@ void zm_print_matrix_by_label(FILE *fp, const char* label, zm_Matrix mat){
 
 /*
 */
-void zm_print_matrix_by_index(FILE *fp, unsigned int index, zm_Matrix mat){
+void MZ_print_matrix_by_index(FILE *fp, unsigned int index, MZ_Matrix mat){
 	
     #if VISUALIZE_RATIONAL
 	int spaces = 12;
@@ -1416,9 +1416,9 @@ void zm_print_matrix_by_index(FILE *fp, unsigned int index, zm_Matrix mat){
 		
 		for(unsigned int j = 0; j < mat.cols; j++){
             #if !VISUALIZE_RATIONAL
-			fprintf(fp, "%-11f", ZM_VALUE_OF_MAT_AT(mat, i, j));
+			fprintf(fp, "%-11f", MZ_VALUE_OF_MAT_AT(mat, i, j));
             #else
-            zstring value = rationalizeFloatToStr(ZM_VALUE_OF_MAT_AT(mat, i, j), 3);
+            zstring value = rationalizeFloatToStr(MZ_VALUE_OF_MAT_AT(mat, i, j), 3);
             fprintf(fp, " %-11s", value.data);
             #endif
 		}		
@@ -1437,8 +1437,8 @@ void zm_print_matrix_by_index(FILE *fp, unsigned int index, zm_Matrix mat){
 
 /*
 */
-void zm_free_matrix(zm_Matrix* mat){
-    zm_assert(mat->elements != NULL, "Matrix must not be NULL.");
+void MZ_free_matrix(MZ_Matrix* mat){
+    MZ_assert(mat->elements != NULL, "Matrix must not be NULL.");
 
     free(mat->elements);
     mat->elements = NULL;
@@ -1448,10 +1448,10 @@ void zm_free_matrix(zm_Matrix* mat){
 
 /*
 */
-void zm_copy_matrix_pointer(zm_Matrix *source, zm_Matrix *dest){
+void MZ_copy_matrix_pointer(MZ_Matrix *source, MZ_Matrix *dest){
 
     if(dest->elements == NULL){ 
-        *dest= zm_alloc_matrix(source->rows, source->cols); 
+        *dest= MZ_alloc_matrix(source->rows, source->cols); 
     }
 
     dest->rows = source->rows;
@@ -1462,9 +1462,9 @@ void zm_copy_matrix_pointer(zm_Matrix *source, zm_Matrix *dest){
 
 /*
 */
-zm_Matrix zm_alloc_matrix(unsigned int rows, unsigned int cols){
+MZ_Matrix MZ_alloc_matrix(unsigned int rows, unsigned int cols){
 
-    zm_Matrix result;
+    MZ_Matrix result;
     result.rows = rows;
     result.cols = cols;
 
@@ -1473,7 +1473,7 @@ zm_Matrix zm_alloc_matrix(unsigned int rows, unsigned int cols){
         result.elements[i] = (float*)malloc(cols*sizeof(float));
     }
 
-    zm_assert(result.elements != NULL, ZM_ALLOC_ERROR);
+    MZ_assert(result.elements != NULL, MZ_ALLOC_ERROR);
 
     return result;
 
@@ -1481,13 +1481,13 @@ zm_Matrix zm_alloc_matrix(unsigned int rows, unsigned int cols){
 
 /*
 */
-zm_Matrix zm_new_zero_matrix(unsigned int rows, unsigned int cols){
+MZ_Matrix MZ_new_zero_matrix(unsigned int rows, unsigned int cols){
 
-    zm_Matrix result = zm_alloc_matrix(rows, cols);
+    MZ_Matrix result = MZ_alloc_matrix(rows, cols);
 
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = 0.0f;
+            MZ_VALUE_OF_MAT_AT(result, i, j) = 0.0f;
         }
     }
 
@@ -1497,14 +1497,14 @@ zm_Matrix zm_new_zero_matrix(unsigned int rows, unsigned int cols){
 
 /*
 */
-zm_Matrix zm_new_random_float_matrix(unsigned int rows, unsigned int cols, float min, float max){
+MZ_Matrix MZ_new_random_float_matrix(unsigned int rows, unsigned int cols, float min, float max){
 
-    zm_Matrix result = zm_alloc_matrix(rows, cols);
+    MZ_Matrix result = MZ_alloc_matrix(rows, cols);
     
     srand((unsigned)time(NULL) * _getpid()); 
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = zm_rand_float(min, max);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_rand_float(min, max);
         }
     }
 
@@ -1514,14 +1514,14 @@ zm_Matrix zm_new_random_float_matrix(unsigned int rows, unsigned int cols, float
 
 /*
 */
-zm_Matrix zm_new_random_int_matrix(unsigned int rows, unsigned int cols, int min, int max){
+MZ_Matrix MZ_new_random_int_matrix(unsigned int rows, unsigned int cols, int min, int max){
 
-    zm_Matrix result = zm_alloc_matrix(rows, cols);
+    MZ_Matrix result = MZ_alloc_matrix(rows, cols);
 
     srand((unsigned)time(NULL) * _getpid()); 
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = (float)zm_rand_int(min, max);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = (float)MZ_rand_int(min, max);
         }
     }
 
@@ -1531,13 +1531,13 @@ zm_Matrix zm_new_random_int_matrix(unsigned int rows, unsigned int cols, int min
 
 /*
 */
-zm_Matrix zm_new_default_matrix(unsigned int rows, unsigned int cols, float value){
+MZ_Matrix MZ_new_default_matrix(unsigned int rows, unsigned int cols, float value){
 
-    zm_Matrix result = zm_alloc_matrix(rows, cols);
+    MZ_Matrix result = MZ_alloc_matrix(rows, cols);
 
     for(unsigned int i = 0; i < rows; i++){
         for(unsigned int j = 0; j < cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = value;
+            MZ_VALUE_OF_MAT_AT(result, i, j) = value;
         }
     }
 
@@ -1545,15 +1545,15 @@ zm_Matrix zm_new_default_matrix(unsigned int rows, unsigned int cols, float valu
 
 }
 
-zm_Matrix zm_new_identity_matrix(unsigned int ZM_DIM_OF_VECTOR){
-    zm_Matrix result = zm_alloc_matrix(ZM_DIM_OF_VECTOR, ZM_DIM_OF_VECTOR);
+MZ_Matrix MZ_new_identity_matrix(unsigned int MZ_DIM_OF_VECTOR){
+    MZ_Matrix result = MZ_alloc_matrix(MZ_DIM_OF_VECTOR, MZ_DIM_OF_VECTOR);
 
-    for(unsigned int i = 0; i < ZM_DIM_OF_VECTOR; i++){
-        for(unsigned int j = 0; j < ZM_DIM_OF_VECTOR; j++){
+    for(unsigned int i = 0; i < MZ_DIM_OF_VECTOR; i++){
+        for(unsigned int j = 0; j < MZ_DIM_OF_VECTOR; j++){
             if(i == j){
-                ZM_VALUE_OF_MAT_AT(result, i, j) = 1.0f;
+                MZ_VALUE_OF_MAT_AT(result, i, j) = 1.0f;
             }else {
-                ZM_VALUE_OF_MAT_AT(result, i, j) = 0.0f;
+                MZ_VALUE_OF_MAT_AT(result, i, j) = 0.0f;
             }
         }
     }
@@ -1564,9 +1564,9 @@ zm_Matrix zm_new_identity_matrix(unsigned int ZM_DIM_OF_VECTOR){
 
 /*
 */
-zm_Matrix _zm_new_matrix(unsigned int rows, unsigned int cols, unsigned int numVals, ...){
+MZ_Matrix _MZ_new_matrix(unsigned int rows, unsigned int cols, unsigned int numVals, ...){
 
-    zm_Matrix result = zm_alloc_matrix(rows, cols);
+    MZ_Matrix result = MZ_alloc_matrix(rows, cols);
 
     va_list args;
     va_start(args, numVals);
@@ -1576,9 +1576,9 @@ zm_Matrix _zm_new_matrix(unsigned int rows, unsigned int cols, unsigned int numV
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0 ; j < result.cols; j++){
             if(vals++ < numVals){
-                ZM_VALUE_OF_MAT_AT(result, i, j) =  va_arg(args, double);
+                MZ_VALUE_OF_MAT_AT(result, i, j) =  va_arg(args, double);
             }else {
-                ZM_VALUE_OF_MAT_AT(result, i, j) = 0.0f;
+                MZ_VALUE_OF_MAT_AT(result, i, j) = 0.0f;
             }
         }
     }
@@ -1591,26 +1591,26 @@ zm_Matrix _zm_new_matrix(unsigned int rows, unsigned int cols, unsigned int numV
 
 /*
 */
-zm_Matrix zm_Vector_to_matrix(zm_Vec source, Direction dir){
+MZ_Matrix MZ_Vector_to_matrix(MZ_Vec source, Direction dir){
 
-    zm_assert(dir < DIR_COUNT, ZM_DIRECTION_ERROR);
+    MZ_assert(dir < DIR_COUNT, MZ_DIRECTION_ERROR);
 
-    zm_Matrix result;
+    MZ_Matrix result;
 
     switch(dir){
         case HORIZONTAL: {
-            result = zm_alloc_matrix(1, ZM_DIM_OF_VECTOR(source));
+            result = MZ_alloc_matrix(1, MZ_DIM_OF_VECTOR(source));
 
             for(unsigned int i = 0; i < result.cols; i++){
-                ZM_VALUE_OF_MAT_AT(result, 0, i) = source.elements[i];
+                MZ_VALUE_OF_MAT_AT(result, 0, i) = source.elements[i];
             }       
 
         } break;
         case VERTICAL: {
-            result = zm_alloc_matrix(source.dim, 1); 
+            result = MZ_alloc_matrix(source.dim, 1); 
 
             for(unsigned int i = 0; i < result.rows; i++){
-                ZM_VALUE_OF_MAT_AT(result, i, 0) = source.elements[i];
+                MZ_VALUE_OF_MAT_AT(result, i, 0) = source.elements[i];
             }  
 
         } break;
@@ -1623,13 +1623,13 @@ zm_Matrix zm_Vector_to_matrix(zm_Vec source, Direction dir){
 
 /*
 */
-zm_Vec zm_Matrix_to_vector(zm_Matrix source){
+MZ_Vec MZ_Matrix_to_vector(MZ_Matrix source){
 
-    zm_Vec result = zm_alloc_vector(source.rows * source.cols);   
+    MZ_Vec result = MZ_alloc_vector(source.rows * source.cols);   
 
     for(unsigned int i = 0; i < source.rows; i++){
         for(unsigned int j = 0; j < source.cols; j++){
-            result.elements[j + i * source.cols] = ZM_VALUE_OF_MAT_AT(source, i, j);
+            result.elements[j + i * source.cols] = MZ_VALUE_OF_MAT_AT(source, i, j);
         }
     }
 
@@ -1638,16 +1638,16 @@ zm_Vec zm_Matrix_to_vector(zm_Matrix source){
 
 /*
 */
-zm_Vec zm_get_vector_from_matrix_row(zm_Matrix source, unsigned int row){
+MZ_Vec MZ_get_vector_from_matrix_row(MZ_Matrix source, unsigned int row){
 
     row--;
 
     if(row > source.rows){ return NULL_VECTOR; }
 
-    zm_Vec result = zm_alloc_vector(source.cols);   
+    MZ_Vec result = MZ_alloc_vector(source.cols);   
 
     for(unsigned int i = 0; i < source.cols; i++){
-        result.elements[i] = ZM_VALUE_OF_MAT_AT(source, row, i);
+        result.elements[i] = MZ_VALUE_OF_MAT_AT(source, row, i);
     }
 
     return result;
@@ -1655,16 +1655,16 @@ zm_Vec zm_get_vector_from_matrix_row(zm_Matrix source, unsigned int row){
 
 /*
 */
-zm_Vec zm_get_vector_from_matrix_col(zm_Matrix source, unsigned int col){
+MZ_Vec MZ_get_vector_from_matrix_col(MZ_Matrix source, unsigned int col){
 
     col--;
 
     if(col > source.cols){ return NULL_VECTOR; }
 
-    zm_Vec result = zm_alloc_vector(source.rows);   
+    MZ_Vec result = MZ_alloc_vector(source.rows);   
 
     for(unsigned int i = 0; i < source.cols; i++){
-        result.elements[i] = ZM_VALUE_OF_MAT_AT(source, i, col);
+        result.elements[i] = MZ_VALUE_OF_MAT_AT(source, i, col);
     }
 
     return result;
@@ -1672,15 +1672,15 @@ zm_Vec zm_get_vector_from_matrix_col(zm_Matrix source, unsigned int col){
 
 /*
 */
-zm_Matrix zm_add_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
+MZ_Matrix MZ_add_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
 
-    zm_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, ZM_EQUAL_ERROR);
+    MZ_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, MZ_EQUAL_ERROR);
     
-    zm_Matrix result = zm_alloc_matrix(matrix1.rows, matrix1.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
 
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0; j < result.cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(matrix1, i, j) + ZM_VALUE_OF_MAT_AT(matrix2, i, j);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) + MZ_VALUE_OF_MAT_AT(matrix2, i, j);
         }
     }
 
@@ -1690,13 +1690,13 @@ zm_Matrix zm_add_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
 
 /*
 */
-zm_Matrix zm_add_matrix_with_scalar(zm_Matrix matrix1, float scalar){
+MZ_Matrix MZ_add_matrix_with_scalar(MZ_Matrix matrix1, float scalar){
     
-    zm_Matrix result = zm_alloc_matrix(matrix1.rows, matrix1.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
 
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0; j < result.cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(matrix1, i, j) + scalar;
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) + scalar;
         }
     }
 
@@ -1706,15 +1706,15 @@ zm_Matrix zm_add_matrix_with_scalar(zm_Matrix matrix1, float scalar){
 
 /*
 */
-zm_Matrix zm_subtract_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
+MZ_Matrix MZ_subtract_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
 
-    zm_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, ZM_EQUAL_ERROR);
+    MZ_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, MZ_EQUAL_ERROR);
 
-    zm_Matrix result = zm_alloc_matrix(matrix1.rows, matrix1.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
 
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0; j < result.cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(matrix1, i, j) - ZM_VALUE_OF_MAT_AT(matrix2, i, j);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) - MZ_VALUE_OF_MAT_AT(matrix2, i, j);
         }
     }
 
@@ -1724,13 +1724,13 @@ zm_Matrix zm_subtract_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
 
 /*
 */
-zm_Matrix zm_subtract_matrix_with_scalar(zm_Matrix matrix1, float scalar){
+MZ_Matrix MZ_subtract_matrix_with_scalar(MZ_Matrix matrix1, float scalar){
     
-    zm_Matrix result = zm_alloc_matrix(matrix1.rows, matrix1.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
 
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0; j < result.cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(matrix1, i, j) - scalar;
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) - scalar;
         }
     }
 
@@ -1740,15 +1740,15 @@ zm_Matrix zm_subtract_matrix_with_scalar(zm_Matrix matrix1, float scalar){
 
 /*
 */
-zm_Matrix zm_multiply_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
+MZ_Matrix MZ_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
 
-    zm_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, ZM_EQUAL_ERROR);
+    MZ_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, MZ_EQUAL_ERROR);
 
-    zm_Matrix result = zm_alloc_matrix(matrix1.rows, matrix1.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
     
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0; j < result.cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(matrix1, i, j) * ZM_VALUE_OF_MAT_AT(matrix2, i, j);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) * MZ_VALUE_OF_MAT_AT(matrix2, i, j);
         }
     }
 
@@ -1758,13 +1758,13 @@ zm_Matrix zm_multiply_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
 
 /*
 */
-zm_Matrix zm_multiply_matrix_by_scalar(zm_Matrix matrix1, float scalar){
+MZ_Matrix MZ_multiply_matrix_by_scalar(MZ_Matrix matrix1, float scalar){
     
-    zm_Matrix result = zm_alloc_matrix(matrix1.rows, matrix1.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
 
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0; j < result.cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(matrix1, i, j) * scalar;
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) * scalar;
         }
     }
 
@@ -1774,18 +1774,18 @@ zm_Matrix zm_multiply_matrix_by_scalar(zm_Matrix matrix1, float scalar){
 
 /*
 */
-zm_Matrix zm_divide_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
+MZ_Matrix MZ_divide_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
 
-    zm_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, ZM_EQUAL_ERROR);
+    MZ_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, MZ_EQUAL_ERROR);
 
-    zm_Matrix result = zm_alloc_matrix(matrix1.rows, matrix1.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
 
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0; j < result.cols; j++){
-            if(ZM_VALUE_OF_MAT_AT(matrix2, i, j) != 0.0f){
-                ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(matrix1, i, j) / ZM_VALUE_OF_MAT_AT(matrix2, i, j);
+            if(MZ_VALUE_OF_MAT_AT(matrix2, i, j) != 0.0f){
+                MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) / MZ_VALUE_OF_MAT_AT(matrix2, i, j);
             }else {
-                ZM_VALUE_OF_MAT_AT(result, i, j) = 0.0f;
+                MZ_VALUE_OF_MAT_AT(result, i, j) = 0.0f;
             }
         }
     }
@@ -1796,14 +1796,14 @@ zm_Matrix zm_divide_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
 
 /*
 */
-zm_Matrix zm_divide_matrix_by_scalar(zm_Matrix matrix1, float scalar){
+MZ_Matrix MZ_divide_matrix_by_scalar(MZ_Matrix matrix1, float scalar){
     
-    zm_Matrix result = zm_alloc_matrix(matrix1.rows, matrix1.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
 
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0; j < result.cols; j++){
             if(scalar != 0.0f){
-                ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(matrix1, i, j) / scalar;
+                MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) / scalar;
             }else {
                 return NULL_MATRIX;
             }
@@ -1816,17 +1816,17 @@ zm_Matrix zm_divide_matrix_by_scalar(zm_Matrix matrix1, float scalar){
 
 /*
 */
-zm_Matrix zm_dot_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
+MZ_Matrix MZ_dot_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
 
-    zm_assert(matrix1.cols == matrix2.rows, ZM_PROD_ERROR);
+    MZ_assert(matrix1.cols == matrix2.rows, MZ_PROD_ERROR);
 
-    zm_Matrix result = zm_alloc_matrix(matrix1.rows, matrix2.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix2.cols);
     
     for(unsigned int i = 0; i < result.rows; i++){
 		for(unsigned int j = 0; j < result.cols; j++){
-			ZM_VALUE_OF_MAT_AT(result, i, j) = 0;
+			MZ_VALUE_OF_MAT_AT(result, i, j) = 0;
 			for(unsigned int k = 0; k < matrix2.rows; k++){
-				ZM_VALUE_OF_MAT_AT(result, i, j) += ZM_VALUE_OF_MAT_AT(matrix1, i, k) * ZM_VALUE_OF_MAT_AT(matrix2, k, j); 
+				MZ_VALUE_OF_MAT_AT(result, i, j) += MZ_VALUE_OF_MAT_AT(matrix1, i, k) * MZ_VALUE_OF_MAT_AT(matrix2, k, j); 
 			}
 		}
 	}
@@ -1837,12 +1837,12 @@ zm_Matrix zm_dot_two_matrices(zm_Matrix matrix1, zm_Matrix matrix2){
 
 /*
 */
-zm_Matrix zm_transposed_matrix(zm_Matrix source){
-    zm_Matrix result = zm_alloc_matrix(source.cols, source.rows);
+MZ_Matrix MZ_transposed_matrix(MZ_Matrix source){
+    MZ_Matrix result = MZ_alloc_matrix(source.cols, source.rows);
 
     for(unsigned int i = 0; i < result.rows; i++){
         for(unsigned int j = 0; j < result.rows; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(source, j, i);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(source, j, i);
         }
     }
 
@@ -1852,7 +1852,7 @@ zm_Matrix zm_transposed_matrix(zm_Matrix source){
 
 /*
 */
-bool zm_swap_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int row2){
+bool MZ_swap_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int row2){
 
 
     if(row1 >= source->rows || row2 >= source->rows || row1 == row2){
@@ -1868,7 +1868,7 @@ bool zm_swap_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int 
 
 /*
 */
-bool zm_add_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int row2){
+bool MZ_add_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int row2){
 
 
     if(row1 >= source->rows || row2 >= source->rows || row1 == row2){
@@ -1877,7 +1877,7 @@ bool zm_add_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int r
 
     for(unsigned int i = 0; i < source->cols; i++){
         //source->elements[row1][i] += source->elements[row2][i];
-        ZM_VALUE_OF_MAT_POINTER_AT(source, row1, i) += ZM_VALUE_OF_MAT_POINTER_AT(source, row2, i);
+        MZ_VALUE_OF_MAT_POINTER_AT(source, row1, i) += MZ_VALUE_OF_MAT_POINTER_AT(source, row2, i);
     }
 
     return true;
@@ -1885,7 +1885,7 @@ bool zm_add_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int r
 
 /*
 */
-bool zm_multiply_two_matrix_rows(zm_Matrix *source, unsigned int row, int scalar){
+bool MZ_multiply_two_matrix_rows(MZ_Matrix *source, unsigned int row, int scalar){
 
 
     if(row >= source->rows || scalar == 0.0f){
@@ -1893,7 +1893,7 @@ bool zm_multiply_two_matrix_rows(zm_Matrix *source, unsigned int row, int scalar
     }
 
     for(unsigned int i = 0; i < source->cols; i++){
-        ZM_VALUE_OF_MAT_POINTER_AT(source, row, i)  *= scalar;
+        MZ_VALUE_OF_MAT_POINTER_AT(source, row, i)  *= scalar;
     }
 
     return true;
@@ -1901,7 +1901,7 @@ bool zm_multiply_two_matrix_rows(zm_Matrix *source, unsigned int row, int scalar
 
 /*
 */
-bool zm_multiply_add_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsigned int row2, int scalar){
+bool MZ_multiply_add_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int row2, int scalar){
 
 
     if(row1 >= source->rows || row2 >= source->rows || 
@@ -1911,7 +1911,7 @@ bool zm_multiply_add_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsig
 
     for(unsigned int i = 0; i < source->cols; i++){
         //source->elements[row1][i] += source->elements[row2][i] * scalar;
-        ZM_VALUE_OF_MAT_POINTER_AT(source, row1, i) += ZM_VALUE_OF_MAT_POINTER_AT(source, row2, i) * scalar;
+        MZ_VALUE_OF_MAT_POINTER_AT(source, row1, i) += MZ_VALUE_OF_MAT_POINTER_AT(source, row2, i) * scalar;
     }
 
     return true;
@@ -1919,7 +1919,7 @@ bool zm_multiply_add_two_matrix_rows(zm_Matrix *source, unsigned int row1, unsig
 
 /*
 */
-void zm_to_echelon_form(zm_Matrix *source){
+void MZ_to_echelon_form(MZ_Matrix *source){
 
     unsigned int curRow = 0;
 
@@ -1934,21 +1934,21 @@ void zm_to_echelon_form(zm_Matrix *source){
         if(row >= source->rows) break;
 
         for(; row < source->rows; row++){
-            if(ZM_VALUE_OF_MAT_POINTER_AT(source, row, i) != 0.0f) break;
+            if(MZ_VALUE_OF_MAT_POINTER_AT(source, row, i) != 0.0f) break;
         }
 
         if(row == source->rows) continue;
 
-        zm_swap_two_matrix_rows(source, curRow, row);
+        MZ_swap_two_matrix_rows(source, curRow, row);
 
-        float factor = 1 / ZM_VALUE_OF_MAT_POINTER_AT(source, curRow, i);
+        float factor = 1 / MZ_VALUE_OF_MAT_POINTER_AT(source, curRow, i);
 
         for(unsigned int col = i; col < source->cols; col++){
-            ZM_VALUE_OF_MAT_POINTER_AT(source, curRow, col) *= factor;
+            MZ_VALUE_OF_MAT_POINTER_AT(source, curRow, col) *= factor;
         }
 
         for(row = curRow + 1; row < source->rows; row++){
-            zm_multiply_add_two_matrix_rows(source, row, curRow, -1 * ZM_VALUE_OF_MAT_POINTER_AT(source, curRow, i));
+            MZ_multiply_add_two_matrix_rows(source, row, curRow, -1 * MZ_VALUE_OF_MAT_POINTER_AT(source, curRow, i));
         }
 
         curRow++;
@@ -1959,7 +1959,7 @@ void zm_to_echelon_form(zm_Matrix *source){
 
 /*
 */
-void zm_to_reduced_echelon_form(zm_Matrix *source){
+void MZ_to_reduced_echelon_form(MZ_Matrix *source){
 
     unsigned int curRow = 0;
 
@@ -1974,22 +1974,22 @@ void zm_to_reduced_echelon_form(zm_Matrix *source){
         if(row >= source->rows) break;
 
         for(; row < source->rows; row++){
-            if(ZM_VALUE_OF_MAT_POINTER_AT(source, row, i) != 0.0f) break;
+            if(MZ_VALUE_OF_MAT_POINTER_AT(source, row, i) != 0.0f) break;
         }
 
         if(row == source->rows) continue;
 
-        zm_swap_two_matrix_rows(source, curRow, row);
+        MZ_swap_two_matrix_rows(source, curRow, row);
 
-        float factor = 1 / ZM_VALUE_OF_MAT_POINTER_AT(source, curRow, i);
+        float factor = 1 / MZ_VALUE_OF_MAT_POINTER_AT(source, curRow, i);
 
         for(unsigned int col = i; col < source->cols; col++){
-            ZM_VALUE_OF_MAT_POINTER_AT(source, curRow, col) *= factor;
+            MZ_VALUE_OF_MAT_POINTER_AT(source, curRow, col) *= factor;
         }
 
         for(row = 0; row < source->rows; row++){
             if(row == curRow) continue;
-            zm_multiply_add_two_matrix_rows(source, row, curRow, -1 * ZM_VALUE_OF_MAT_POINTER_AT(source, row, i));
+            MZ_multiply_add_two_matrix_rows(source, row, curRow, -1 * MZ_VALUE_OF_MAT_POINTER_AT(source, row, i));
         }
 
         curRow++;
@@ -1999,11 +1999,11 @@ void zm_to_reduced_echelon_form(zm_Matrix *source){
 
 /*
 */
-zm_Matrix zm_append_vector_to_matrix(zm_Matrix source, zm_Vec vector){
+MZ_Matrix MZ_append_vector_to_matrix(MZ_Matrix source, MZ_Vec vector){
 
-    zm_assert(source.rows == vector.dim, ZM_EQUAL_ERROR);
+    MZ_assert(source.rows == vector.dim, MZ_EQUAL_ERROR);
     
-    zm_Matrix result = zm_alloc_matrix(source.rows, source.cols + 1);
+    MZ_Matrix result = MZ_alloc_matrix(source.rows, source.cols + 1);
 
     for(unsigned int i = 0; i < source.rows; i++){
         unsigned int j = 0;
@@ -2011,11 +2011,11 @@ zm_Matrix zm_append_vector_to_matrix(zm_Matrix source, zm_Vec vector){
             #if VISUALIZE_DEBUG
             printf("%d\n", j);
             #endif
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(source, i, j);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(source, i, j);
         }
-        ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_VECTOR_AT(vector, i);
+        MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_VECTOR_AT(vector, i);
         #if VISUALIZE_DEBUG
-        printf("%f at %d:%d\n", ZM_VALUE_OF_MAT_AT(result, i, j), i, j);
+        printf("%f at %d:%d\n", MZ_VALUE_OF_MAT_AT(result, i, j), i, j);
         #endif
     }
 
@@ -2025,19 +2025,19 @@ zm_Matrix zm_append_vector_to_matrix(zm_Matrix source, zm_Vec vector){
 
 /*
 */
-zm_Matrix zm_append_matrix_to_matrix(zm_Matrix source, zm_Matrix matrix){
+MZ_Matrix MZ_append_matrix_to_matrix(MZ_Matrix source, MZ_Matrix matrix){
 
-    zm_assert(source.rows == matrix.rows, ZM_EQUAL_ERROR);
+    MZ_assert(source.rows == matrix.rows, MZ_EQUAL_ERROR);
     
-    zm_Matrix result = zm_alloc_matrix(source.rows, source.cols + matrix.cols);
+    MZ_Matrix result = MZ_alloc_matrix(source.rows, source.cols + matrix.cols);
 
     for(unsigned int i = 0; i < source.rows; i++){
         unsigned int j = 0;
         for(; j < source.cols; j++){
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(source, i, j);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(source, i, j);
         }
         for(unsigned int k = 0; k < matrix.cols; k++){
-            ZM_VALUE_OF_MAT_AT(result, i, k + j) = ZM_VALUE_OF_MAT_AT(matrix, i, k);
+            MZ_VALUE_OF_MAT_AT(result, i, k + j) = MZ_VALUE_OF_MAT_AT(matrix, i, k);
         }
         
     }
@@ -2048,12 +2048,12 @@ zm_Matrix zm_append_matrix_to_matrix(zm_Matrix source, zm_Matrix matrix){
 
 /*
 */
-zm_Matrix zm_get_sub_matrix(zm_Matrix source, unsigned int remRow, unsigned int remCol){
+MZ_Matrix MZ_get_sub_matrix(MZ_Matrix source, unsigned int remRow, unsigned int remCol){
 
     remRow--;
     remCol--;
 
-    zm_Matrix result = zm_alloc_matrix(source.rows - 1, source.cols - 1);
+    MZ_Matrix result = MZ_alloc_matrix(source.rows - 1, source.cols - 1);
 
     unsigned int rowOffset = 0;
     for (unsigned int i = 0; i < result.rows; i++){
@@ -2070,7 +2070,7 @@ zm_Matrix zm_get_sub_matrix(zm_Matrix source, unsigned int remRow, unsigned int 
             }
 
             // assign value
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(source, i + rowOffset, j + colOffset);//source.elements[i + rowOffset][j + colOffset];
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(source, i + rowOffset, j + colOffset);//source.elements[i + rowOffset][j + colOffset];
         }
     }
 
@@ -2079,17 +2079,17 @@ zm_Matrix zm_get_sub_matrix(zm_Matrix source, unsigned int remRow, unsigned int 
 
 /*
 */
-float zm_determinant_of_matrix_old(zm_Matrix source){
-    zm_assert(source.rows == source.cols, ZM_SQUARE_ERROR);
+float MZ_determinant_of_matrix_old(MZ_Matrix source){
+    MZ_assert(source.rows == source.cols, MZ_SQUARE_ERROR);
 
     if(source.rows == 1){
-        return ZM_VALUE_OF_MAT_AT(source, 0, 0);  
+        return MZ_VALUE_OF_MAT_AT(source, 0, 0);  
     }
 
     float result = 0.0f;
 
     for(unsigned int i = 0; i < source.cols; i++){
-        result += ZM_VALUE_OF_MAT_AT(source, 0 , i) * zm_cofactor_of_matrix_at_coord(source, 1, i + 1);
+        result += MZ_VALUE_OF_MAT_AT(source, 0 , i) * MZ_cofactor_of_matrix_at_coord(source, 1, i + 1);
     }
 
     return result;
@@ -2098,7 +2098,7 @@ float zm_determinant_of_matrix_old(zm_Matrix source){
 
 /*
 */
-float zm_determinant_of_matrix(zm_Matrix source){
+float MZ_determinant_of_matrix(MZ_Matrix source){
     if (source.rows != source.cols || source.rows == 0)
     {
         return 0.0f;
@@ -2108,7 +2108,7 @@ float zm_determinant_of_matrix(zm_Matrix source){
     unsigned int *skipCols = malloc(source.cols * sizeof(unsigned int));
     unsigned int noSkipCols = 0;
 
-    float result = _zm_determinant_of_matrix(source, 1, 0, skipCols, &noSkipCols);
+    float result = _MZ_determinant_of_matrix(source, 1, 0, skipCols, &noSkipCols);
 
     free(skipCols);
 
@@ -2117,7 +2117,7 @@ float zm_determinant_of_matrix(zm_Matrix source){
 
 /*
 */
-float _zm_determinant_of_matrix(zm_Matrix source,
+float _MZ_determinant_of_matrix(MZ_Matrix source,
                             unsigned int row,
                             unsigned int col,
                             unsigned int *skipCols,
@@ -2140,14 +2140,14 @@ float _zm_determinant_of_matrix(zm_Matrix source,
         {
             if (skipCols[*noSkipCols - 1] != 0)
             {
-                while (zm_is_in_array(skipCols, *noSkipCols, i))
+                while (MZ_is_in_array(skipCols, *noSkipCols, i))
                 {
                     i--;
                 }
                 (*noSkipCols)--;
             }
         }
-        return ZM_VALUE_OF_MAT_AT(source, row-1, i-1);//source.elements[row - 1][i - 1];
+        return MZ_VALUE_OF_MAT_AT(source, row-1, i-1);//source.elements[row - 1][i - 1];
     }
 
     float result = 0.0f;
@@ -2157,18 +2157,18 @@ float _zm_determinant_of_matrix(zm_Matrix source,
     for (unsigned int i = 1; i <= source.cols; i++)
     {
         // skip excluded cols
-        if (zm_is_in_array(skipCols, *noSkipCols, i))
+        if (MZ_is_in_array(skipCols, *noSkipCols, i))
         {
             continue;
         }
 
         float res = 0.0f;
-        if (ZM_VALUE_OF_MAT_AT(source, row-1, i-1) != 0.0f)
+        if (MZ_VALUE_OF_MAT_AT(source, row-1, i-1) != 0.0f)
         {
             // recursive
             res = cofactorSign *
-                  ZM_VALUE_OF_MAT_AT(source, row-1, i-1) *
-                  _zm_determinant_of_matrix(source, row + 1, i, skipCols, noSkipCols);
+                  MZ_VALUE_OF_MAT_AT(source, row-1, i-1) *
+                  _MZ_determinant_of_matrix(source, row + 1, i, skipCols, noSkipCols);
         }
 
         result += res;
@@ -2182,7 +2182,7 @@ float _zm_determinant_of_matrix(zm_Matrix source,
 
 /*
 */
-float zm_cofactor_of_matrix_at_coord(zm_Matrix source, unsigned int row, unsigned int col){
+float MZ_cofactor_of_matrix_at_coord(MZ_Matrix source, unsigned int row, unsigned int col){
 
     // must be a square matrix with at least 1 row
     if (source.rows != source.cols || source.rows == 0)
@@ -2201,19 +2201,19 @@ float zm_cofactor_of_matrix_at_coord(zm_Matrix source, unsigned int row, unsigne
     // if row + col is odd, negative
     char sign = ((row + col) & 1) == 0 ? 1 : -1;
 
-    zm_Matrix subbedMat = zm_get_sub_matrix(source, row, col);
+    MZ_Matrix subbedMat = MZ_get_sub_matrix(source, row, col);
 
     // cofactor = sign * determinant of the matrix without row and col
-    float result = sign * zm_determinant_of_matrix(subbedMat);
+    float result = sign * MZ_determinant_of_matrix(subbedMat);
 
-    zm_free_matrix(&subbedMat);
+    MZ_free_matrix(&subbedMat);
 
     return result;
 }
 
 /*
 */
-zm_Matrix zm_cofactor_matrix(zm_Matrix source){
+MZ_Matrix MZ_cofactor_matrix(MZ_Matrix source){
 
     // must be a square matrix with at least 1 row
     if (source.rows != source.cols || source.rows == 0)
@@ -2221,13 +2221,13 @@ zm_Matrix zm_cofactor_matrix(zm_Matrix source){
         return NULL_MATRIX;
     }
 
-    zm_Matrix result = zm_alloc_matrix(source.rows, source.cols);
+    MZ_Matrix result = MZ_alloc_matrix(source.rows, source.cols);
 
     for (unsigned int i = 0; i < result.rows; i++)
     {
         for (unsigned int j = 0; j < result.cols; j++)
         {
-            ZM_VALUE_OF_MAT_AT(result, i, j) = zm_cofactor_of_matrix_at_coord(source, i + 1, j + 1);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_cofactor_of_matrix_at_coord(source, i + 1, j + 1);
         }
     }
 
@@ -2236,7 +2236,7 @@ zm_Matrix zm_cofactor_matrix(zm_Matrix source){
 
 /*
 */
-zm_Matrix zm_adjugate_matrix(zm_Matrix source){
+MZ_Matrix MZ_adjugate_matrix(MZ_Matrix source){
 
     // must be a square matrix with at least 1 row
     if (source.rows != source.cols || source.rows == 0)
@@ -2244,13 +2244,13 @@ zm_Matrix zm_adjugate_matrix(zm_Matrix source){
         return NULL_MATRIX;
     }
 
-    zm_Matrix result = zm_alloc_matrix(source.rows, source.cols);
+    MZ_Matrix result = MZ_alloc_matrix(source.rows, source.cols);
 
     for (unsigned int i = 0; i < result.rows; i++)
     {
         for (unsigned int j = 0; j < result.cols; j++)
         {
-            ZM_VALUE_OF_MAT_AT(result, i, j) = zm_cofactor_of_matrix_at_coord(source, j + 1, i + 1);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_cofactor_of_matrix_at_coord(source, j + 1, i + 1);
         }
     }
 
@@ -2259,7 +2259,7 @@ zm_Matrix zm_adjugate_matrix(zm_Matrix source){
 
 /*
 */
-bool zm_is_matrix_invertible(zm_Matrix source){
+bool MZ_is_matrix_invertible(MZ_Matrix source){
 
     // must be a square matrix with at least 1 row
     if (source.rows != source.cols || source.rows == 0)
@@ -2267,12 +2267,12 @@ bool zm_is_matrix_invertible(zm_Matrix source){
         return false;
     }
 
-    return zm_determinant_of_matrix(source) != 0.0f;
+    return MZ_determinant_of_matrix(source) != 0.0f;
 }
 
 /*
 */
-zm_Matrix zm_inverse_of_matrix(zm_Matrix source){
+MZ_Matrix MZ_inverse_of_matrix(MZ_Matrix source){
 
     // must be a square matrix with at least 1 row
     if (source.rows != source.cols || source.rows == 0)
@@ -2281,7 +2281,7 @@ zm_Matrix zm_inverse_of_matrix(zm_Matrix source){
     }
 
     // get the adjugate
-    zm_Matrix adj = zm_adjugate_matrix(source);
+    MZ_Matrix adj = MZ_adjugate_matrix(source);
 
     // calculate the determinant using the adjugate
     float det = 0.0f;
@@ -2289,9 +2289,9 @@ zm_Matrix zm_inverse_of_matrix(zm_Matrix source){
     // expand across first row of the matrix
     for (unsigned int i = 0; i < source.cols; i++)
     {
-        if (ZM_VALUE_OF_MAT_AT(source, 0, i) != 0.0f)
+        if (MZ_VALUE_OF_MAT_AT(source, 0, i) != 0.0f)
         {
-            det += ZM_VALUE_OF_MAT_AT(source, 0, i) * ZM_VALUE_OF_MAT_AT(adj, i, 0); // [c][0] because the adjugate is the transpose of the cofactor matrix
+            det += MZ_VALUE_OF_MAT_AT(source, 0, i) * MZ_VALUE_OF_MAT_AT(adj, i, 0); // [c][0] because the adjugate is the transpose of the cofactor matrix
         }
     }
 
@@ -2301,42 +2301,42 @@ zm_Matrix zm_inverse_of_matrix(zm_Matrix source){
     }
 
     // inverse = 1 / det * adj
-    zm_Matrix result = zm_multiply_matrix_by_scalar(adj, 1.0f / det);
+    MZ_Matrix result = MZ_multiply_matrix_by_scalar(adj, 1.0f / det);
 
-    zm_free_matrix(&adj);
+    MZ_free_matrix(&adj);
 
     return result;
 }
 
 /*
 */
-zm_Matrix zm_inverse_of_matrix_by_rref(zm_Matrix source){
+MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source){
 
-    if (!zm_is_matrix_invertible(source))
+    if (!MZ_is_matrix_invertible(source))
     {
         return NULL_MATRIX;
     }
 
     // augment the identity matrix
-    zm_Matrix idMat = zm_new_identity_matrix(source.rows);
-    zm_Matrix opMat = zm_append_matrix_to_matrix(source, idMat);
+    MZ_Matrix idMat = MZ_new_identity_matrix(source.rows);
+    MZ_Matrix opMat = MZ_append_matrix_to_matrix(source, idMat);
 
     // row reduce the augmented matrix
-    zm_to_reduced_echelon_form(&opMat);
+    MZ_to_reduced_echelon_form(&opMat);
 
     // take the right half of the matrix -> that is the inverse
-    zm_Matrix result = zm_alloc_matrix(source.rows, source.cols);
+    MZ_Matrix result = MZ_alloc_matrix(source.rows, source.cols);
 
     for (unsigned int i = 0; i < result.rows; i++)
     {
         for (unsigned int j = 0; j < result.cols; j++)
         {
-            ZM_VALUE_OF_MAT_AT(result, i, j) = ZM_VALUE_OF_MAT_AT(opMat, i, result.cols + j);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(opMat, i, result.cols + j);
         }
     }
 
-    zm_free_matrix(&idMat);
-    zm_free_matrix(&opMat);
+    MZ_free_matrix(&idMat);
+    MZ_free_matrix(&opMat);
 
     return result;
 }
