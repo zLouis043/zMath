@@ -22,13 +22,15 @@
 /*
     Flag that if activated will print each number in its rational representation
 */
-#define VISUALIZE_RATIONAL 0
+#define VISUALIZE_RATIONAL 1
 
 #define MZ_EQUAL_ERROR      "Dimension mismatch."
 #define MZ_ALLOC_ERROR      "Allocation failure."
 #define MZ_PROD_ERROR       "Matrix 1 columns not equal to Matrix 2 rows."
 #define MZ_DIRECTION_ERROR  "Invalid direction."
 #define MZ_SQUARE_ERROR     "Matrix is not square."
+#define MZ_NULL_VECTOR       "(null vector)"
+#define MZ_NULL_MATRIX       "(null matrix)"
 
 /*!
     Finds the maximum of two values
@@ -456,7 +458,7 @@ void MZ_print_matrix_by_label(FILE *fp, const char* label, MZ_Matrix mat);
     @param index The index of the matrix.
     @param mat The matrix to print.
 */
-void MZ_print_matrix_by_index(FILE *fp, unsigned  index, MZ_Matrix mat);
+void MZ_print_matrix_by_index(FILE *fp, unsigned int index, MZ_Matrix mat);
 
 /*!
     Frees the matrix and set the rows and cols to 0.
@@ -918,15 +920,21 @@ MZ_Vec NULL_VECTOR = {0, NULL};
 /*
 */
 void MZ_print_vector(FILE* fp, MZ_Vec vector){
+
     fprintf(fp ,"\n\n   | Vector of size %zu: {\n   |\t[", MZ_DIM_OF_VECTOR(vector));
-    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
-        #if !VISUALIZE_RATIONAL
-        fprintf(fp ," %f", MZ_VALUE_OF_VECTOR_AT(vector, i));
-        #else
-        zstring value = rationalizeFloatToStr(MZ_VALUE_OF_VECTOR_AT(vector, i), 3);
-        fprintf(fp, " %s", value.data);
-        #endif
-        fprintf(fp ,"%c", (i < MZ_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
+
+    if(vector.elements == NULL){
+        fprintf(fp ," %s ", MZ_NULL_VECTOR);
+    }else {
+        for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
+            #if !VISUALIZE_RATIONAL
+            fprintf(fp ," %f", MZ_VALUE_OF_VECTOR_AT(vector, i));
+            #else
+            zstring value = rationalizeFloatToStr(MZ_VALUE_OF_VECTOR_AT(vector, i), 3);
+            fprintf(fp, " %s", value.data);
+            #endif
+            fprintf(fp ,"%c", (i < MZ_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
+        }
     }
     fprintf(fp ,"]\n   |  }\n\n");
 }
@@ -934,15 +942,21 @@ void MZ_print_vector(FILE* fp, MZ_Vec vector){
 /*
 */
 void MZ_print_vector_by_label(FILE* fp, const char* label, MZ_Vec vector){
+
     fprintf(fp ,"\n\n   | [%s] of size %zu: {\n   |\t[", label, MZ_DIM_OF_VECTOR(vector));
-    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
-        #if !VISUALIZE_RATIONAL 
-        fprintf(fp ," %f", MZ_VALUE_OF_VECTOR_AT(vector, i));
-        #else
-        zstring value = rationalizeFloatToStr(MZ_VALUE_OF_VECTOR_AT(vector, i), 3);
-        fprintf(fp, " %s", value.data);
-        #endif
-        fprintf(fp ,"%c", (i < MZ_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
+
+    if(vector.elements == NULL){
+        fprintf(fp ," %s ", MZ_NULL_VECTOR);
+    }else {
+        for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
+            #if !VISUALIZE_RATIONAL 
+            fprintf(fp ," %f", MZ_VALUE_OF_VECTOR_AT(vector, i));
+            #else
+            zstring value = rationalizeFloatToStr(MZ_VALUE_OF_VECTOR_AT(vector, i), 3);
+            fprintf(fp, " %s", value.data);
+            #endif
+            fprintf(fp ,"%c", (i < MZ_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
+        }
     }
     fprintf(fp ,"]\n   |  }\n\n");
 }
@@ -950,15 +964,21 @@ void MZ_print_vector_by_label(FILE* fp, const char* label, MZ_Vec vector){
 /*
 */
 void MZ_print_vector_by_index(FILE* fp, int index, MZ_Vec vector){
+
     fprintf(fp ,"\n\n   | [VECTOR %d] of size %zu: {\n   |\t[", index, MZ_DIM_OF_VECTOR(vector));
-    for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
-        #if !VISUALIZE_RATIONAL 
-        fprintf(fp ," %f", MZ_VALUE_OF_VECTOR_AT(vector, i));
-        #else
-        zstring value = rationalizeFloatToStr(MZ_VALUE_OF_VECTOR_AT(vector, i), 3);
-        fprintf(fp, " %s", value.data);
-        #endif
-        fprintf(fp ,"%c", (i < MZ_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
+
+    if(vector.elements == NULL){
+        fprintf(fp ," %s ", MZ_NULL_VECTOR);
+    }else {
+        for(size_t i = 0; i < MZ_DIM_OF_VECTOR(vector); i++){
+            #if !VISUALIZE_RATIONAL 
+            fprintf(fp ," %f", MZ_VALUE_OF_VECTOR_AT(vector, i));
+            #else
+            zstring value = rationalizeFloatToStr(MZ_VALUE_OF_VECTOR_AT(vector, i), 3);
+            fprintf(fp, " %s", value.data);
+            #endif
+            fprintf(fp ,"%c", (i < MZ_DIM_OF_VECTOR(vector) - 1 ? ',' : ' '));
+        }
     }
     fprintf(fp ,"]\n   |  }\n\n");
 }
@@ -1341,38 +1361,74 @@ void MZ_print_matrix(FILE *fp, MZ_Matrix mat){
     #endif
 
 	fprintf(fp, "\n\n   | Matrix of size %ux%u: {\n", mat.rows, mat.cols);
-	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
-	for(unsigned int i = 0; i < mat.cols; i++){
-		for(int i = 0; i < spaces; i++){
-			fprintf(fp, " ");
-		}	
-	}
-	fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
 	
+    if(mat.elements == NULL){
+
+        int spaces = 13;
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
+        for(unsigned int i = 0; i < 2; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }	
+        }
+        fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
+        
+        for(unsigned int i = 0; i < 2; i++){
+            
+            fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
+            
+            for(unsigned int j = 0; j < 2; j++){
+                fprintf(fp, "%-13s", MZ_NULL_MATRIX);
+            }		
+            fprintf(fp, "%c\n", SIDE_CHAR);
+        }
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
+        for(unsigned int i = 0; i < 2; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }
+        }
+        fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+        fprintf(fp, "   | }\n\n");
+
+    }else {
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
+        for(unsigned int i = 0; i < mat.cols; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }	
+        }
+        fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
+        
+        for(unsigned int i = 0; i < mat.rows; i++){
+            
+            fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
+            
+            for(unsigned int j = 0; j < mat.cols; j++){
+                #if !VISUALIZE_RATIONAL
+                fprintf(fp, "%-11f", MZ_VALUE_OF_MAT_AT(mat, i, j));
+                #else
+                zstring value = rationalizeFloatToStr(MZ_VALUE_OF_MAT_AT(mat, i, j), 3);
+                fprintf(fp, " %-11s", value.data);
+                #endif
+            }		
+            fprintf(fp, "%c\n", SIDE_CHAR);
+        }
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
+        for(unsigned int i = 0; i < mat.cols; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }
+        }
+        fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+        fprintf(fp, "   | }\n\n");
+
+    }
 	
-	for(unsigned int i = 0; i < mat.rows; i++){
-		
-		fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
-		
-		for(unsigned int j = 0; j < mat.cols; j++){
-            #if !VISUALIZE_RATIONAL
-			fprintf(fp, "%-11f", MZ_VALUE_OF_MAT_AT(mat, i, j));
-            #else
-            zstring value = rationalizeFloatToStr(MZ_VALUE_OF_MAT_AT(mat, i, j), 3);
-            fprintf(fp, " %-11s", value.data);
-            #endif
-		}		
-		fprintf(fp, "%c\n", SIDE_CHAR);
-	}
-	
-	fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
-	for(unsigned int i = 0; i < mat.cols; i++){
-		for(int i = 0; i < spaces; i++){
-			fprintf(fp, " ");
-		}
-	}
-	fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
-    fprintf(fp, "   | }\n\n");
 }
 
 /*
@@ -1386,83 +1442,155 @@ void MZ_print_matrix_by_label(FILE *fp, const char* label, MZ_Matrix mat){
     #endif
 
 	fprintf(fp, "\n\n   | [%s] of size %ux%u: {\n", label, mat.rows, mat.cols);
-	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
-	for(unsigned int i = 0; i < mat.cols; i++){
-		for(int i = 0; i < spaces; i++){
-			fprintf(fp, " ");
-		}	
-	}
-	fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
+
+    if(mat.elements == NULL){
+
+        int spaces = 13;
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
+        for(unsigned int i = 0; i < 2; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }	
+        }
+        fprintf(fp, "  %c   \n", RIGHT_UP_CORNER);
+        
+        for(unsigned int i = 0; i < 2; i++){
+            
+            fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
+            
+            for(unsigned int j = 0; j < 2; j++){
+                fprintf(fp, "%-13s", MZ_NULL_MATRIX);
+            }		
+            fprintf(fp, "  %c\n", SIDE_CHAR);
+        }
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
+        for(unsigned int i = 0; i < 2; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }
+        }
+        fprintf(fp, "  %c   \n", RIGHT_DOWN_CORNER);
+        fprintf(fp, "   | }\n\n");
+
+    }else {
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
+        for(unsigned int i = 0; i < mat.cols; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }	
+        }
+        fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
 	
+        for(unsigned int i = 0; i < mat.rows; i++){
+            
+            fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
+            
+            for(unsigned int j = 0; j < mat.cols; j++){
+                #if !VISUALIZE_RATIONAL
+                fprintf(fp, "%-11f", MZ_VALUE_OF_MAT_AT(mat, i, j));
+                #else
+                zstring value = rationalizeFloatToStr(MZ_VALUE_OF_MAT_AT(mat, i, j), 3);
+                fprintf(fp, " %-11s", value.data);
+                #endif
+            }		
+            fprintf(fp, "%c\n", SIDE_CHAR);
+        }
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
+        for(unsigned int i = 0; i < mat.cols; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }
+        }
+        fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+        fprintf(fp, "   | }\n\n");
+
+    }
 	
-	for(unsigned int i = 0; i < mat.rows; i++){
-		
-		fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
-		
-		for(unsigned int j = 0; j < mat.cols; j++){
-            #if !VISUALIZE_RATIONAL
-			fprintf(fp, "%-11f", MZ_VALUE_OF_MAT_AT(mat, i, j));
-            #else
-            zstring value = rationalizeFloatToStr(MZ_VALUE_OF_MAT_AT(mat, i, j), 3);
-            fprintf(fp, " %-11s", value.data);
-            #endif
-		}		
-		fprintf(fp, "%c\n", SIDE_CHAR);
-	}
-	
-	fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
-	for(unsigned int i = 0; i < mat.cols; i++){
-		for(int i = 0; i < spaces; i++){
-			fprintf(fp, " ");
-		}
-	}
-	fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
-    fprintf(fp, "   | }\n\n");
 }
 
 /*
 */
-void MZ_print_matrix_by_index(FILE *fp, unsigned  index, MZ_Matrix mat){
+void MZ_print_matrix_by_index(FILE *fp, unsigned int index, MZ_Matrix mat){
 	
     #if VISUALIZE_RATIONAL
 	int spaces = 12;
     #else
     int spaces = 11;
     #endif
+    
+    fprintf(fp, "\n\n   | [MATRIX %d] of size %ux%u: {\n", index, mat.rows, mat.cols);
 
-	fprintf(fp, "\n\n   | [MATRIX %d] of size %ux%u: {\n", index, mat.rows, mat.cols);
-	fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
-	for(unsigned int i = 0; i < mat.cols; i++){
-		for(int i = 0; i < spaces; i++){
-			fprintf(fp, " ");
-		}	
-	}
-	fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
+    if(mat.elements == NULL){
+
+        int spaces = 13;
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
+        for(unsigned int i = 0; i < 2; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }	
+        }
+        fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
+        
+        for(unsigned int i = 0; i < 2; i++){
+            
+            fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
+            
+            for(unsigned int j = 0; j < 2; j++){
+                fprintf(fp, "%-13s", MZ_NULL_MATRIX);
+            }		
+            fprintf(fp, "%c\n", SIDE_CHAR);
+        }
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
+        for(unsigned int i = 0; i < 2; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }
+        }
+        fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+        fprintf(fp, "   | }\n\n");
+
+    }else {
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_UP_CORNER);
+        for(unsigned int i = 0; i < mat.cols; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }	
+        }
+        fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
 	
+        for(unsigned int i = 0; i < mat.rows; i++){
+            
+            fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
+            
+            for(unsigned int j = 0; j < mat.cols; j++){
+                #if !VISUALIZE_RATIONAL
+                fprintf(fp, "%-11f", MZ_VALUE_OF_MAT_AT(mat, i, j));
+                #else
+                zstring value = rationalizeFloatToStr(MZ_VALUE_OF_MAT_AT(mat, i, j), 3);
+                fprintf(fp, " %-11s", value.data);
+                #endif
+            }		
+            fprintf(fp, "%c\n", SIDE_CHAR);
+        }
+
+        fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
+        for(unsigned int i = 0; i < mat.cols; i++){
+            for(int i = 0; i < spaces; i++){
+                fprintf(fp, " ");
+            }
+        }
+        fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+        fprintf(fp, "   | }\n\n");
+
+    }
 	
-	for(unsigned int i = 0; i < mat.rows; i++){
-		
-		fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
-		
-		for(unsigned int j = 0; j < mat.cols; j++){
-            #if !VISUALIZE_RATIONAL
-			fprintf(fp, "%-11f", MZ_VALUE_OF_MAT_AT(mat, i, j));
-            #else
-            zstring value = rationalizeFloatToStr(MZ_VALUE_OF_MAT_AT(mat, i, j), 3);
-            fprintf(fp, " %-11s", value.data);
-            #endif
-		}		
-		fprintf(fp, "%c\n", SIDE_CHAR);
-	}
-	
-	fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
-	for(unsigned int i = 0; i < mat.cols; i++){
-		for(int i = 0; i < spaces; i++){
-			fprintf(fp, " ");
-		}
-	}
-	fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
-    fprintf(fp, "   | }\n\n");
 }
 
 /*
@@ -2331,7 +2459,8 @@ MZ_Matrix MZ_inverse_of_matrix(MZ_Matrix source){
     }
 
     // inverse = 1 / det * adj
-    MZ_Matrix result = MZ_multiply_matrix_by_scalar(adj, 1.0f / det);
+    MZ_Matrix result = MZ_alloc_matrix(adj.rows, adj.cols);
+    result = MZ_multiply_matrix_by_scalar(adj, 1.0f / det);
 
     MZ_free_matrix(&adj);
 

@@ -3,10 +3,18 @@
 |                   VECTORS                     |
  -----------------------------------------------
 
+TEST: PRINT NULL VECTOR {
+
+   | [NULL VECTOR] of size 0: {
+   |	[ (null vector) ]
+   |  }
+
+}
+
 TEST: CREATE A NEW [VECTOR] {
 
    | [VECTOR 1] of size 4: {
-   |	[ 1.000000, 2.000000, 3.000000, 4.000000 ]
+   |	[ +1, +2, +3, +4 ]
    |  }
 
 }
@@ -14,7 +22,7 @@ TEST: CREATE A NEW [VECTOR] {
 TEST: COPY FROM [VECTOR 1] TO [VECTOR 2] {
 
    | [VECTOR 2] of size 4: {
-   |	[ 1.000000, 2.000000, 3.000000, 4.000000 ]
+   |	[ +1, +2, +3, +4 ]
    |  }
 
 }
@@ -22,7 +30,7 @@ TEST: COPY FROM [VECTOR 1] TO [VECTOR 2] {
 TEST: SUM [VECTOR 1]AND [VECTOR 2] {
 
    | [SUM VECTOR] of size 4: {
-   |	[ 2.000000, 4.000000, 6.000000, 8.000000 ]
+   |	[ +2, +4, +6, +8 ]
    |  }
 
 }
@@ -30,7 +38,7 @@ TEST: SUM [VECTOR 1]AND [VECTOR 2] {
 TEST: SUM [VECTOR 1] BY A SCALAR [2] {
 
    | [SUM VECTOR] of size 4: {
-   |	[ 3.000000, 4.000000, 5.000000, 6.000000 ]
+   |	[ +3, +4, +5, +6 ]
    |  }
 
 }
@@ -38,7 +46,7 @@ TEST: SUM [VECTOR 1] BY A SCALAR [2] {
 TEST: SUBTRACT [VECTOR 1] AND [VECTOR 2] {
 
    | [SUB VECTOR] of size 4: {
-   |	[ 0.000000, 0.000000, 0.000000, 0.000000 ]
+   |	[ +0, +0, +0, +0 ]
    |  }
 
 }
@@ -46,7 +54,7 @@ TEST: SUBTRACT [VECTOR 1] AND [VECTOR 2] {
 TEST: SUBTRACT [VECTOR 1] BY A SCALAR [2] {
 
    | [SUB VECTOR] of size 4: {
-   |	[ -1.000000, 0.000000, 1.000000, 2.000000 ]
+   |	[ -1, +0, +1, +2 ]
    |  }
 
 }
@@ -54,7 +62,7 @@ TEST: SUBTRACT [VECTOR 1] BY A SCALAR [2] {
 TEST: MULTIPLY [VECTOR 1] AND [VECTOR 2] {
 
    | [PROD VECTOR] of size 4: {
-   |	[ 1.000000, 4.000000, 9.000000, 16.000000 ]
+   |	[ +1, +4, +9, +16 ]
    |  }
 
 }
@@ -62,7 +70,7 @@ TEST: MULTIPLY [VECTOR 1] AND [VECTOR 2] {
 TEST: MULTIPLY [VECTOR 1] BY A SCALAR [2] {
 
    | [PROD VECTOR] of size 4: {
-   |	[ 2.000000, 4.000000, 6.000000, 8.000000 ]
+   |	[ +2, +4, +6, +8 ]
    |  }
 
 }
@@ -70,7 +78,7 @@ TEST: MULTIPLY [VECTOR 1] BY A SCALAR [2] {
 TEST: DIVIDE [VECTOR 1] AND [VECTOR 2] {
 
    | [DIV VECTOR] of size 4: {
-   |	[ 1.000000, 1.000000, 1.000000, 1.000000 ]
+   |	[ +1, +1, +1, +1 ]
    |  }
 
 }
@@ -78,7 +86,7 @@ TEST: DIVIDE [VECTOR 1] AND [VECTOR 2] {
 TEST: DIVIDE [VECTOR 1] BY A SCALAR [2] {
 
    | [DIV VECTOR] of size 4: {
-   |	[ 0.500000, 1.000000, 1.500000, 2.000000 ]
+   |	[ +1/2, +1, +3/2, +2 ]
    |  }
 
 }
@@ -86,7 +94,7 @@ TEST: DIVIDE [VECTOR 1] BY A SCALAR [2] {
 TEST: RAISE THE [VECTOR 1] TO THE POWER OF [4] {
 
    | [RAISED VECTOR] of size 4: {
-   |	[ 1.000000, 32.000000, 243.000000, 1024.000000 ]
+   |	[ +1, +32, +243, +1024 ]
    |  }
 
 }
@@ -94,7 +102,7 @@ TEST: RAISE THE [VECTOR 1] TO THE POWER OF [4] {
 TEST: CREATE A NEW [VECTOR 8] ORTHOGONAL TO [VECTOR 1] {
 
    | [ORTHOGONAL VECTOR] of size 4: {
-   |	[ -2.000000, 1.000000, -4.000000, 3.000000 ]
+   |	[ -2, +1, -4, +3 ]
    |  }
 
 }
@@ -102,7 +110,7 @@ TEST: CREATE A NEW [VECTOR 8] ORTHOGONAL TO [VECTOR 1] {
 TEST: CROSS PRODUCT BETWEEN [VECTOR 9] AND [VECTOR 10] {
 
    | [CROSS PRODUCT VECTOR] of size 3: {
-   |	[ 22.000000, 8.000000, -15.000000 ]
+   |	[ +22, +8, -15 ]
    |  }
 
 }
@@ -110,7 +118,7 @@ TEST: CROSS PRODUCT BETWEEN [VECTOR 9] AND [VECTOR 10] {
 TEST: NORMALIZE [VECTOR 12] WITH MAGNITUDE OF [9.273619] AFTER COPING IT FROM [VECTOR 3] {
 
    | [NORMALIZED VECTOR] of size 4: {
-   |	[ 0.323498, 0.431331, 0.539164, 0.646997 ]
+   |	[ +10/31, +25/58, +6/11, +2/3 ]
    |  }
 
 }
@@ -121,7 +129,7 @@ TEST: NORMALIZE [VECTOR 12] WITH MAGNITUDE OF [9.273619] AFTER COPING IT FROM [V
 
 > DOT PRODUCT:
    | DOT PRODUCT BETWEEN [VECTOR 1] and [VECTOR 3]: : {
-   |	DOT: 50.000000;
+   |	DOT: +50;
    | }
 
 
@@ -129,8 +137,8 @@ TEST: NORMALIZE [VECTOR 12] WITH MAGNITUDE OF [9.273619] AFTER COPING IT FROM [V
 
 
 > VECTOR MAGNITUDE:
-   | MAGNITUDE OF [VECTOR 3] : {
-   |	MAG: 9.273619;
+   | Magnitude of [VECTOR 3]: : {
+   |	MAG: +65/7;
    | }
 
 
@@ -141,13 +149,24 @@ TEST: NORMALIZE [VECTOR 12] WITH MAGNITUDE OF [9.273619] AFTER COPING IT FROM [V
  -----------------------------------------------
 
 
+TEST: PRINT NULL MATRIX {
+
+   | [NULL MATRIX] of size 0x0: {
+   |		x                               x   
+   |		|   (null matrix)(null matrix)  |
+   |		|   (null matrix)(null matrix)  |
+   |		x                               x   
+   | }
+
+}
+
 TEST: CREATE A NEW [MATRIX 1] {
 
    | [MATRIX 1] of size 2x4: {
-   |		x                                               x   
-   |		|   1.000000   2.000000   3.000000   4.000000   |
-   |		|   5.000000   6.000000   7.000000   8.000000   |
-   |		x                                               x   
+   |		x                                                   x   
+   |		|    +1          +2          +3          +4         |
+   |		|    +5          +6          +7          +8         |
+   |		x                                                   x   
    | }
 
 }
@@ -155,11 +174,11 @@ TEST: CREATE A NEW [MATRIX 1] {
 TEST: CREATE A NEW [MATRIX 2] AS AN IDENTITY MATRIX OF DIM [6]{
 
    | [MATRIX 2] of size 3x3: {
-   |		x                                    x   
-   |		|   1.000000   0.000000   0.000000   |
-   |		|   0.000000   1.000000   0.000000   |
-   |		|   0.000000   0.000000   1.000000   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +1          +0          +0         |
+   |		|    +0          +1          +0         |
+   |		|    +0          +0          +1         |
+   |		x                                       x   
    | }
 
 }
@@ -167,10 +186,10 @@ TEST: CREATE A NEW [MATRIX 2] AS AN IDENTITY MATRIX OF DIM [6]{
 TEST: COPY THE POINTER AND DIM FROM [MATRIX 1] TO [MATRIX 2] {
 
    | [MATRIX 2] of size 2x4: {
-   |		x                                               x   
-   |		|   1.000000   2.000000   3.000000   4.000000   |
-   |		|   5.000000   6.000000   7.000000   8.000000   |
-   |		x                                               x   
+   |		x                                                   x   
+   |		|    +1          +2          +3          +4         |
+   |		|    +5          +6          +7          +8         |
+   |		x                                                   x   
    | }
 
 }
@@ -178,17 +197,17 @@ TEST: COPY THE POINTER AND DIM FROM [MATRIX 1] TO [MATRIX 2] {
 TEST: CONVERT [VECTOR 13] TO [MATRIX 3] {
 
    | [VECTOR 13] of size 3: {
-   |	[ 1.000000, 2.000000, 3.000000 ]
+   |	[ +1, +2, +3 ]
    |  }
 
 
 
    | [MATRIX 3] of size 3x1: {
-   |		x              x   
-   |		|   1.000000   |
-   |		|   2.000000   |
-   |		|   3.000000   |
-   |		x              x   
+   |		x               x   
+   |		|    +1         |
+   |		|    +2         |
+   |		|    +3         |
+   |		x               x   
    | }
 
 }
@@ -196,17 +215,17 @@ TEST: CONVERT [VECTOR 13] TO [MATRIX 3] {
 TEST: CONVERT [MATRIX 4] TO [VECTOR 14] {
 
    | [MATRIX 4] of size 3x3: {
-   |		x                                    x   
-   |		|   1.000000   0.000000   0.000000   |
-   |		|   0.000000   1.000000   0.000000   |
-   |		|   0.000000   0.000000   1.000000   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +1          +0          +0         |
+   |		|    +0          +1          +0         |
+   |		|    +0          +0          +1         |
+   |		x                                       x   
    | }
 
 
 
    | [VECTOR 14] of size 9: {
-   |	[ 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000 ]
+   |	[ +1, +0, +0, +0, +1, +0, +0, +0, +1 ]
    |  }
 
 }
@@ -214,17 +233,17 @@ TEST: CONVERT [MATRIX 4] TO [VECTOR 14] {
 TEST: TAKE FROM [MATRIX 4] THE 2TH ROW {
 
    | [MATRIX 4] of size 3x3: {
-   |		x                                    x   
-   |		|   1.049593   0.689962   0.663717   |
-   |		|   1.658315   0.125492   0.776086   |
-   |		|   0.451918   0.188849   0.742271   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +105/53     +9/7        +15/14     |
+   |		|    +20/19      +5/6        +51/26     |
+   |		|    +19/13      +2/5        +11/6      |
+   |		x                                       x   
    | }
 
 
 
    | [2TH ROW TAKEN FROM [MATRIX 4]] of size 3: {
-   |	[ 1.658315, 0.125492, 0.776086 ]
+   |	[ +20/19, +5/6, +51/26 ]
    |  }
 
 }
@@ -232,17 +251,17 @@ TEST: TAKE FROM [MATRIX 4] THE 2TH ROW {
 TEST: TAKE FROM [MATRIX 4] THE 3TH COL {
 
    | [MATRIX 4] of size 3x3: {
-   |		x                                    x   
-   |		|   1.049593   0.689962   0.663717   |
-   |		|   1.658315   0.125492   0.776086   |
-   |		|   0.451918   0.188849   0.742271   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +105/53     +9/7        +15/14     |
+   |		|    +20/19      +5/6        +51/26     |
+   |		|    +19/13      +2/5        +11/6      |
+   |		x                                       x   
    | }
 
 
 
    | [3TH COL TAKEN FROM [MATRIX 4]] of size 3: {
-   |	[ 0.663717, 0.776086, 0.742271 ]
+   |	[ +15/14, +51/26, +11/6 ]
    |  }
 
 }
@@ -252,32 +271,32 @@ TEST: OPERATION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 
 
    | [MATRIX 5] of size 3x3: {
-   |		x                                    x   
-   |		|   5.000000   5.000000   5.000000   |
-   |		|   5.000000   5.000000   5.000000   |
-   |		|   5.000000   5.000000   5.000000   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +5          +5          +5         |
+   |		|    +5          +5          +5         |
+   |		|    +5          +5          +5         |
+   |		x                                       x   
    | }
 
 
 
    | [MATRIX 6] of size 3x3: {
-   |		x                                    x   
-   |		|   6.000000   6.000000   6.000000   |
-   |		|   6.000000   6.000000   6.000000   |
-   |		|   6.000000   6.000000   6.000000   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +6          +6          +6         |
+   |		|    +6          +6          +6         |
+   |		|    +6          +6          +6         |
+   |		x                                       x   
    | }
 
 
 OP: SUM BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 
    | [SUM MATRIX] of size 3x3: {
-   |		x                                    x   
-   |		|   11.000000  11.000000  11.000000  |
-   |		|   11.000000  11.000000  11.000000  |
-   |		|   11.000000  11.000000  11.000000  |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +11         +11         +11        |
+   |		|    +11         +11         +11        |
+   |		|    +11         +11         +11        |
+   |		x                                       x   
    | }
 
 }
@@ -285,11 +304,11 @@ OP: SUM BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 OP: SUBTRACTION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 
    | [SUB MATRIX] of size 3x3: {
-   |		x                                    x   
-   |		|   -1.000000  -1.000000  -1.000000  |
-   |		|   -1.000000  -1.000000  -1.000000  |
-   |		|   -1.000000  -1.000000  -1.000000  |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    -1          -1          -1         |
+   |		|    -1          -1          -1         |
+   |		|    -1          -1          -1         |
+   |		x                                       x   
    | }
 
 }
@@ -297,11 +316,11 @@ OP: SUBTRACTION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 OP: PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 
    | [PROD MATRIX] of size 3x3: {
-   |		x                                    x   
-   |		|   90.000000  90.000000  90.000000  |
-   |		|   90.000000  90.000000  90.000000  |
-   |		|   90.000000  90.000000  90.000000  |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +90         +90         +90        |
+   |		|    +90         +90         +90        |
+   |		|    +90         +90         +90        |
+   |		x                                       x   
    | }
 
 }
@@ -309,11 +328,11 @@ OP: PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 OP: DIVISION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 
    | [DIV MATRIX] of size 3x3: {
-   |		x                                    x   
-   |		|   0.833333   0.833333   0.833333   |
-   |		|   0.833333   0.833333   0.833333   |
-   |		|   0.833333   0.833333   0.833333   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +5/6        +5/6        +5/6       |
+   |		|    +5/6        +5/6        +5/6       |
+   |		|    +5/6        +5/6        +5/6       |
+   |		x                                       x   
    | }
 
 }
@@ -322,11 +341,11 @@ OP: DIVISION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 OP: HADAMARD PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 
    | [PRODUCT ELEMENT BY ELEMENT] of size 3x3: {
-   |		x                                    x   
-   |		|   30.000000  30.000000  30.000000  |
-   |		|   30.000000  30.000000  30.000000  |
-   |		|   30.000000  30.000000  30.000000  |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +30         +30         +30        |
+   |		|    +30         +30         +30        |
+   |		|    +30         +30         +30        |
+   |		x                                       x   
    | }
 
 }
@@ -336,21 +355,21 @@ OP: HADAMARD PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {
 TEST: TRANSPOSE [MATRIX 8] {
 
    | [MATRIX 8] of size 3x3: {
-   |		x                                    x   
-   |		|   1.574389   1.034944   0.995575   |
-   |		|   2.487472   0.188238   1.164129   |
-   |		|   0.677877   0.283273   1.113407   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +104/35     +44/23      +5/3       |
+   |		|    +8/5        +27/22      +53/18     |
+   |		|    +81/37      +4/7        +11/4      |
+   |		x                                       x   
    | }
 
 
 
    | [TRANSPOSED MATRIX] of size 3x3: {
-   |		x                                    x   
-   |		|   1.574389   2.487472   0.677877   |
-   |		|   1.034944   0.188238   0.283273   |
-   |		|   0.995575   1.164129   1.113407   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +104/35     +8/5        +81/37     |
+   |		|    +44/23      +27/22      +4/7       |
+   |		|    +5/3        +53/18      +11/4      |
+   |		x                                       x   
    | }
 
 }
@@ -358,21 +377,21 @@ TEST: TRANSPOSE [MATRIX 8] {
 TEST: [MATRIX 9] TO ROW ECHELON FORM {
 
    | [MATRIX 9] of size 3x3: {
-   |		x                                    x   
-   |		|   1.000000   -1.000000  -1.000000  |
-   |		|   4.000000   1.000000   0.000000   |
-   |		|   -1.000000  -1.000000  -4.000000  |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +2          -3          -3         |
+   |		|    -5          -5          -1         |
+   |		|    -2          +2          +0         |
+   |		x                                       x   
    | }
 
 
 
    | [CONVERTED MATRIX] of size 3x3: {
-   |		x                                    x   
-   |		|   1.000000   -1.000000  -1.000000  |
-   |		|   3.000000   1.000000   0.500000   |
-   |		|   -5.000000  -1.000000  1.000000   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +1          -3/2        -3/2       |
+   |		|    -6          +1          -1/7       |
+   |		|    +3          +5/2        +1         |
+   |		x                                       x   
    | }
 
 }
@@ -380,27 +399,27 @@ TEST: [MATRIX 9] TO ROW ECHELON FORM {
 TEST: APPEND [VECTOR 17] TO [MATRIX 12] {
 
    | [MATRIX 10] of size 3x3: {
-   |		x                                    x   
-   |		|   1.000000   -1.000000  -1.000000  |
-   |		|   4.000000   1.000000   0.000000   |
-   |		|   -1.000000  -1.000000  -4.000000  |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +2          -3          -3         |
+   |		|    -5          -5          -1         |
+   |		|    -2          +2          +0         |
+   |		x                                       x   
    | }
 
 
 
    | [VECTOR TO APPEND] of size 3: {
-   |	[ 7.000000, 7.000000, 7.000000 ]
+   |	[ +7, +7, +7 ]
    |  }
 
 
 
    | [EXPANDED MATRIX] of size 3x4: {
-   |		x                                               x   
-   |		|   1.000000   -1.000000  -1.000000  7.000000   |
-   |		|   4.000000   1.000000   0.000000   7.000000   |
-   |		|   -1.000000  -1.000000  -4.000000  7.000000   |
-   |		x                                               x   
+   |		x                                                   x   
+   |		|    +2          -3          -3          +7         |
+   |		|    -5          -5          -1          +7         |
+   |		|    -2          +2          +0          +7         |
+   |		x                                                   x   
    | }
 
 }
@@ -408,31 +427,31 @@ TEST: APPEND [VECTOR 17] TO [MATRIX 12] {
 TEST: APPEND [MATRIX 13] TO [MATRIX 14] {
 
    | [MATRIX 13] of size 3x4: {
-   |		x                                               x   
-   |		|   -2.000000  1.000000   1.000000   1.000000   |
-   |		|   -2.000000  -3.000000  1.000000   1.000000   |
-   |		|   -2.000000  0.000000   1.000000   -2.000000  |
-   |		x                                               x   
+   |		x                                                   x   
+   |		|    -1          -1          -1          -3         |
+   |		|    -3          +1          +0          -1         |
+   |		|    -3          -1          -2          +0         |
+   |		x                                                   x   
    | }
 
 
 
    | [MATRIX TO APPEND] of size 3x3: {
-   |		x                                    x   
-   |		|   3.000000   -1.000000  1.000000   |
-   |		|   0.000000   -1.000000  2.000000   |
-   |		|   3.000000   5.000000   0.000000   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +0          +3          +3         |
+   |		|    +3          +1          +1         |
+   |		|    +0          +2          +0         |
+   |		x                                       x   
    | }
 
 
 
    | [EXPANDED MATRIX] of size 3x7: {
-   |		x                                                                                x   
-   |		|   -2.000000  1.000000   1.000000   1.000000   3.000000   -1.000000  1.000000   |
-   |		|   -2.000000  -3.000000  1.000000   1.000000   0.000000   -1.000000  2.000000   |
-   |		|   -2.000000  0.000000   1.000000   -2.000000  3.000000   5.000000   0.000000   |
-   |		x                                                                                x   
+   |		x                                                                                       x   
+   |		|    -1          -1          -1          -3          +0          +3          +3         |
+   |		|    -3          +1          +0          -1          +3          +1          +1         |
+   |		|    -3          -1          -2          +0          +0          +2          +0         |
+   |		x                                                                                       x   
    | }
 
 }
@@ -440,15 +459,15 @@ TEST: APPEND [MATRIX 13] TO [MATRIX 14] {
 TEST: DETERMINANT OF [MATRIX 13] {
 
    | [MATRIX 15] of size 3x3: {
-   |		x                                    x   
-   |		|   -2.000000  -2.000000  0.000000   |
-   |		|   -1.000000  2.000000   -1.000000  |
-   |		|   -2.000000  2.000000   3.000000   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +1          -2          -2         |
+   |		|    -2          -2          -2         |
+   |		|    +1          +1          -1         |
+   |		x                                       x   
    | }
 
-   | THE DETERMINANT OF [MATRIX 15] IS : {
-   |	DET: -26.000000;
+   | THE DETERMINANT OF [MATRIX 15] IS: : {
+   |	DET: +12;
    | }
 
 }
@@ -456,21 +475,22 @@ TEST: DETERMINANT OF [MATRIX 13] {
 TEST: INVERSE OF [MATRIX 14] {
 
    | [MATRIX 14] of size 3x3: {
-   |		x                                    x   
-   |		|   2.000000   2.000000   4.000000   |
-   |		|   3.000000   3.000000   3.000000   |
-   |		|   2.000000   3.000000   4.000000   |
-   |		x                                    x   
+   |		x                                       x   
+   |		|    +2          +2          +2         |
+   |		|    +2          +2          +2         |
+   |		|    +2          +2          +3         |
+   |		x                                       x   
    | }
 
+   | IS THE [MATRIX 14] INVERTIBLE?: : {
+   |	 FALSE;
+   | }
 
-
-   | [INVERTED MATRIX] of size 3x3: {
-   |		x                                    x   
-   |		|   0.500000   0.666667   -1.000000  |
-   |		|   -1.000000  0.000000   1.000000   |
-   |		|   0.500000   -0.333333  0.000000   |
-   |		x                                    x   
+   | [INVERTED MATRIX] of size 0x0: {
+   |		x                               x   
+   |		|   (null matrix)(null matrix)  |
+   |		|   (null matrix)(null matrix)  |
+   |		x                               x   
    | }
 
 }
