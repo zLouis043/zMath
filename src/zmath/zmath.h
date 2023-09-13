@@ -22,7 +22,7 @@
 /*
     Flag that if activated will print each number in its rational representation
 */
-#define VISUALIZE_RATIONAL 1
+#define VISUALIZE_RATIONAL 0
 
 #define MZ_EQUAL_ERROR      "Dimension mismatch."
 #define MZ_ALLOC_ERROR      "Allocation failure."
