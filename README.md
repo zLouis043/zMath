@@ -46,14 +46,14 @@ $ ./run.sh
 
 int main(void){
 
-  zVec v1 = newZVector(1.0f, 2.0f, 3.0f, 4.0f);
-  printVector(stdout, v1);
+  zm_Vec v1 = zm_new_vector(1.0f, 2.0f, 3.0f, 4.0f);
+  zm_print_vector(stdout, v1);
 
-  zVec v2 = newDefaultZVector(4, 1.0f);
-  printVector(stdout, v2);
+  zm_zVec v2 = zm_new_default_vector(4, 1.0f);
+  zm_print_vector(stdout, v2);
 
-  zVec v3 = sumVector(v1, v2);
-  printVector(stdout, v3);
+  zm_zVec v3 = zm_add_two_vectors(v1, v2);
+  zm_print_vector(stdout, v3);
 
   return 0;
 
