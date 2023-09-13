@@ -416,7 +416,7 @@ float MZ_magnitude_of_vector(MZ_Vec vector);
 /*!
     The direction of the vec to matrix conversion
 */
-typedef enum {
+typedef enum Direction{
     HORIZONTAL = 0,
     VERTICAL = 1,
     DIR_COUNT,
