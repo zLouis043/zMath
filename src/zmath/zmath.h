@@ -596,10 +596,10 @@ MZ_Matrix MZ_subtract_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 MZ_Matrix MZ_subtract_matrix_with_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
-    Multiply two matrices together.
+    Multiply two matrices together by the rows per cols product.
     @param matrix1.
-    @param matrix2.
-    @return The product of the two matrices.
+    @param matrix2
+    @return The product of two matrices together by the rows per cols product.
 */
 MZ_Matrix MZ_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
@@ -628,12 +628,13 @@ MZ_Matrix MZ_divide_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 MZ_Matrix MZ_divide_matrix_by_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
-    Multiply two matrices together by the rows per cols product.
+    Multiply two matrices together.
     @param matrix1.
-    @param matrix2
-    @return The product of two matrices together by the rows per cols product.
+    @param matrix2.
+    @return The product of the two matrices element by elements.
 */
-MZ_Matrix MZ_dot_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
+MZ_Matrix MZ_hadamard_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
+
 
 /*!
     Transpose a matrix.
@@ -1421,7 +1422,7 @@ void MZ_print_matrix_by_label(FILE *fp, const char* label, MZ_Matrix mat){
 
 /*
 */
-void MZ_print_matrix_by_index(FILE *fp, unsigned int index, MZ_Matrix mat){
+void MZ_print_matrix_by_index(FILE *fp, unsigned  index, MZ_Matrix mat){
 	
     #if VISUALIZE_RATIONAL
 	int spaces = 12;
@@ -1771,18 +1772,21 @@ MZ_Matrix MZ_subtract_matrix_with_scalar(MZ_Matrix matrix1, float scalar){
 */
 MZ_Matrix MZ_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
 
-    MZ_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, MZ_EQUAL_ERROR);
+    MZ_assert(matrix1.cols == matrix2.rows, MZ_PROD_ERROR);
 
-    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix2.cols);
     
     for(unsigned int i = 0; i < result.rows; i++){
-        for(unsigned int j = 0; j < result.cols; j++){
-            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) * MZ_VALUE_OF_MAT_AT(matrix2, i, j);
-        }
-    }
+		for(unsigned int j = 0; j < result.cols; j++){
+			MZ_VALUE_OF_MAT_AT(result, i, j) = 0;
+			for(unsigned int k = 0; k < matrix2.rows; k++){
+				MZ_VALUE_OF_MAT_AT(result, i, j) += MZ_VALUE_OF_MAT_AT(matrix1, i, k) * MZ_VALUE_OF_MAT_AT(matrix2, k, j); 
+			}
+		}
+	}
 
     return result;
-    
+
 }
 
 /*
@@ -1845,23 +1849,20 @@ MZ_Matrix MZ_divide_matrix_by_scalar(MZ_Matrix matrix1, float scalar){
 
 /*
 */
-MZ_Matrix MZ_dot_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
+MZ_Matrix MZ_hadamard_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
 
-    MZ_assert(matrix1.cols == matrix2.rows, MZ_PROD_ERROR);
+    MZ_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, MZ_EQUAL_ERROR);
 
-    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix2.cols);
+    MZ_Matrix result = MZ_alloc_matrix(matrix1.rows, matrix1.cols);
     
     for(unsigned int i = 0; i < result.rows; i++){
-		for(unsigned int j = 0; j < result.cols; j++){
-			MZ_VALUE_OF_MAT_AT(result, i, j) = 0;
-			for(unsigned int k = 0; k < matrix2.rows; k++){
-				MZ_VALUE_OF_MAT_AT(result, i, j) += MZ_VALUE_OF_MAT_AT(matrix1, i, k) * MZ_VALUE_OF_MAT_AT(matrix2, k, j); 
-			}
-		}
-	}
+        for(unsigned int j = 0; j < result.cols; j++){
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(matrix1, i, j) * MZ_VALUE_OF_MAT_AT(matrix2, i, j);
+        }
+    }
 
     return result;
-
+    
 }
 
 /*

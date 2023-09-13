@@ -186,26 +186,28 @@ int main(int argc, char **argv){
 
     fprintf(fp, "\nTEST: OPERATION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {\n\n");
         MZ_Matrix mat5 = MZ_new_default_matrix(3, 3, 5.0f);
+        MZ_print_matrix_by_index(fp, 5, mat5);
         MZ_Matrix mat6 = MZ_new_default_matrix(3, 3, 6.0f);
+        MZ_print_matrix_by_index(fp, 6, mat6);
         fprintf(fp, "\nOP: SUM BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
             MZ_Matrix mat7 = MZ_add_two_matrices(mat5, mat6);
-            MZ_print_matrix_by_label(fp, "SUM MATRIX", mat1);
+            MZ_print_matrix_by_label(fp, "SUM MATRIX", mat7);
         fprintf(fp, "}\n"); 
         fprintf(fp, "\nOP: SUBTRACTION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
             mat7 = MZ_subtract_two_matrices(mat5, mat6);
-            MZ_print_matrix_by_label(fp, "SUB MATRIX", mat1);
+            MZ_print_matrix_by_label(fp, "SUB MATRIX", mat7);
         fprintf(fp, "}\n"); 
         fprintf(fp, "\nOP: PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
             mat7 = MZ_multiply_two_matrices(mat5, mat6);
-            MZ_print_matrix_by_label(fp, "PROD MATRIX", mat1);
+            MZ_print_matrix_by_label(fp, "PROD MATRIX", mat7);
         fprintf(fp, "}\n"); 
         fprintf(fp, "\nOP: DIVISION BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
             mat7 = MZ_divide_two_matrices(mat5, mat6);
-            MZ_print_matrix_by_label(fp, "DIV MATRIX", mat1);;
+            MZ_print_matrix_by_label(fp, "DIV MATRIX", mat7);;
         fprintf(fp, "}\n\n");
-        fprintf(fp, "\nOP: ROWS PER COLS PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
-            mat7 = MZ_dot_two_matrices(mat5, mat6);
-            MZ_print_matrix_by_label(fp, "ROWS PER COLS PRODUCTS MATRIX", mat1);
+        fprintf(fp, "\nOP: HADAMARD PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
+            mat7 = MZ_hadamard_multiply_two_matrices(mat5, mat6);
+            MZ_print_matrix_by_label(fp, "PRODUCT ELEMENT BY ELEMENT", mat7);
         fprintf(fp, "}\n\n"); 
     fprintf(fp, "}\n"); 
 
