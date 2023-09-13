@@ -1068,7 +1068,12 @@ MZ_Vec MZ_new_random_float_vector(size_t dim, float min, float max){
 
     MZ_Vec result = MZ_alloc_vector(dim);
 
-    srand((unsigned)time(NULL) * _getpid());
+    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+    srand((unsigned)time(NULL) * getpid()); 
+    #elif _WIN32
+    srand((unsigned)time(NULL) * _getpid()); 
+    #endif 
+
     for(size_t i = 0; i < dim; i++){
         MZ_VALUE_OF_VECTOR_AT(result, i) = MZ_rand_float(min, max);
     }
@@ -1083,7 +1088,12 @@ MZ_Vec MZ_new_random_int_vector(size_t dim, float min, float max){
     MZ_Vec result = MZ_alloc_vector(dim);
 
 
-    srand((unsigned)time(NULL) * _getpid());
+    #if defined (__unix__) || (defined (__APPLE__) && defined (__MACH__))
+    srand((unsigned)time(NULL) * getpid()); 
+    #elif _WIN32
+    srand((unsigned)time(NULL) * _getpid()); 
+    #endif 
+    
     for(size_t i = 0; i < dim; i++){
         MZ_VALUE_OF_VECTOR_AT(result, i) = MZ_rand_int(min, max);
     }
