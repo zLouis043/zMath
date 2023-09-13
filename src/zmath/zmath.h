@@ -4,23 +4,33 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-/*
-    Flag that if activated will crush the program if an assertion fails.
+/*! 
+    @brief Flag that if activated will crush the program if an assertion fails.
+    @if 0 Then the program wont crash on assert failures.
+    @elseif 1 Then the program will crash if an assertion fails.
 */
 #define EXIT_ON_ASSERT_FAILURE 1
 
-/*
-    Flag that if activated will print debug information.
+/*!
+    @brief Flag that if activated will print debug information.
+    @if 0 Then when a function is called it wont print debug information.
+    @elseif 1 Then when a function is called it may print debug information.
 */
 #define VISUALIZE_DEBUG 0
 
-/*
-    Flag that if activated will print each step done in a function.
+/*!
+    @brief Flag that if activated will print each step done in a function.
+    @if 0 Then when a function is called it wont print each step done in a function.
+    @elseif 1 Then when a function is called it may print each step done in a function.
 */
 #define VISUALIZE_STEPS 0
 
-/*
-    Flag that if activated will print each number in its rational representation
+/*!
+    @attention CHANGE THIS ONLY IF THE ZSTRING.H IN PRESENT IN THE SAME FOLDER OF THIS FILE.
+
+    @brief Flag that if activated will print each number in its rational representation.
+    @if 0 Then the program will print every value as a float.
+    @elseif 1 Then the program will print every value in its rational representation.
 */
 #define VISUALIZE_RATIONAL 0
 
@@ -33,7 +43,7 @@
 #define MZ_NULL_MATRIX       "(null matrix)"
 
 /*!
-    Finds the maximum of two values
+    @brief Finds the maximum of two values
     @param n the first value
     @param m the second value
     @return the larger element
@@ -45,7 +55,7 @@
 })
 
 /*!
-    Finds the minimum of two values
+    @brief Finds the minimum of two values
     @param n the first value
     @param m the second value
     @return the smaller element
@@ -57,7 +67,7 @@
 })
 
 /*!
-    Alloc macro.
+    @brief Alloc macro.
     @param count The size of the chunk to allocate.
     @param type The type of the chunk.
 */
@@ -65,7 +75,9 @@
     (type*)malloc((count) * sizeof(type))\
 
 /*!
-    Swap two values.
+    @brief Swap two values.
+    @param n The first value to swap.
+    @param m The second value to swap.
 */
 #define MZ_SWAP(n, m) ({\
     typeof(n) _tmp = (n);\
@@ -74,14 +86,14 @@
 })
 
 /*!
-    Checks if the condition is true and printf an error message and exit the program if it is false.
+    @brief Checks if the condition is true and printf an error message and exit the program if it is false.
     @param condition The condition to check.
     @param message The message to send if the condition is false.
 */
 void _MZ_assert(bool condition, const char* message, const char* filepath, size_t line);
 
 /*!
-    Gives a random float random in a certain range.
+    @brief Gives a random float random in a certain range.
     @param min The minimum value.
     @param max The maximum value.
     @return a random float value.
@@ -89,7 +101,7 @@ void _MZ_assert(bool condition, const char* message, const char* filepath, size_
 float MZ_rand_float( float min, float max );
 
 /*!
-    Gives a random int random in a certain range.
+    @brief Gives a random int random in a certain range.
     @param min The minimum value.
     @param max The maximum value.
     @return a random int value.
@@ -97,28 +109,28 @@ float MZ_rand_float( float min, float max );
 int MZ_rand_int( int min, int max );
    
 /*!
-    Swap two int numbers.
+    @brief Swap two int numbers.
     @param a the pointer to the first number.
     @param b the pointer to the second number.
 */
 void MZ_swap_int(int* a, int* b);
 
 /*!
-    Swap two float numbers.
+    @brief Swap two float numbers.
     @param a the pointer to the first number.
     @param b the pointer to the second number.
 */
 void MZ_swap_float(float* a, float* b);
 
 /*!
-    Prints a single float value.
+    @brief Prints a single float value.
     @param label The label of the print
     @param value The value to print
 */
 void MZ_print_value(FILE* fp, const char* label, const char* name_of_value, float value );
 
 /*!
-    Checks if the array contains a value.
+    @brief Checks if the array contains a value.
     @param arr The pointer to the array.
     @param n The number of elements in the array 
     @param target The target element.
@@ -127,7 +139,7 @@ void MZ_print_value(FILE* fp, const char* label, const char* name_of_value, floa
 bool MZ_is_in_array(unsigned int *arr, int n, float target);
 
 /*!
-    Checks if the condition is true and printf an error message and exit the program if it is false.
+    @brief Checks if the condition is true and printf an error message and exit the program if it is false.
     @param condition The condition to check.
     @param message The message to send if the condition is false.
 */
@@ -140,12 +152,11 @@ bool MZ_is_in_array(unsigned int *arr, int n, float target);
 
 /*! 
 
-    Struct that holds the dimensions of the vector and its components
+    @brief Struct that holds the dimensions of the vector and its components
     @param dim The dimension of the vector
-    @param elements The element of the vector
+    @param elements The elements of the vector
 
 */
-
 typedef struct MZ_Vec{
     size_t dim;
     float *elements;
@@ -154,14 +165,14 @@ typedef struct MZ_Vec{
 extern MZ_Vec NULL_VECTOR;
 
 /*!
-    Prints the dimensions of the vector and its components.
+    @brief Prints the dimensions of the vector and its components.
     @param fp The file to write the vector.
     @param vector The vector to print.
 */
 void MZ_print_vector(FILE* fp, MZ_Vec vector);
 
 /*!
-    Prints the dimensions of the vector by its label and its components.
+    @brief Prints the dimensions of the vector by its label and its components.
     @param fp The file to write the vector.
     @param label The vector label.
     @param vector The vector to print.
@@ -169,7 +180,7 @@ void MZ_print_vector(FILE* fp, MZ_Vec vector);
 void MZ_print_vector_by_label(FILE* fp, const char* label, MZ_Vec vector);
 
 /*!
-    Prints the dimensions of the vector by its index and its components.
+    @brief Prints the dimensions of the vector by its index and its components.
     @param fp The file to write the vector.
     @param index The vector index.
     @param vector The vector to print.
@@ -177,55 +188,56 @@ void MZ_print_vector_by_label(FILE* fp, const char* label, MZ_Vec vector);
 void MZ_print_vector_by_index(FILE* fp, int index, MZ_Vec vector);
 
 /*!
-    Free the vector and sets its dimensions to 0.
+    @brief Free the vector and sets its dimensions to 0.
+    @param vector The vector to free.
 */
 void MZ_free_vector(MZ_Vec* vector);
 
 /*!
-    Copy one vector into another.
+    @brief Copy one vector into another.
     @param source The vector to copy.
     @param dest The destination vector.
 */
 void MZ_copy_vector_pointer(MZ_Vec* source, MZ_Vec* dest);
 
 /*!
-    Allocate memory for the vector.
+    @brief Allocate memory for the vector.
     @param dim The dimensions of the vector.
     @return The memory allocated. 
 */
 MZ_Vec MZ_alloc_vector(size_t dim);
 
 /*!
-    Create a new vector of dim dimensions with every component in the vector equal to 0.
+    @brief Create a new vector of dim dimensions with every component in the vector equal to 0.
     @param dim The dimensions of the vector.
     @return The new vector with every element in the vector equal to 0.
 */
 MZ_Vec MZ_new_zero_vector(size_t dim);
 
 /*!
-    Create a new vector of dim dimensions with every component in the vector equal to to element.
+    @brief Create a new vector of dim dimensions with every component in the vector equal to to element.
     @param dim The dimensions of the vector.
     @param element The element of which the vector will be filled.
-    @returnThe new vector with every component in the vector equal to element.
+    @return The new vector with every component in the vector equal to element.
 */
 MZ_Vec MZ_new_default_vector(size_t dim, float element);
 
 /*!
-    Create a new vector of dim dimensions with every component being randomly generated.
+    @brief Create a new vector of dim dimensions with every component being randomly generated.
     @param dim The dimensions of the vector.
     @return The new vector with every element in the vector equal to 0.
 */
 MZ_Vec MZ_new_random_float_vector(size_t dim, float min, float max);
 
 /*!
-    Create a new vector of dimensions with every component being randomly generated.
+    @brief Create a new vector of dimensions with every component being randomly generated.
     @param dim The dimensions of the vector.
     @return The new vector with every element in the vector equal to 0.
 */
 MZ_Vec MZ_new_random_int_vector(size_t dim, float min, float max);
 
 /*!
-    Create a new vector of dim dimensions.
+    @brief Create a new vector of dim dimensions.
     @param dim The dimensions of the vector.
     @param ... The components of the vector.
     @return The new vector of dim dimensions.
@@ -233,14 +245,14 @@ MZ_Vec MZ_new_random_int_vector(size_t dim, float min, float max);
 MZ_Vec _MZ_new_vector(size_t dim, ...);
 
 /*!
-    Copy the dimensions and the components from a vector to another one.
+    @brief Copy the dimensions and the components from a vector to another one.
     @param source The vector to copy.
     @return The copy of the vector.
 */
 MZ_Vec MZ_copy_vector(MZ_Vec source);
 
 /*!
-    Sums the two vectors.
+    @brief Sums the two vectors.
     @param vector1
     @param vector2
     @return The sum between vector1 and vector2.
@@ -248,7 +260,7 @@ MZ_Vec MZ_copy_vector(MZ_Vec source);
 MZ_Vec MZ_add_two_vectors(MZ_Vec vector1 , MZ_Vec vector2);
 
 /*!
-    Sums a vector and a scalar.
+    @brief Sums a vector and a scalar.
     @param vector1
     @param scalar
     @return The sum between vector1 and a scalar.
@@ -256,7 +268,7 @@ MZ_Vec MZ_add_two_vectors(MZ_Vec vector1 , MZ_Vec vector2);
 MZ_Vec MZ_add_vector_with_scalar(MZ_Vec vector1 , float scalar);
 
 /*!
-    Sums the two vectors.
+    @brief Sums the two vectors.
     @param vector1
     @param vector2
     @return The sum between vector1 and vector2.
@@ -264,7 +276,7 @@ MZ_Vec MZ_add_vector_with_scalar(MZ_Vec vector1 , float scalar);
 MZ_Vec MZ_subtract_two_vectors(MZ_Vec vector1 , MZ_Vec vector2);
 
 /*!
-    Subtract a vector and a scalar.
+    @brief Subtract a vector and a scalar.
     @param vector1
     @param scalar
     @return The subtraction between vector1 and a scalar.
@@ -272,7 +284,7 @@ MZ_Vec MZ_subtract_two_vectors(MZ_Vec vector1 , MZ_Vec vector2);
 MZ_Vec MZ_subtract_vector_with_scalar(MZ_Vec vector1 , float scalar);
 
 /*!
-    Multiply two vectors.
+    @brief Multiply two vectors.
     @param vector1
     @param vector2
     @return The product between vector1 and  vector2.
@@ -280,7 +292,7 @@ MZ_Vec MZ_subtract_vector_with_scalar(MZ_Vec vector1 , float scalar);
 MZ_Vec MZ_multiply_two_vectors(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
-    Multiply a vector and a scalar.
+    @brief Multiply a vector and a scalar.
     @param vector1
     @param scalar
     @return The product between vector1 and a scalar.
@@ -288,7 +300,7 @@ MZ_Vec MZ_multiply_two_vectors(MZ_Vec vector1, MZ_Vec vector2);
 MZ_Vec MZ_multiply_vector_by_scalar(MZ_Vec vector1, float scalar);
 
 /*!
-    Divide two vectors.
+    @brief Divide two vectors.
     @param vector1
     @param vector2
     @return The division between vector1 and  vector2.
@@ -296,7 +308,7 @@ MZ_Vec MZ_multiply_vector_by_scalar(MZ_Vec vector1, float scalar);
 MZ_Vec MZ_divide_two_vectors(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
-    Divide a vector and a scalar.
+    @brief Divide a vector and a scalar.
     @param vector1
     @param scalar
     @return The division between vector1 and a scalar.
@@ -304,7 +316,7 @@ MZ_Vec MZ_divide_two_vectors(MZ_Vec vector1, MZ_Vec vector2);
 MZ_Vec MZ_divide_vector_by_scalar(MZ_Vec vector1, float scalar);
 
 /*!
-    Raise every component of a vector to the exponent given.
+    @brief Raise every component of a vector to the exponent given.
     @param vector The vector to raise.
     @param exponent The exponent of the power.
     @return The vector raised to the exponent.
@@ -312,7 +324,7 @@ MZ_Vec MZ_divide_vector_by_scalar(MZ_Vec vector1, float scalar);
 MZ_Vec MZ_raise_vector_to_exp(MZ_Vec vector, size_t exponent);
 
 /*!
-    The cross product between two vectors.
+    @brief The cross product between two vectors.
     @param vector1
     @param vector2
     @return The cross product between two vectors.
@@ -320,20 +332,20 @@ MZ_Vec MZ_raise_vector_to_exp(MZ_Vec vector, size_t exponent);
 MZ_Vec MZ_cross_product(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
-    This function return the normalized version of a vector given.
+    @brief This function return the normalized version of a vector given.
     @param vector The vector to normalize.
     @return The normalized vector.
 */
 MZ_Vec MZ_normalized_vector(MZ_Vec vector);
 
 /*!
-    This function return the normalized version of a vector given.
+    @brief This function return the normalized version of a vector given.
     @param vector The vector pointer to normalize.
 */
 void MZ_normalize_vector(MZ_Vec* vector);
 
 /*!
-    Checks if two vectors are equal.
+    @brief Checks if two vectors are equal.
     @param vector1
     @param vector2
     @return true if they are equal false if otherwise.
@@ -341,7 +353,7 @@ void MZ_normalize_vector(MZ_Vec* vector);
 bool MZ_are_two_vectors_equal(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
-    Checks if the two vectors are orthogonal.
+    @brief Checks if the two vectors are orthogonal.
     @param vector1.
     @param vector2.
     @return true if they are orthogonal false if otherwise
@@ -349,14 +361,14 @@ bool MZ_are_two_vectors_equal(MZ_Vec vector1, MZ_Vec vector2);
 bool MZ_are_two_vectors_orthogonal(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
-    Checks if the vector is normalized.
+    @brief Checks if the vector is normalized.
     @param vector The vector.
     @return true if the vector is normalized.
 */
 bool MZ_is_vector_normalized(MZ_Vec vector);
 
 /*!
-    This functions return the dot product of two vectors.
+    @brief This functions return the dot product of two vectors.
     @param vector1
     @param vector2
     @return The dot product of the two vectors.
@@ -364,7 +376,7 @@ bool MZ_is_vector_normalized(MZ_Vec vector);
 float MZ_dot_two_vectors(MZ_Vec vector1, MZ_Vec vector2);
 
 /*!
-    This function return the magnitude of a vector.
+    @brief This function return the magnitude of a vector.
     @param vector 
     @return The magnitude of the vector.
 */
@@ -372,21 +384,21 @@ float MZ_magnitude_of_vector(MZ_Vec vector);
 
 
 /*!
-    Find the arguments given 
+    @brief Find the arguments given 
     @param type The type of the arguments.
     @param ... The variable arguments.
 */
 #define MZ_NUM_OF_ARGS(type, ...) (sizeof((type[]){0.0f, ##__VA_ARGS__}) / sizeof(type) - 1) 
 
 /*!
-    Create a new vector of dim dimensions.
+    @brief Create a new vector of dim dimensions.
     @param ... The components of the vector.
     @result The new vector of dim dimensions.
 */
 #define MZ_new_vector(...) _MZ_new_vector(MZ_NUM_OF_ARGS(float, ##__VA_ARGS__), __VA_ARGS__)
 
 /*!
-    Return the value of the specified vector at the specified index.
+    @brief Return the value of the specified vector at the specified index.
     @param vector The vector from which to retrieve the value.
     @param index The index where to retrieve the value.
     @result The value at the specified index.
@@ -394,7 +406,7 @@ float MZ_magnitude_of_vector(MZ_Vec vector);
 #define MZ_VALUE_OF_VECTOR_AT(vector, index) (vector.elements[index])
 
 /*!
-    Return the value of the specified vector at the specified index.
+    @brief Return the value of the specified vector at the specified index.
     @param vector The vector from which to retrieve the value.
     @param index The index where to retrieve the value.
     @result The value at the specified index.
@@ -402,7 +414,7 @@ float MZ_magnitude_of_vector(MZ_Vec vector);
 #define MZ_VALUE_OF_VECTOR_POINTER_AT(vector, index) (vector->elements[index])
 
 /*!
-    Return the dimensions of the specified vector.
+    @brief Return the dimensions of the specified vector.
     @param vector The vector from which we pick the dimensions.
     @result The dimensions of the vector.
 */
@@ -414,7 +426,10 @@ float MZ_magnitude_of_vector(MZ_Vec vector);
 #define MATRIX_DEF
 
 /*!
-    The direction of the vec to matrix conversion
+    @brief The direction of the vec to matrix conversion
+    @param HORIZONTAL = 0,
+    @param VERTICAL   = 1,
+    @param DIR_COUNT  = 2
 */
 typedef enum Direction{
     HORIZONTAL = 0,
@@ -424,7 +439,7 @@ typedef enum Direction{
 
 
 /*!
-    The struct that holds the information about a matrix.
+    @brief The struct that holds the information about a matrix.
     @param rows The number of rows.
     @param cols The number of columns.
     @param elements The elements of the matrix.
@@ -438,14 +453,14 @@ typedef struct MZ_Matrix{
 extern MZ_Matrix NULL_MATRIX;
 
 /*!
-    Prints the information about a matrix.
+    @brief Prints the information about a matrix.
     @param fp The file to write the matrix.
     @param mat The matrix to print.
 */
 void MZ_print_matrix(FILE *fp, MZ_Matrix mat);
 
 /*!
-    Prints the information about a matrix with a label.
+    @brief Prints the information about a matrix with a label.
     @param fp The file to write the matrix.
     @param label The label of the matrix.
     @param mat The matrix to print.
@@ -453,7 +468,7 @@ void MZ_print_matrix(FILE *fp, MZ_Matrix mat);
 void MZ_print_matrix_by_label(FILE *fp, const char* label, MZ_Matrix mat);
 
 /*!
-    Prints the information about a matrix with an index.
+    @brief Prints the information about a matrix with an index.
     @param fp The file to write the matrix.
     @param index The index of the matrix.
     @param mat The matrix to print.
@@ -461,20 +476,20 @@ void MZ_print_matrix_by_label(FILE *fp, const char* label, MZ_Matrix mat);
 void MZ_print_matrix_by_index(FILE *fp, unsigned int index, MZ_Matrix mat);
 
 /*!
-    Frees the matrix and set the rows and cols to 0.
+    @brief Frees the matrix and set the rows and cols to 0.
     @param mat The matrix to free.
 */
 void MZ_free_matrix(MZ_Matrix* mat);
 
 /*!
-    Copy the source matrix to the destination matrix by the pointer.
+    @brief Copy the source matrix to the destination matrix by the pointer.
     @param source The source matrix to copy.
     @param dest The destination matrix.
 */
 void MZ_copy_matrix_pointer(MZ_Matrix *source, MZ_Matrix *dest);
 
 /*!
-    Allocate memory chunk to the matrix through its rows and cols.
+    @brief Allocate memory chunk to the matrix through its rows and cols.
     @param rows The rows of the matrix.
     @param cols The cols of the matrix.
     @return The allocated memory chunk.
@@ -482,7 +497,7 @@ void MZ_copy_matrix_pointer(MZ_Matrix *source, MZ_Matrix *dest);
 MZ_Matrix MZ_alloc_matrix(unsigned int rows, unsigned int cols);
 
 /*!
-    Create a matrix of rows * cols dimensions all set to 0.
+    @brief Create a matrix of rows * cols dimensions all set to 0.
     @param rows The rows of the matrix.
     @param cols The cols of the matrix.
     @return The matrix of rows * cols dimensions all set to 0.
@@ -490,7 +505,7 @@ MZ_Matrix MZ_alloc_matrix(unsigned int rows, unsigned int cols);
 MZ_Matrix MZ_new_zero_matrix(unsigned int rows, unsigned int cols);
 
 /*!
-    Create a matrix of rows * cols dimensions filled with random float values.
+    @brief Create a matrix of rows * cols dimensions filled with random float values.
     @param rows The rows of the matrix.
     @param cols The cols of the matrix.
     @param min The minimum value.
@@ -500,7 +515,7 @@ MZ_Matrix MZ_new_zero_matrix(unsigned int rows, unsigned int cols);
 MZ_Matrix MZ_new_random_float_matrix(unsigned int rows, unsigned int cols, float min, float max);
 
 /*!
-    Create a matrix of rows * cols dimensions filled with random int values.
+    @brief Create a matrix of rows * cols dimensions filled with random int values.
     @param rows The rows of the matrix.
     @param cols The cols of the matrix.
     @param min The minimum value.
@@ -510,7 +525,7 @@ MZ_Matrix MZ_new_random_float_matrix(unsigned int rows, unsigned int cols, float
 MZ_Matrix MZ_new_random_int_matrix(unsigned int rows, unsigned int cols, int min, int max);
 
 /*!
-    Create a matrix of rows * cols dimensions all set to a certain value.
+    @brief Create a matrix of rows * cols dimensions all set to a certain value.
     @param rows The rows of the matrix.
     @param cols The cols of the matrix.
     @param value The value used to fill the matrix.
@@ -519,14 +534,14 @@ MZ_Matrix MZ_new_random_int_matrix(unsigned int rows, unsigned int cols, int min
 MZ_Matrix MZ_new_default_matrix(unsigned int rows, unsigned int cols, float value);
 
 /*!
-    Create a matrix of rows * cols dimensions all set to 0.0f except for the main diagonal that is set to 1.0f.
+    @brief Create a matrix of rows * cols dimensions all set to 0.0f except for the main diagonal that is set to 1.0f.
     @param dim The rows of the matrix.
     @return The matrix of rows * cols dimensions all set to 0.0f except for the main diagonal that is set to 1.0f. 
 */
 MZ_Matrix MZ_new_identity_matrix(unsigned int dim);
 
 /*!
-    Create a matrix of rows * cols dimensions.
+    @brief Create a matrix of rows * cols dimensions.
     @param rows The rows of the matrix.
     @param cols The cols of the matrix.
     @param numVals the number of values inside the matrix.
@@ -535,7 +550,7 @@ MZ_Matrix MZ_new_identity_matrix(unsigned int dim);
 MZ_Matrix _MZ_new_matrix(unsigned int rows, unsigned int cols, unsigned int numVals, ...);
 
 /*!
-    Create a Row or a Col Matrix from a vector.
+    @brief Create a Row or a Col Matrix from a vector.
     @param source The source vector.
     @param dir Whether it will be a Row Matrix or a Col Matrix.
     @return The vector converted to a Matrix.
@@ -543,14 +558,14 @@ MZ_Matrix _MZ_new_matrix(unsigned int rows, unsigned int cols, unsigned int numV
 MZ_Matrix MZ_Vector_to_matrix(MZ_Vec source, Direction dir);
 
 /*!
-    Create a vector from a matrix.
+    @brief Create a vector from a matrix.
     @param source The source matrix.
     @return The vector converted from the Matrix.
 */
 MZ_Vec MZ_Matrix_to_vector(MZ_Matrix source);
 
 /*!
-    Create a vector from a matrix's row.
+    @brief Create a vector from a matrix's row.
     @param source The source matrix.
     @param row The row that will be converted to a vector.
     @return The vector converted from the Matrix's row.
@@ -558,7 +573,7 @@ MZ_Vec MZ_Matrix_to_vector(MZ_Matrix source);
 MZ_Vec MZ_get_vector_from_matrix_row(MZ_Matrix source, unsigned int row);
 
 /*!
-    Create a vector from a matrix's col.
+    vCreate a vector from a matrix's col.
     @param source The source matrix.
     @param col The col that will be converted to a vector.
     @return The vector converted from the Matrix's col.
@@ -566,7 +581,7 @@ MZ_Vec MZ_get_vector_from_matrix_row(MZ_Matrix source, unsigned int row);
 MZ_Vec MZ_get_vector_from_matrix_col(MZ_Matrix source, unsigned int col);
 
 /*!
-    Add two matrices together.
+    @brief Add two matrices together.
     @param matrix1.
     @param matrix2.
     @return The sum of the two matrices.
@@ -574,7 +589,7 @@ MZ_Vec MZ_get_vector_from_matrix_col(MZ_Matrix source, unsigned int col);
 MZ_Matrix MZ_add_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 /*!
-    Add a scalar to every single element of the matrix.
+    @brief Add a scalar to every single element of the matrix.
     @param matrix1.
     @param scalar.
     @return The sum of every single element of the matrix to a certain scalar.
@@ -582,7 +597,7 @@ MZ_Matrix MZ_add_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 MZ_Matrix MZ_add_matrix_with_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
-    Subtract two matrices together.
+    @brief Subtract two matrices together.
     @param matrix1.
     @param matrix2.
     @return The subtracted of the two matrices.
@@ -590,7 +605,7 @@ MZ_Matrix MZ_add_matrix_with_scalar(MZ_Matrix matrix1, float scalar);
 MZ_Matrix MZ_subtract_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 /*!
-    Subtract a scalar to every single element of the matrix.
+    @brief Subtract a scalar to every single element of the matrix.
     @param matrix1.
     @param scalar.
     @return The subtracted of every single element of the matrix to a certain scalar.
@@ -598,7 +613,7 @@ MZ_Matrix MZ_subtract_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 MZ_Matrix MZ_subtract_matrix_with_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
-    Multiply two matrices together by the rows per cols product.
+    @brief Multiply two matrices together by the rows per cols product.
     @param matrix1.
     @param matrix2
     @return The product of two matrices together by the rows per cols product.
@@ -606,7 +621,7 @@ MZ_Matrix MZ_subtract_matrix_with_scalar(MZ_Matrix matrix1, float scalar);
 MZ_Matrix MZ_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 /*!
-    Multiply a scalar to every single element of the matrix.
+    @brief Multiply a scalar to every single element of the matrix.
     @param matrix1.
     @param scalar.
     @return The product of every single element of the matrix to a certain scalar.
@@ -614,7 +629,7 @@ MZ_Matrix MZ_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 MZ_Matrix MZ_multiply_matrix_by_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
-    Divide two matrices together.
+    @brief Divide two matrices together.
     @param matrix1.
     @param matrix2.
     @return The division of the two matrices.
@@ -622,7 +637,7 @@ MZ_Matrix MZ_multiply_matrix_by_scalar(MZ_Matrix matrix1, float scalar);
 MZ_Matrix MZ_divide_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 /*!
-    Divide a scalar to every single element of the matrix.
+    @brief Divide a scalar to every single element of the matrix.
     @param matrix1.
     @param scalar.
     @return The division of every single element of the matrix to a certain scalar.
@@ -630,7 +645,7 @@ MZ_Matrix MZ_divide_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 MZ_Matrix MZ_divide_matrix_by_scalar(MZ_Matrix matrix1, float scalar);
 
 /*!
-    Multiply two matrices together.
+    @brief Multiply two matrices together.
     @param matrix1.
     @param matrix2.
     @return The product of the two matrices element by elements.
@@ -639,14 +654,14 @@ MZ_Matrix MZ_hadamard_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2
 
 
 /*!
-    Transpose a matrix.
+    @brief Transpose a matrix.
     @param source The matrix to transpose.
     @return The transposed matrix.
 */
 MZ_Matrix MZ_transposed_matrix(MZ_Matrix source);
 
 /*!
-    Swap two rows in a matrix.
+    @brief Swap two rows in a matrix.
     @param source The original matrix.
     @param row1.
     @param row2.
@@ -655,7 +670,7 @@ MZ_Matrix MZ_transposed_matrix(MZ_Matrix source);
 bool MZ_swap_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int row2);
 
 /*!
-    Add two rows in a matrix.
+    @brief Add two rows in a matrix.
     @param source The original matrix.
     @param row1.
     @param row2.
@@ -664,7 +679,7 @@ bool MZ_swap_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int 
 bool MZ_add_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int row2);
 
 /*!
-    Multiply two rows in a matrix.
+    @brief Multiply two rows in a matrix.
     @param source The original matrix.
     @param row1.
     @param row2.
@@ -673,7 +688,7 @@ bool MZ_add_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int r
 bool MZ_multiply_two_matrix_rows(MZ_Matrix *source, unsigned int row, int scalar);
 
 /*!
-    Multiply one row to a scalar and then add it to the other row.
+    @brief Multiply one row to a scalar and then add it to the other row.
     @param source The original matrix.
     @param row1.
     @param row2.
@@ -682,21 +697,21 @@ bool MZ_multiply_two_matrix_rows(MZ_Matrix *source, unsigned int row, int scalar
 bool MZ_multiply_add_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int row2, int scalar);
 
 /*!
-    Convert a matrix to its Row Echelon Form.
+    @brief Convert a matrix to its Row Echelon Form.
     @param source The source matrix.
     @return The Row Echelon Form of the Matrix.
 */
 void MZ_to_echelon_form(MZ_Matrix *source);
 
 /*!
-    Convert a matrix to its Reduced Row Echelon Form.
+    @brief Convert a matrix to its Reduced Row Echelon Form.
     @param source The source matrix.
     @return The Reduced Row Echelon Form of the Matrix.
 */
 void MZ_to_reduced_echelon_form(MZ_Matrix *source);
 
 /*!
-    Append a vector to a matrix.
+    @brief Append a vector to a matrix.
     @param source The source matrix.
     @param vector The vector to append.
     @return The matrix with the added vector.
@@ -704,7 +719,7 @@ void MZ_to_reduced_echelon_form(MZ_Matrix *source);
 MZ_Matrix MZ_append_vector_to_matrix(MZ_Matrix source, MZ_Vec vector);
 
 /*!
-    Append a matrix to a matrix.
+    @brief Append a matrix to a matrix.
     @param source The source matrix.
     @param matrix The matrix to append.
     @return The matrix with the added matrix.
@@ -712,7 +727,7 @@ MZ_Matrix MZ_append_vector_to_matrix(MZ_Matrix source, MZ_Vec vector);
 MZ_Matrix MZ_append_matrix_to_matrix(MZ_Matrix source, MZ_Matrix matrix);
 
 /*!
-    Remove a row and a col from a matrix.
+    @brief Remove a row and a col from a matrix.
     @param source The source matrix.
     @param remRow The row to remove.
     @param remCol The col to remove.
@@ -721,21 +736,21 @@ MZ_Matrix MZ_append_matrix_to_matrix(MZ_Matrix source, MZ_Matrix matrix);
 MZ_Matrix MZ_get_sub_matrix(MZ_Matrix source, unsigned int remRow, unsigned int remCol);
 
 /*!
-    Find the determinant of a matrix.
+    @brief Find the determinant of a matrix.
     @param source The source Matrix.
     @return The determinant of the matrix.
 */
 float MZ_determinant_of_matrix_old(MZ_Matrix source);
 
 /*!
-    Find the determinant of a matrix through cofactor expansion with an exclusion list.
+    @brief Find the determinant of a matrix through cofactor expansion with an exclusion list.
     @param source The source Matrix.
     @return The determinant of the matrix.
 */
 float MZ_determinant_of_matrix(MZ_Matrix source);
 
 /*!
-    Calculate the determinant of a matrix through cofactor expansion using an exclusion list.
+    @brief Calculate the determinant of a matrix through cofactor expansion using an exclusion list.
     @param source The source matrix.
     @param row The row to expand on.
     @param col The new column to exclude.
@@ -750,7 +765,7 @@ float _MZ_determinant_of_matrix(MZ_Matrix source,
                             unsigned int *noSkipCols);
 
 /*!
-    Finds the cofactor of a matrix at the specific row and col.
+    @brief Finds the cofactor of a matrix at the specific row and col.
     @param source The source matrix.
     @param row The row index.
     @param col The col index.
@@ -759,35 +774,35 @@ float _MZ_determinant_of_matrix(MZ_Matrix source,
 float MZ_cofactor_of_matrix_at_coord(MZ_Matrix source, unsigned int row, unsigned int col);
 
 /*!
-    Calculates the matrix in which the elements are the cofactor of every element of the source matrix.
+    @brief Calculates the matrix in which the elements are the cofactor of every element of the source matrix.
     @param source The source matrix.
     @return The matrix in which the elements are the cofactor of every element of the source matrix.
 */
 MZ_Matrix MZ_cofactor_matrix(MZ_Matrix source);
 
 /*!
-    Find the transpose of the cofactor Matrix.
+    @brief Find the transpose of the cofactor Matrix.
     @param source The source matrix.
     @return The transpose of the cofactor Matrix.
 */
 MZ_Matrix MZ_adjugate_matrix(MZ_Matrix source);
 
 /*!
-    Checks if the matrix is invertible.
+    @brief Checks if the matrix is invertible.
     @param source The source matrix.
     @return true if the matrix is invertible and false otherwise.
 */
 bool MZ_is_matrix_invertible(MZ_Matrix source);
 
 /*!
-    Calculates the inverse of the source matrix.
+    @brief Calculates the inverse of the source matrix.
     @param source The source matrix.
     @return The inverse of the source matrix.
 */
 MZ_Matrix MZ_inverse_of_matrix(MZ_Matrix source);
 
 /*!
-    Calculates the inverse of the source matrix using Gaussian Elimination.
+    @brief Calculates the inverse of the source matrix using Gaussian Elimination.
     @param source The source matrix.
     @return The inverse of the source matrix.
 */
@@ -823,7 +838,7 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
 #define MZ_VALUE_OF_MAT_POINTER_AT(matrix, x, y) (matrix->elements[x][y])
 
 /*!
-    Create a matrix of rows * cols dimensions.
+    @brief Create a matrix of rows * cols dimensions.
     @param rows The rows of the matrix.
     @param cols The cols of the matrix.
     @param numVals the number of values inside the matrix.
@@ -1372,16 +1387,16 @@ void MZ_print_matrix(FILE *fp, MZ_Matrix mat){
                 fprintf(fp, " ");
             }	
         }
-        fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
+        fprintf(fp, "    %c   \n", RIGHT_UP_CORNER);
         
         for(unsigned int i = 0; i < 2; i++){
             
             fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
             
             for(unsigned int j = 0; j < 2; j++){
-                fprintf(fp, "%-13s", MZ_NULL_MATRIX);
+                fprintf(fp, "%-13s ", MZ_NULL_MATRIX);
             }		
-            fprintf(fp, "%c\n", SIDE_CHAR);
+            fprintf(fp, "  %c\n", SIDE_CHAR);
         }
 
         fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
@@ -1390,7 +1405,7 @@ void MZ_print_matrix(FILE *fp, MZ_Matrix mat){
                 fprintf(fp, " ");
             }
         }
-        fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+        fprintf(fp, "    %c   \n", RIGHT_DOWN_CORNER);
         fprintf(fp, "   | }\n\n");
 
     }else {
@@ -1453,14 +1468,14 @@ void MZ_print_matrix_by_label(FILE *fp, const char* label, MZ_Matrix mat){
                 fprintf(fp, " ");
             }	
         }
-        fprintf(fp, "  %c   \n", RIGHT_UP_CORNER);
+        fprintf(fp, "    %c   \n", RIGHT_UP_CORNER);
         
         for(unsigned int i = 0; i < 2; i++){
             
             fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
             
             for(unsigned int j = 0; j < 2; j++){
-                fprintf(fp, "%-13s", MZ_NULL_MATRIX);
+                fprintf(fp, "%-13s ", MZ_NULL_MATRIX);
             }		
             fprintf(fp, "  %c\n", SIDE_CHAR);
         }
@@ -1471,7 +1486,7 @@ void MZ_print_matrix_by_label(FILE *fp, const char* label, MZ_Matrix mat){
                 fprintf(fp, " ");
             }
         }
-        fprintf(fp, "  %c   \n", RIGHT_DOWN_CORNER);
+        fprintf(fp, "    %c   \n", RIGHT_DOWN_CORNER);
         fprintf(fp, "   | }\n\n");
 
     }else {
@@ -1534,16 +1549,16 @@ void MZ_print_matrix_by_index(FILE *fp, unsigned int index, MZ_Matrix mat){
                 fprintf(fp, " ");
             }	
         }
-        fprintf(fp, "%c   \n", RIGHT_UP_CORNER);
+        fprintf(fp, "    %c   \n", RIGHT_UP_CORNER);
         
         for(unsigned int i = 0; i < 2; i++){
             
             fprintf(fp, "   |\t\t%c   ", SIDE_CHAR);
             
             for(unsigned int j = 0; j < 2; j++){
-                fprintf(fp, "%-13s", MZ_NULL_MATRIX);
+                fprintf(fp, "%-13s ", MZ_NULL_MATRIX);
             }		
-            fprintf(fp, "%c\n", SIDE_CHAR);
+            fprintf(fp, "  %c\n", SIDE_CHAR);
         }
 
         fprintf(fp, "   |\t\t%c   ", LEFT_DOWN_CORNER);
@@ -1552,7 +1567,7 @@ void MZ_print_matrix_by_index(FILE *fp, unsigned int index, MZ_Matrix mat){
                 fprintf(fp, " ");
             }
         }
-        fprintf(fp, "%c   \n", RIGHT_DOWN_CORNER);
+        fprintf(fp, "    %c   \n", RIGHT_DOWN_CORNER);
         fprintf(fp, "   | }\n\n");
 
     }else {
