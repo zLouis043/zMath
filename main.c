@@ -116,15 +116,19 @@ int main(int argc, char **argv){
 
         fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 3] equal: %s\n", MZ_are_two_vectors_equal(v1, v3) ? "True" : "False");
         #if VISUALIZE_RATIONAL 
-        fprintf(fp, "\n> Dot product between [VECTOR 1] and [VECTOR 3]: %s\n", rationalizeFloatToStr(MZ_dot_two_vectors(v1, v3), 3).data);
+        fprintf(fp, "\n> DOT PRODUCT:\n");
+        MZ_print_value(fp, "DOT PRODUCT BETWEEN [VECTOR 1] and [VECTOR 3]:", "DOT", rationalizeFloatToStr(MZ_dot_two_vectors(v1, v3), 3).data);
         #else
-        fprintf(fp, "\n> Dot product between [VECTOR 1] and [VECTOR 3]: %f\n", MZ_dot_two_vectors(v1, v3));
+        fprintf(fp, "\n> DOT PRODUCT:\n");
+        MZ_print_value(fp, "DOT PRODUCT BETWEEN [VECTOR 1] and [VECTOR 3]:", "DOT", MZ_dot_two_vectors(v1, v3));
         #endif
-        fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 8] orthogonal: %s\n", MZ_are_two_vectors_orthogonal(v1, v8) ? "True" : "False");
+        fprintf(fp, "\n> Are [VECTOR 1] and [VECTOR 8] orthogonal: %s\n\n", MZ_are_two_vectors_orthogonal(v1, v8) ? "True" : "False");
         #if VISUALIZE_RATIONAL 
+        fprintf(fp, "\n> VECTOR MAGNITUDE:\n");
         fprintf(fp, "\n> Magnitude of [VECTOR 3]: %s\n", rationalizeFloatToStr(MZ_magnitude_of_vector(v3), 3).data);
         #else
-        fprintf(fp, "\n> Magnitude of [VECTOR 3]: %f\n", MZ_magnitude_of_vector(v3));
+        fprintf(fp, "\n> VECTOR MAGNITUDE:\n");
+        MZ_print_value(fp, "MAGNITUDE OF [VECTOR 3]", "MAG", MZ_magnitude_of_vector(v3));
         #endif
         fprintf(fp, "\n> Is [VECTOR 12] normalized : %s\n", MZ_is_vector_normalized(v12) ? "True" : "False");
 
@@ -242,11 +246,18 @@ int main(int argc, char **argv){
         MZ_print_matrix_by_index(fp, 15, mat13);
         #if VISUALIZE_RATIONAL
         zstring det = rationalizeFloatToStr(MZ_determinant_of_matrix(mat13),3);
-        fprintf(fp, "   | THE DETERMINANT OF [MATRIX 15] IS: {\n   |\tDet: %s;\n   | }\n\n", det.data);
+        MZ_print_value(fp, "THE DETERMINANT OF [MATRIX 15] IS", "DET", det.data);
         #else
         float det = MZ_determinant_of_matrix(mat13);
-        fprintf(fp, "   | THE DETERMINANT OF [MATRIX 15] IS: {\n   |\tDet: %f;\n   | }\n\n", det);
+        MZ_print_value(fp, "THE DETERMINANT OF [MATRIX 15] IS", "DET", det);
         #endif
+    fprintf(fp, "}\n");
+
+    fprintf(fp, "\nTEST: INVERSE OF [MATRIX 14] {");
+        MZ_Matrix mat14 = MZ_new_random_int_matrix(3, 3, 2, 5);
+        MZ_print_matrix_by_index(fp, 14, mat14);
+        mat14 = MZ_inverse_of_matrix(mat14);
+        MZ_print_matrix_by_label(fp, "INVERTED MATRIX", mat14);
     fprintf(fp, "}\n");
 
     fclose(fp);

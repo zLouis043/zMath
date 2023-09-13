@@ -109,6 +109,13 @@ void MZ_swap_int(int* a, int* b);
 void MZ_swap_float(float* a, float* b);
 
 /*!
+    Prints a single float value.
+    @param label The label of the print
+    @param value The value to print
+*/
+void MZ_print_value(FILE* fp, const char* label, const char* name_of_value, float value );
+
+/*!
     Checks if the array contains a value.
     @param arr The pointer to the array.
     @param n The number of elements in the array 
@@ -884,6 +891,12 @@ void MZ_swap_float(float* a, float* b){
     float* tmp = a;
     a = b;
     b = tmp;
+}
+
+/*
+*/
+void MZ_print_value(FILE* fp, const char* label, const char* name_of_value, float value ){
+    fprintf(fp, "   | %s : {\n   |\t%s: %f;\n   | }\n\n", label, name_of_value, value);
 }
 
 /*
