@@ -187,14 +187,14 @@ void MZ_copy_vector_pointer(MZ_Vec* source, MZ_Vec* dest);
 MZ_Vec MZ_alloc_vector(size_t dim);
 
 /*!
-    Create a new vector of MZ_DIM_OF_VECTOR dimensions with every component in the vector equal to 0.
+    Create a new vector of dim dimensions with every component in the vector equal to 0.
     @param dim The dimensions of the vector.
     @return The new vector with every element in the vector equal to 0.
 */
 MZ_Vec MZ_new_zero_vector(size_t dim);
 
 /*!
-    Create a new vector of MZ_DIM_OF_VECTOR dimensions with every component in the vector equal to to element.
+    Create a new vector of dim dimensions with every component in the vector equal to to element.
     @param dim The dimensions of the vector.
     @param element The element of which the vector will be filled.
     @returnThe new vector with every component in the vector equal to element.
@@ -202,7 +202,7 @@ MZ_Vec MZ_new_zero_vector(size_t dim);
 MZ_Vec MZ_new_default_vector(size_t dim, float element);
 
 /*!
-    Create a new vector of MZ_DIM_OF_VECTOR dimensions with every component being randomly generated.
+    Create a new vector of dim dimensions with every component being randomly generated.
     @param dim The dimensions of the vector.
     @return The new vector with every element in the vector equal to 0.
 */
@@ -216,10 +216,10 @@ MZ_Vec MZ_new_random_float_vector(size_t dim, float min, float max);
 MZ_Vec MZ_new_random_int_vector(size_t dim, float min, float max);
 
 /*!
-    Create a new vector of MZ_DIM_OF_VECTOR dimensions.
+    Create a new vector of dim dimensions.
     @param dim The dimensions of the vector.
     @param ... The components of the vector.
-    @return The new vector of MZ_DIM_OF_VECTOR dimensions.
+    @return The new vector of dim dimensions.
 */
 MZ_Vec _MZ_new_vector(size_t dim, ...);
 
@@ -370,9 +370,9 @@ float MZ_magnitude_of_vector(MZ_Vec vector);
 #define MZ_NUM_OF_ARGS(type, ...) (sizeof((type[]){0.0f, ##__VA_ARGS__}) / sizeof(type) - 1) 
 
 /*!
-    Create a new vector of MZ_DIM_OF_VECTOR dimensions.
+    Create a new vector of dim dimensions.
     @param ... The components of the vector.
-    @result The new vector of MZ_DIM_OF_VECTOR dimensions.
+    @result The new vector of dim dimensions.
 */
 #define MZ_new_vector(...) _MZ_new_vector(MZ_NUM_OF_ARGS(float, ##__VA_ARGS__), __VA_ARGS__)
 
@@ -796,13 +796,29 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
 #define sRIGHT_DOWN_CORNER 217
 #define RIGHT_DOWN_CORNER 'x'
 
-// double coords to single coord = rows * index + rows;
+/*! 
+    @param matrix The source matrix
+    @param x The x coordinate
+    @param y The y coordinate
+    @return The value of the element at the specified coordinates in the matrix
+*/
 #define MZ_VALUE_OF_MAT_AT(matrix, x, y) (matrix.elements[x][y])
 
-// double coords to single coord = rows * index + rows;
+/*!
+    @param matrix The source matrix
+    @param x The x coordinate
+    @param y The y coordinate
+    @return the value of the element at the specified coordinates in the matrix pointer
+*/
 #define MZ_VALUE_OF_MAT_POINTER_AT(matrix, x, y) (matrix->elements[x][y])
 
-
+/*!
+    Create a matrix of rows * cols dimensions.
+    @param rows The rows of the matrix.
+    @param cols The cols of the matrix.
+    @param numVals the number of values inside the matrix.
+    @return The matrix of rows * cols dimensions with the values specified.
+*/
 #define MZ_new_matrix(rows, cols, ...)  _MZ_new_matrix(rows, cols, rows*cols, __VA_ARGS__)
 
 #endif // ZMATRIX_DEF
