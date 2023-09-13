@@ -275,6 +275,7 @@ int main(int argc, char **argv){
     MZ_free_matrix(&mat11);
     MZ_free_matrix(&mat12);
     MZ_free_matrix(&mat13);
+    MZ_free_matrix(&mat14);
 
     MZ_free_vector(&v13);
     MZ_free_vector(&v14);
