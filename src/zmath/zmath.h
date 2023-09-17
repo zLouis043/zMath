@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef ZMATH_DEF
 #define ZMATH_DEF
 
@@ -2037,7 +2039,7 @@ MZ_Matrix MZ_transposed_matrix(MZ_Matrix source){
     MZ_Matrix result = MZ_alloc_matrix(source.cols, source.rows);
 
     for(unsigned int i = 0; i < result.rows; i++){
-        for(unsigned int j = 0; j < result.rows; j++){
+        for(unsigned int j = 0; j < result.cols; j++){
             MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(source, j, i);
         }
     }
