@@ -74,7 +74,7 @@
     @param type The type of the chunk.
 */
 #define MZ_ALLOC(count, type) \
-    (type*)malloc((count) * sizeof(type))\
+    (type*)calloc((count), sizeof(type))\
 
 /*!
     @brief Swap two values.
@@ -592,14 +592,6 @@ MZ_Vec MZ_get_vector_from_matrix_row(MZ_Matrix source, unsigned int row);
     @return The vector converted from the Matrix's col.
 */
 MZ_Vec MZ_get_vector_from_matrix_col(MZ_Matrix source, unsigned int col);
-
-/*!
-    @brief Flatter the matrix in an horizontal or vertical direction.
-    @param matrix The matrix to flatten.
-    @param dir The direction in which the matrix will be flattened.
-    @return The flatten matrix.
-*/
-MZ_Matrix MZ_flatten_matrix(MZ_Matrix matrix, Direction dir);
 
 /*!
     @brief Add two matrices together.
@@ -1878,36 +1870,6 @@ MZ_Vec MZ_get_vector_from_matrix_col(MZ_Matrix source, unsigned int col){
     }
 
     return result;
-}
-
-MZ_Matrix MZ_flatten_matrix(MZ_Matrix matrix, Direction dir){
-
-    MZ_Matrix result;
-
-    switch(dir){
-        case VERTICAL:{
-            result = MZ_alloc_matrix(matrix.rows * matrix.cols, 1);
-        }break;
-        case HORIZONTAL:{
-            result = MZ_alloc_matrix(1, matrix.rows * matrix.cols);
-        }break;
-    }
-
-    for(unsigned int i = 0; i < matrix.rows; i++){
-        for(unsigned int j = 0; j < matrix.cols; j++){
-            switch(dir){
-                case VERTICAL:{
-                    MZ_VALUE_OF_MAT_AT(result, i*matrix.cols + j, 0) = MZ_VALUE_OF_MAT_AT(matrix, i, j);
-                }break;
-                case HORIZONTAL:{
-                    MZ_VALUE_OF_MAT_AT(result, 0, i*matrix.cols + j) = MZ_VALUE_OF_MAT_AT(matrix, i, j);
-                }break;
-            }
-        }
-    }
-
-    return result;
-
 }
 
 /*
