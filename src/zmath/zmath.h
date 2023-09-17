@@ -1025,9 +1025,14 @@ void MZ_free_vector(MZ_Vec* vector){
 
     MZ_assert(vector != NULL, "Vector must not be NULL.");
 
-    free(vector->elements);
-    vector->elements = NULL;
-    vector->dim = 0;
+    for(unsigned int i = 0; i < mat->rows; i++){
+        free(mat->elements[i]);
+    }
+
+    free(mat->elements);
+    mat->elements = NULL;
+    mat->rows = 0;
+    mat->cols = 0;
 }
 
 /*
