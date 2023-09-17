@@ -586,12 +586,20 @@ MZ_Vec MZ_Matrix_to_vector(MZ_Matrix source);
 MZ_Vec MZ_get_vector_from_matrix_row(MZ_Matrix source, unsigned int row);
 
 /*!
-    vCreate a vector from a matrix's col.
+    @brief Create a vector from a matrix's col.
     @param source The source matrix.
     @param col The col that will be converted to a vector.
     @return The vector converted from the Matrix's col.
 */
 MZ_Vec MZ_get_vector_from_matrix_col(MZ_Matrix source, unsigned int col);
+
+/*!
+    @brief Flatter the matrix in an horizontal or vertical direction.
+    @param matrix The matrix to flatten.
+    @param dir The direction in which the matrix will be flattened.
+    @return The flatten matrix.
+*/
+MZ_Matrix MZ_flatten_matrix(MZ_Matrix matrix, Direction dir);
 
 /*!
     @brief Add two matrices together.
@@ -1025,14 +1033,9 @@ void MZ_free_vector(MZ_Vec* vector){
 
     MZ_assert(vector != NULL, "Vector must not be NULL.");
 
-    for(unsigned int i = 0; i < mat->rows; i++){
-        free(mat->elements[i]);
-    }
-
-    free(mat->elements);
-    mat->elements = NULL;
-    mat->rows = 0;
-    mat->cols = 0;
+    free(vector->elements);
+    vector->elements = NULL;
+    vector->dim = 0;
 }
 
 /*
@@ -1641,6 +1644,10 @@ void MZ_print_matrix_by_index(FILE *fp, unsigned int index, MZ_Matrix mat){
 void MZ_free_matrix(MZ_Matrix* mat){
     MZ_assert(mat->elements != NULL, "Matrix must not be NULL.");
 
+    for(unsigned int i = 0; i < mat->rows; i++){
+        free(mat->elements[i]);
+    }
+
     free(mat->elements);
     mat->elements = NULL;
     mat->rows = 0;
@@ -1871,6 +1878,36 @@ MZ_Vec MZ_get_vector_from_matrix_col(MZ_Matrix source, unsigned int col){
     }
 
     return result;
+}
+
+MZ_Matrix MZ_flatten_matrix(MZ_Matrix matrix, Direction dir){
+
+    MZ_Matrix result;
+
+    switch(dir){
+        case VERTICAL:{
+            result = MZ_alloc_matrix(matrix.rows * matrix.cols, 1);
+        }break;
+        case HORIZONTAL:{
+            result = MZ_alloc_matrix(1, matrix.rows * matrix.cols);
+        }break;
+    }
+
+    for(unsigned int i = 0; i < matrix.rows; i++){
+        for(unsigned int j = 0; j < matrix.cols; j++){
+            switch(dir){
+                case VERTICAL:{
+                    MZ_VALUE_OF_MAT_AT(result, i*matrix.cols + j, 0) = MZ_VALUE_OF_MAT_AT(matrix, i, j);
+                }break;
+                case HORIZONTAL:{
+                    MZ_VALUE_OF_MAT_AT(result, 0, i*matrix.cols + j) = MZ_VALUE_OF_MAT_AT(matrix, i, j);
+                }break;
+            }
+        }
+    }
+
+    return result;
+
 }
 
 /*
