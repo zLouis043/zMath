@@ -253,10 +253,7 @@ int main(int argc, char **argv){
         mat11 = MZ_append_matrix_to_matrix(mat11, mat12);
         MZ_print_matrix_by_label(fp, "EXPANDED MATRIX", mat11);
     fprintf(fp, "}\n");
-
-    // TODO: FIX THE DETERMINANT OF THE MATRIX 
-
-    
+  
     fprintf(fp, "\nTEST: DETERMINANT OF [MATRIX 13] {");
         MZ_Matrix mat13 = MZ_new_random_int_matrix(3, 3, -2, 4);
         MZ_print_matrix_by_index(fp, 15, mat13);
