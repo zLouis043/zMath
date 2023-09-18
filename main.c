@@ -256,7 +256,7 @@ int main(int argc, char **argv){
 
     // TODO: FIX THE DETERMINANT OF THE MATRIX 
 
-    /*
+    
     fprintf(fp, "\nTEST: DETERMINANT OF [MATRIX 13] {");
         MZ_Matrix mat13 = MZ_new_random_int_matrix(3, 3, -2, 4);
         MZ_print_matrix_by_index(fp, 15, mat13);
@@ -269,13 +269,15 @@ int main(int argc, char **argv){
         #endif
     fprintf(fp, "}\n");
 
+    
+
     fprintf(fp, "\nTEST: INVERSE OF [MATRIX 14] {");
         MZ_Matrix mat14 = MZ_new_random_int_matrix(3, 3, 2, 5);
         MZ_print_matrix_by_index(fp, 14, mat14);
         fprintf(fp, "   | IS THE [MATRIX 14] INVERTIBLE?: : {\n   |\t %s;\n   | }", MZ_is_matrix_invertible(mat14) ? "TRUE" : "FALSE");
         mat14 = MZ_inverse_of_matrix(mat14);
         MZ_print_matrix_by_label(fp, "INVERTED MATRIX", mat14);
-    fprintf(fp, "}\n");*/
+    fprintf(fp, "}\n");
 
     fclose(fp);
     
@@ -292,8 +294,8 @@ int main(int argc, char **argv){
     MZ_free_matrix(&mat10);
     MZ_free_matrix(&mat11);
     MZ_free_matrix(&mat12);
-   /* MZ_free_matrix(&mat13);
-    MZ_free_matrix(&mat14);*/
+    MZ_free_matrix(&mat13);
+    MZ_free_matrix(&mat14);
 
     MZ_free_vector(&v13);
     MZ_free_vector(&v14);
