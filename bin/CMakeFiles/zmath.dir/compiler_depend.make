@@ -22,10 +22,12 @@ CMakeFiles/zmath.dir/main.c.obj: D:/zMath/zMath/main.c \
   C:/msys64/mingw64/include/sdks/_mingw_ddk.h \
   C:/msys64/mingw64/include/sec_api/stdio_s.h \
   C:/msys64/mingw64/include/sec_api/stdlib_s.h \
+  C:/msys64/mingw64/include/sec_api/string_s.h \
   C:/msys64/mingw64/include/sec_api/sys/timeb_s.h \
   C:/msys64/mingw64/include/stdarg.h \
   C:/msys64/mingw64/include/stdio.h \
   C:/msys64/mingw64/include/stdlib.h \
+  C:/msys64/mingw64/include/string.h \
   C:/msys64/mingw64/include/swprintf.inl \
   C:/msys64/mingw64/include/sys/timeb.h \
   C:/msys64/mingw64/include/sys/types.h \
@@ -85,6 +87,8 @@ C:/msys64/mingw64/include/sec_api/stdio_s.h:
 
 C:/msys64/mingw64/include/sec_api/stdlib_s.h:
 
+C:/msys64/mingw64/include/sec_api/string_s.h:
+
 C:/msys64/mingw64/include/sec_api/sys/timeb_s.h:
 
 C:/msys64/mingw64/include/stdarg.h:
@@ -93,9 +97,11 @@ C:/msys64/mingw64/include/swprintf.inl:
 
 C:/msys64/mingw64/include/stdlib.h:
 
-C:/msys64/mingw64/include/sys/timeb.h:
-
 C:/msys64/mingw64/include/time.h:
+
+C:/msys64/mingw64/include/string.h:
+
+C:/msys64/mingw64/include/sys/timeb.h:
 
 C:/msys64/mingw64/include/vadefs.h:
 
