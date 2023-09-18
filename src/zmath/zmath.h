@@ -671,7 +671,7 @@ MZ_Matrix MZ_divide_matrix_by_scalar(MZ_Matrix matrix1, float scalar);
     @param matrix2.
     @return The product of the two matrices element by elements.
 */
-MZ_Matrix MZ_hadamard_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
+MZ_Matrix MZ_product_by_elements_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2);
 
 
 /*!
@@ -2059,7 +2059,7 @@ MZ_Matrix MZ_divide_matrix_by_scalar(MZ_Matrix matrix1, float scalar){
 
 /*
 */
-MZ_Matrix MZ_hadamard_multiply_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
+MZ_Matrix MZ_product_by_elements_two_matrices(MZ_Matrix matrix1, MZ_Matrix matrix2){
 
     MZ_assert(matrix1.rows == matrix2.rows && matrix1.cols == matrix2.cols, MZ_EQUAL_ERROR);
 

@@ -215,7 +215,7 @@ int main(int argc, char **argv){
             MZ_print_matrix_by_label(fp, "DIV MATRIX", mat7);;
         fprintf(fp, "}\n\n");
         fprintf(fp, "\nOP: HADAMARD PRODUCT BETWEEN [MATRIX 5] AND [MATRIX 6] INTO [MATRIX 7] {");
-            mat7 = MZ_hadamard_multiply_two_matrices(mat5, mat6);
+            mat7 = MZ_product_by_elements_two_matrices(mat5, mat6);
             MZ_print_matrix_by_label(fp, "PRODUCT ELEMENT BY ELEMENT", mat7);
         fprintf(fp, "}\n\n"); 
     fprintf(fp, "}\n"); 
