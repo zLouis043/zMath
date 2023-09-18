@@ -2362,10 +2362,7 @@ float MZ_determinant_of_matrix_old(MZ_Matrix source){
 */
 float MZ_determinant_of_matrix(MZ_Matrix source){
 
-    if (source.rows != source.cols || source.rows == 0)
-    {
-        return 0.0f;
-    }
+    MZ_assert(source.rows == source.cols || source.rows != 0, MZ_EQUAL_ERROR);
 
     // initialize array
     unsigned int *skipCols = MZ_ALLOC(source.cols, unsigned int);

@@ -275,8 +275,7 @@ int main(int argc, char **argv){
         fprintf(fp, "   | IS THE [MATRIX 14] INVERTIBLE?: : {\n   |\t %s;\n   | }", MZ_is_matrix_invertible(mat14) ? "TRUE" : "FALSE");
         mat14 = MZ_inverse_of_matrix(mat14);
         MZ_print_matrix_by_label(fp, "INVERTED MATRIX", mat14);
-    fprintf(fp, "}\n");
-    */
+    fprintf(fp, "}\n");*/
 
     fclose(fp);
     
