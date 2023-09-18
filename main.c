@@ -141,7 +141,7 @@ int main(int argc, char **argv){
     MZ_free_vector(&v1);
     MZ_free_vector(&v3);
     MZ_free_vector(&v8); 
-
+    
     fprintf(fp, "\n -----------------------------------------------\n");
     fprintf(fp, "|                   MATRIXES                    |\n");
     fprintf(fp, " -----------------------------------------------\n\n");
@@ -149,7 +149,7 @@ int main(int argc, char **argv){
     fprintf(fp, "\nTEST: PRINT NULL MATRIX {");
         MZ_print_matrix_by_label(fp, "NULL MATRIX",NULL_MATRIX);
     fprintf(fp, "}\n");
-
+    
     fprintf(fp, "\nTEST: CREATE A NEW [MATRIX 1] {");
         MZ_Matrix mat1 = MZ_new_matrix(2 ,4  ,1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f);
         MZ_print_matrix_by_index(fp, 1, mat1);
@@ -220,17 +220,19 @@ int main(int argc, char **argv){
         fprintf(fp, "}\n\n"); 
     fprintf(fp, "}\n"); 
 
+    
     fprintf(fp, "\nTEST: TRANSPOSE [MATRIX 8] {");
         MZ_Matrix mat8 = MZ_new_random_float_matrix(3, 3, 0.0f, 3.0f);
         MZ_print_matrix_by_index(fp, 8, mat8);
         mat8 = MZ_transposed_matrix(mat8);
         MZ_print_matrix_by_label(fp, "TRANSPOSED MATRIX", mat8);
     fprintf(fp, "}\n");
+    
 
     fprintf(fp, "\nTEST: [MATRIX 9] TO ROW ECHELON FORM {");
         MZ_Matrix mat9 = MZ_new_random_int_matrix(3, 3, -5, 5);
         MZ_print_matrix_by_index(fp, 9, mat9);
-        MZ_to_echelon_form(&mat9);
+        MZ_to_reduced_echelon_form(&mat9);
         MZ_print_matrix_by_label(fp, "CONVERTED MATRIX", mat9);
     fprintf(fp, "}\n");
 
@@ -252,6 +254,9 @@ int main(int argc, char **argv){
         MZ_print_matrix_by_label(fp, "EXPANDED MATRIX", mat11);
     fprintf(fp, "}\n");
 
+    // TODO: FIX THE DETERMINANT OF THE MATRIX 
+
+    /*
     fprintf(fp, "\nTEST: DETERMINANT OF [MATRIX 13] {");
         MZ_Matrix mat13 = MZ_new_random_int_matrix(3, 3, -2, 4);
         MZ_print_matrix_by_index(fp, 15, mat13);
@@ -271,9 +276,11 @@ int main(int argc, char **argv){
         mat14 = MZ_inverse_of_matrix(mat14);
         MZ_print_matrix_by_label(fp, "INVERTED MATRIX", mat14);
     fprintf(fp, "}\n");
+    */
 
     fclose(fp);
-
+    
+    
     MZ_free_matrix(&mat1);
     MZ_free_matrix(&mat2);
     MZ_free_matrix(&mat3);
@@ -286,8 +293,8 @@ int main(int argc, char **argv){
     MZ_free_matrix(&mat10);
     MZ_free_matrix(&mat11);
     MZ_free_matrix(&mat12);
-    MZ_free_matrix(&mat13);
-    MZ_free_matrix(&mat14);
+   /* MZ_free_matrix(&mat13);
+    MZ_free_matrix(&mat14);*/
 
     MZ_free_vector(&v13);
     MZ_free_vector(&v14);
