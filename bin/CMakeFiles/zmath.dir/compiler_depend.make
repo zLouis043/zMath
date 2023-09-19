@@ -14,7 +14,6 @@ CMakeFiles/zmath.dir/main.c.obj: D:/zMath/zMath/main.c \
   C:/msys64/mingw64/include/corecrt_wstdlib.h \
   C:/msys64/mingw64/include/crtdefs.h \
   C:/msys64/mingw64/include/errno.h \
-  C:/msys64/mingw64/include/inttypes.h \
   C:/msys64/mingw64/include/limits.h \
   C:/msys64/mingw64/include/malloc.h \
   C:/msys64/mingw64/include/math.h \
@@ -26,8 +25,6 @@ CMakeFiles/zmath.dir/main.c.obj: D:/zMath/zMath/main.c \
   C:/msys64/mingw64/include/sec_api/string_s.h \
   C:/msys64/mingw64/include/sec_api/sys/timeb_s.h \
   C:/msys64/mingw64/include/stdarg.h \
-  C:/msys64/mingw64/include/stddef.h \
-  C:/msys64/mingw64/include/stdint.h \
   C:/msys64/mingw64/include/stdio.h \
   C:/msys64/mingw64/include/stdlib.h \
   C:/msys64/mingw64/include/string.h \
@@ -39,10 +36,7 @@ CMakeFiles/zmath.dir/main.c.obj: D:/zMath/zMath/main.c \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/mm_malloc.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/stdarg.h \
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/stdbool.h \
-  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/stddef.h \
-  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/stdint.h \
-  D:/zMath/zMath/src/zmath/zmath.h \
-  D:/zMath/zMath/src/zmath/zstring.h
+  D:/zMath/zMath/src/zmath/zmath.h
 
 
 D:/zMath/zMath/main.c:
@@ -75,8 +69,6 @@ C:/msys64/mingw64/include/crtdefs.h:
 
 C:/msys64/mingw64/include/errno.h:
 
-C:/msys64/mingw64/include/inttypes.h:
-
 C:/msys64/mingw64/include/malloc.h:
 
 D:/zMath/zMath/src/zmath/zmath.h:
@@ -101,15 +93,9 @@ C:/msys64/mingw64/include/sec_api/sys/timeb_s.h:
 
 C:/msys64/mingw64/include/stdarg.h:
 
-C:/msys64/mingw64/include/stddef.h:
-
-C:/msys64/mingw64/include/stdint.h:
-
 C:/msys64/mingw64/include/swprintf.inl:
 
 C:/msys64/mingw64/include/stdlib.h:
-
-D:/zMath/zMath/src/zmath/zstring.h:
 
 C:/msys64/mingw64/include/time.h:
 
@@ -124,7 +110,3 @@ C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/mm_malloc.h:
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/stdarg.h:
 
 C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/stdbool.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/stddef.h:
-
-C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/12.2.0/include/stdint.h:
