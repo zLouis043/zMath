@@ -36,6 +36,10 @@
 */
 #define VISUALIZE_RATIONAL 0
 
+/*!
+*/
+#define CURR_ALLOCATOR calloc
+
 #define MZ_EQUAL_ERROR      "Dimension mismatch."
 #define MZ_ALLOC_ERROR      "Allocation failure."
 #define MZ_PROD_ERROR       "Matrix 1 columns not equal to Matrix 2 rows."
@@ -74,7 +78,7 @@
     @param type The type of the chunk.
 */
 #define MZ_ALLOC(count, type) \
-    (type*)calloc((count) , sizeof(type))\
+    (type*)CURR_ALLOCATOR((count) , sizeof(type))\
 
 /*!
     @brief Swap two values.
