@@ -79,11 +79,11 @@ SOFTWARE.
     @param m the second value
     @return the larger element
 */
-#define MZ_MAX(n, m) ({\
+#define MZ_MAX(n, m) (do{\
     __auto_type _a = (n);\
     __auto_type _b = (m);\
     _a > _b ? _a : _b;\
-})
+}while(0))
 
 /*!
     @brief Finds the minimum of two values
@@ -91,11 +91,11 @@ SOFTWARE.
     @param m the second value
     @return the smaller element
 */
-#define MZ_MIN(n, m) ({\
-    __auto_type _a = (n);\
-    __auto_type _b = (m);\
-    _a < _b ? _a : _b;\
-})
+#define MZ_MIN(n, m) (do{ \
+    __auto_type _a = (n); \
+    __auto_type _b = (m); \
+    _a < _b ? _a : _b; \
+}while(0))
 
 /*!
     @brief Alloc macro.
@@ -837,6 +837,24 @@ MZ_Matrix MZ_inverse_of_matrix(MZ_Matrix source);
     @return The inverse of the source matrix.
 */
 MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
+
+/*!
+    @brief Compares two matrices and check if they are equal.
+    @param matrix1 The first matrix to compare.
+    @param matrix2 The second matrix to compare.
+    @return true if the two matrices are equal otherwise false.
+*/
+bool MZ_are_two_matrices_equal(MZ_Matrix matrix1, MZ_Matrix matrix2);
+
+/*!
+    @brief Checks if two matrices are orthogonal.
+    @param matrix1 The first matrix.
+    @param matrix2 The second matrix.
+    @return true if the two matrices are orthogonal otherwise false.
+*/
+bool MZ_are_two_matrices_orthogonal(MZ_Matrix matrix1, MZ_Matrix matrix2);
+
+bool MZ_is_matrix_orthonormal(MZ_Matrix source);
 
 #define sSTRAIGHT_LINE 196
 #define STRAIGHT_LINE '_'
@@ -1768,11 +1786,11 @@ MZ_Matrix MZ_new_default_matrix(unsigned int rows, unsigned int cols, float valu
 
 }
 
-MZ_Matrix MZ_new_identity_matrix(unsigned int MZ_DIM_OF_VECTOR){
-    MZ_Matrix result = MZ_alloc_matrix(MZ_DIM_OF_VECTOR, MZ_DIM_OF_VECTOR);
+MZ_Matrix MZ_new_identity_matrix(unsigned int dim){
+    MZ_Matrix result = MZ_alloc_matrix(dim, dim);
 
-    for(unsigned int i = 0; i < MZ_DIM_OF_VECTOR; i++){
-        for(unsigned int j = 0; j < MZ_DIM_OF_VECTOR; j++){
+    for(unsigned int i = 0; i < dim; i++){
+        for(unsigned int j = 0; j < dim; j++){
             if(i == j){
                 MZ_VALUE_OF_MAT_AT(result, i, j) = 1.0f;
             }else {
@@ -2337,7 +2355,6 @@ MZ_Matrix MZ_get_sub_matrix(MZ_Matrix source, unsigned int remRow, unsigned int 
     return result;
 }
 
-
 float MZ_minor(MZ_Matrix source, unsigned int row, unsigned int col){
     float result = MZ_determinant_of_matrix(MZ_get_sub_matrix(source, row, col));
     return result;
@@ -2484,6 +2501,50 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source){
     MZ_free_matrix(&opMat);
 
     return result;
+}
+
+bool MZ_are_two_matrices_equal(MZ_Matrix matrix1, MZ_Matrix matrix2){
+
+    if(matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols) return false;
+
+    for(unsigned int i = 0; i < matrix1.rows; i++){
+        for(unsigned int j = 0; j < matrix1.cols; j++){
+            if((double)MZ_VALUE_OF_MAT_AT(matrix1, i, j) != (double)MZ_VALUE_OF_MAT_AT(matrix2, i, j)) return false;
+        }
+    }
+
+    return true;
+}
+
+bool MZ_are_two_matrices_orthogonal(MZ_Matrix matrix1, MZ_Matrix matrix2){
+
+    if(matrix1.rows != matrix2.rows || matrix1.cols != matrix2.cols) return false;
+
+    return MZ_are_two_matrices_equal(MZ_multiply_two_matrices(matrix1, matrix2), MZ_new_identity_matrix(matrix1.rows));
+
+}
+
+bool MZ_is_matrix_orthonormal(MZ_Matrix source){
+
+    if(source.rows == source.cols){
+        return MZ_are_two_matrices_equal(MZ_inverse_of_matrix(source), MZ_transposed_matrix(source));
+    }
+
+    for(unsigned int i = 1; i <= source.cols; i++){
+        MZ_Vec col =  MZ_get_vector_from_matrix_col(source, i);
+        if(!MZ_is_vector_normalized(col)) return false;
+        for(unsigned int j = 1; j <= source.cols; j++){
+            if(i != j){
+                MZ_Vec col_2 = MZ_get_vector_from_matrix_col(source, j);
+                if(!MZ_are_two_vectors_orthogonal(col, col_2)){
+                    return false;
+                }
+            }
+        }
+    }
+
+    return false;
+
 }
 
 #endif // ZMATH_IMPLEMENTATION

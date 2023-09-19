@@ -266,14 +266,27 @@ int main(int argc, char **argv){
         #endif
     fprintf(fp, "}\n");
 
-    
-
     fprintf(fp, "\nTEST: INVERSE OF [MATRIX 14] {");
         MZ_Matrix mat14 = MZ_new_random_int_matrix(3, 3, 2, 5);
         MZ_print_matrix_by_index(fp, 14, mat14);
-        fprintf(fp, "   | IS THE [MATRIX 14] INVERTIBLE?: : {\n   |\t %s;\n   | }", MZ_is_matrix_invertible(mat14) ? "TRUE" : "FALSE");
+        fprintf(fp, "   | IS THE [MATRIX 14] INVERTIBLE?: : {\n   |\t %s;\n   | }\n", MZ_is_matrix_invertible(mat14) ? "TRUE" : "FALSE");
         mat14 = MZ_inverse_of_matrix(mat14);
         MZ_print_matrix_by_label(fp, "INVERTED MATRIX", mat14);
+    fprintf(fp, "}\n");
+
+    fprintf(fp, "\nTEST: CHECK IF [MATRIX 15] AND [MATRIX 16] ARE ORTHOGONAL {");
+        MZ_Matrix mat15 = MZ_new_matrix(2, 2, 0.96f, -0.28f, 0.28f, 0.96f);
+        MZ_Matrix mat16 = MZ_new_matrix(2, 2, 0.96f, 0.28f, -0.28f, 0.96f);
+        MZ_print_matrix_by_index(fp, 15, mat15);
+        MZ_print_matrix_by_index(fp, 16, mat16);
+        MZ_print_matrix_by_label(fp, "PROD MAT", MZ_multiply_two_matrices(mat15, mat16));
+        fprintf(fp, "   | ARE [MATRIX 15] AND [MATRIX 16] ORTHOGONAL?: : {\n   |\t %s;\n   | }\n", MZ_are_two_matrices_orthogonal(mat15, mat16) ? "TRUE" : "FALSE");
+    fprintf(fp, "}\n");
+
+    fprintf(fp, "\nTEST: CHECK IF [MATRIX 17] IS ORTHONORMAL {");
+        MZ_Matrix mat17 = MZ_new_identity_matrix(3);
+        MZ_print_matrix_by_index(fp, 17, mat17);  
+        fprintf(fp, "   | IS [MATRIX 17] ORTHONORMAL?: : {\n   |\t %s;\n   | }\n", MZ_is_matrix_orthonormal(mat17) ? "TRUE" : "FALSE");
     fprintf(fp, "}\n");
 
     fclose(fp);
@@ -293,6 +306,9 @@ int main(int argc, char **argv){
     MZ_free_matrix(&mat12);
     MZ_free_matrix(&mat13);
     MZ_free_matrix(&mat14);
+    MZ_free_matrix(&mat15);
+    MZ_free_matrix(&mat16);
+    MZ_free_matrix(&mat17);
 
     MZ_free_vector(&v13);
     MZ_free_vector(&v14);
