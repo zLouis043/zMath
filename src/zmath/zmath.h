@@ -1,7 +1,32 @@
-#pragma once
+/*
 
-#ifndef ZMATH_DEF
-#define ZMATH_DEF
+MIT License
+
+Copyright (c) 2023 zLouis043
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+
+#ifndef ZMATH_H_
+#define ZMATH_H_
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -161,11 +186,6 @@ bool MZ_is_in_array(unsigned int *arr, int n, float target);
     @brief Sets a random starting point for producing a series of pseudo-random integers every time the function is called.
 */
 #define MZ_SRAND() _MZ_SRAND((unsigned)time(NULL) )
-
-#endif // ZMATH_DEF
-
-#ifndef ZVEC_DEF
-#define ZVEC_DEF
 
 /*! 
 
@@ -440,11 +460,6 @@ float MZ_magnitude_of_vector(MZ_Vec vector);
     @result The dimensions of the vector.
 */
 #define MZ_DIM_OF_VECTOR(vector) (vector.dim)
-
-#endif // ZVEC_DEF
-
-#ifndef MATRIX_DEF
-#define MATRIX_DEF
 
 /*!
     @brief The direction of the vec to matrix conversion
@@ -868,7 +883,7 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
 */
 #define MZ_print_matrix_by_var_name(fp, matrix) MZ_print_matrix_by_label(fp, #matrix, matrix)
 
-#endif // ZMATRIX_DEF
+#endif // ZMATH_H
 
 #ifdef ZMATH_IMPLEMENTATION
 
