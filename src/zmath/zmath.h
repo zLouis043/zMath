@@ -25,7 +25,7 @@
     @if 0 Then when a function is called it wont print each step done in a function.
     @elseif 1 Then when a function is called it may print each step done in a function.
 */
-#define VISUALIZE_STEPS 0
+#define VISUALIZE_STEPS 1
 
 /*!
     @attention CHANGE THIS ONLY IF THE ZSTRING.H IN PRESENT IN THE SAME FOLDER OF THIS FILE.
@@ -34,7 +34,7 @@
     @if 0 Then the program will print every value as a float.
     @elseif 1 Then the program will print every value in its rational representation.
 */
-#define VISUALIZE_RATIONAL 0
+#define VISUALIZE_RATIONAL 1
 
 #define MZ_EQUAL_ERROR      "Dimension mismatch."
 #define MZ_ALLOC_ERROR      "Allocation failure."
@@ -74,7 +74,7 @@
     @param type The type of the chunk.
 */
 #define MZ_ALLOC(count, type) \
-    (type*)calloc((count), sizeof(type))\
+    (type*)calloc((count) , sizeof(type))\
 
 /*!
     @brief Swap two values.
@@ -460,7 +460,7 @@ typedef enum Direction{
 typedef struct MZ_Matrix{
     unsigned int rows;
     unsigned int cols;
-    float** elements;
+    float* elements;
 }MZ_Matrix;
 
 extern MZ_Matrix NULL_MATRIX;
@@ -847,8 +847,24 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
     @param x The x coordinate
     @param y The y coordinate
     @return The value of the element at the specified coordinates in the matrix
-*/
+
 #define MZ_VALUE_OF_MAT_AT(matrix, x, y) (matrix.elements[x][y])
+
+
+    @param matrix The source matrix
+    @param x The x coordinate
+    @param y The y coordinate
+    @return the value of the element at the specified coordinates in the matrix pointer
+
+#define MZ_VALUE_OF_MAT_POINTER_AT(matrix, x, y) (matrix->elements[x][y])*/
+
+/*! 
+    @param matrix The source matrix
+    @param x The x coordinate
+    @param y The y coordinate
+    @return The value of the element at the specified coordinates in the matrix
+*/
+#define MZ_VALUE_OF_MAT_AT(matrix, x, y) (matrix.elements[(x) * (matrix.cols) + (y)])
 
 /*!
     @param matrix The source matrix
@@ -856,7 +872,7 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
     @param y The y coordinate
     @return the value of the element at the specified coordinates in the matrix pointer
 */
-#define MZ_VALUE_OF_MAT_POINTER_AT(matrix, x, y) (matrix->elements[x][y])
+#define MZ_VALUE_OF_MAT_POINTER_AT(matrix, x, y) (matrix->elements[(x) * (matrix->cols) + (y)])
 
 /*!
     @brief Create a matrix of rows * cols dimensions.
@@ -887,6 +903,8 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
 #if VISUALIZE_RATIONAL
 #define ZSTRING_IMPLEMENTATION
 #include "zstring.h"
+#else 
+#include <string.h> 
 #endif
 
 /*
@@ -1644,10 +1662,6 @@ void MZ_print_matrix_by_index(FILE *fp, unsigned int index, MZ_Matrix mat){
 void MZ_free_matrix(MZ_Matrix* mat){
     MZ_assert(mat->elements != NULL, "Matrix must not be NULL.");
 
-    for(unsigned int i = 0; i < mat->rows; i++){
-        free(mat->elements[i]);
-    }
-
     free(mat->elements);
     mat->elements = NULL;
     mat->rows = 0;
@@ -1666,6 +1680,8 @@ void MZ_copy_matrix_pointer(MZ_Matrix *source, MZ_Matrix *dest){
     dest->cols = source->cols;
     dest->elements = source->elements;
 
+    memcpy(dest, source, sizeof(MZ_Matrix));
+
 }
 
 /*
@@ -1676,10 +1692,7 @@ MZ_Matrix MZ_alloc_matrix(unsigned int rows, unsigned int cols){
     result.rows = rows;
     result.cols = cols;
 
-    result.elements = MZ_ALLOC(rows, float*);
-    for(unsigned int i=0; i<rows; i++){
-        result.elements[i] = MZ_ALLOC(cols, float);
-    }
+    result.elements = MZ_ALLOC(rows * cols, float);
 
     MZ_assert(result.elements != NULL, MZ_ALLOC_ERROR);
 
@@ -1777,7 +1790,7 @@ MZ_Matrix MZ_new_identity_matrix(unsigned int MZ_DIM_OF_VECTOR){
 MZ_Matrix _MZ_new_matrix(unsigned int rows, unsigned int cols, unsigned int numVals, ...){
 
     MZ_Matrix result = MZ_alloc_matrix(rows, cols);
-
+    
     va_list args;
     va_start(args, numVals);
 
@@ -2078,6 +2091,7 @@ MZ_Matrix MZ_product_by_elements_two_matrices(MZ_Matrix matrix1, MZ_Matrix matri
 /*
 */
 MZ_Matrix MZ_transposed_matrix(MZ_Matrix source){
+
     MZ_Matrix result = MZ_alloc_matrix(source.cols, source.rows);
 
     for(unsigned int i = 0; i < result.rows; i++){
@@ -2085,6 +2099,7 @@ MZ_Matrix MZ_transposed_matrix(MZ_Matrix source){
             MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(source, j, i);
         }
     }
+
 
     return result;
 }
@@ -2099,9 +2114,16 @@ bool MZ_swap_two_matrix_rows(MZ_Matrix *source, unsigned int row1, unsigned int 
         return false;
     }
 
-    float* tmp = source->elements[row1];
-    source->elements[row1] = source->elements[row2];
-    source->elements[row2] = tmp; 
+    unsigned int indxRow1 = row1 * source->cols;
+    unsigned int indxRow2 = row2 * source->cols;
+
+    for(unsigned int i = 0; i < source->cols; i++){
+
+        float temp = source->elements[indxRow1 + i];
+        source->elements[indxRow1 + i] = source->elements[indxRow2 + i];
+        source->elements[indxRow2 + i] = temp;
+
+    }
 
     return true;
 }
@@ -2166,7 +2188,8 @@ void MZ_to_echelon_form(MZ_Matrix *source){
     for(unsigned int i = 0; i < source->cols; i++){
         
         #if VISUALIZE_STEPS
-        printMatrixByIndex(curRow, *source);
+
+        MZ_print_matrix_by_index(stdout, curRow, *source);
         #endif
 
         unsigned int row = curRow;
@@ -2206,7 +2229,7 @@ void MZ_to_reduced_echelon_form(MZ_Matrix *source){
     for(unsigned int i = 0; i < source->cols; i++){
         
         #if VISUALIZE_STEPS
-        printMatrixByIndex(curRow, *source);
+        MZ_print_matrix_by_index(stdout, curRow, *source);
         #endif
 
         unsigned int row = curRow;
@@ -2236,6 +2259,7 @@ void MZ_to_reduced_echelon_form(MZ_Matrix *source){
 
     }
 }
+
 
 /*
 */
@@ -2290,9 +2314,6 @@ MZ_Matrix MZ_append_matrix_to_matrix(MZ_Matrix source, MZ_Matrix matrix){
 */
 MZ_Matrix MZ_get_sub_matrix(MZ_Matrix source, unsigned int remRow, unsigned int remCol){
 
-    remRow--;
-    remCol--;
-
     MZ_Matrix result = MZ_alloc_matrix(source.rows - 1, source.cols - 1);
 
     unsigned int rowOffset = 0;
@@ -2313,143 +2334,39 @@ MZ_Matrix MZ_get_sub_matrix(MZ_Matrix source, unsigned int remRow, unsigned int 
             MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(source, i + rowOffset, j + colOffset);//source.elements[i + rowOffset][j + colOffset];
         }
     }
-
     return result;
 }
 
-/*
-*/
-float MZ_determinant_of_matrix_old(MZ_Matrix source){
-    MZ_assert(source.rows == source.cols, MZ_SQUARE_ERROR);
 
-    if(source.rows == 1){
-        return MZ_VALUE_OF_MAT_AT(source, 0, 0);  
-    }
-
-    float result = 0.0f;
-
-    for(unsigned int i = 0; i < source.cols; i++){
-        result += MZ_VALUE_OF_MAT_AT(source, 0 , i) * MZ_cofactor_of_matrix_at_coord(source, 1, i + 1);
-    }
-
+float MZ_minor(MZ_Matrix source, unsigned int rows, unsigned int cols){
+    float result = MZ_determinant_of_matrix(MZ_get_sub_matrix(source, rows, cols));
     return result;
+}
 
+float MZ_cofactor(MZ_Matrix source, unsigned int rows, unsigned int cols){
+    float x = (rows + cols) % 2 == 0 ? MZ_minor(source, rows, cols) : -MZ_minor(source, rows, cols);
+    return x;
 }
 
 /*
 */
 float MZ_determinant_of_matrix(MZ_Matrix source){
-    if (source.rows != source.cols || source.rows == 0)
-    {
-        return 0.0f;
+
+    MZ_assert(source.rows == source.cols || source.rows != 0, MZ_EQUAL_ERROR);
+
+    if(source.rows == 2){
+        return  MZ_VALUE_OF_MAT_AT(source, 0 , 0) * MZ_VALUE_OF_MAT_AT(source, 1 , 1) -
+                MZ_VALUE_OF_MAT_AT(source, 0 , 1) * MZ_VALUE_OF_MAT_AT(source, 1 , 0);
     }
 
-    // initialize array
-    unsigned int *skipCols = malloc(source.cols * sizeof(unsigned int));
-    unsigned int noSkipCols = 0;
+    float det = 0.0f;
 
-    float result = _MZ_determinant_of_matrix(source, 1, 0, skipCols, &noSkipCols);
-
-    free(skipCols);
-
-    return result;
+    for(unsigned int col = 0; col < source.cols; col++){
+        det += MZ_VALUE_OF_MAT_AT(source, 0, col) * MZ_cofactor(source, 0, col);
+    }
+    return det;
 }
 
-/*
-*/
-float _MZ_determinant_of_matrix(MZ_Matrix source,
-                            unsigned int row,
-                            unsigned int col,
-                            unsigned int *skipCols,
-                            unsigned int *noSkipCols){
-
-    skipCols[*noSkipCols] = col;
-    (*noSkipCols)++;
-
-    /*if (row == source.rows - 1)
-    {
-        printf("");
-    }*/
-
-    // base case to return single element
-    if (row == source.rows)
-    {
-        unsigned int i = source.cols;
-        // find last column not in exclusion list
-        if (*noSkipCols != 0)
-        {
-            if (skipCols[*noSkipCols - 1] != 0)
-            {
-                while (MZ_is_in_array(skipCols, *noSkipCols, i))
-                {
-                    i--;
-                }
-                (*noSkipCols)--;
-            }
-        }
-        return MZ_VALUE_OF_MAT_AT(source, row-1, i-1);//source.elements[row - 1][i - 1];
-    }
-
-    float result = 0.0f;
-    char cofactorSign = 1;
-
-    // cofactor expansion across current row
-    for (unsigned int i = 1; i <= source.cols; i++)
-    {
-        // skip excluded cols
-        if (MZ_is_in_array(skipCols, *noSkipCols, i))
-        {
-            continue;
-        }
-
-        float res = 0.0f;
-        if (MZ_VALUE_OF_MAT_AT(source, row-1, i-1) != 0.0f)
-        {
-            // recursive
-            res = cofactorSign *
-                  MZ_VALUE_OF_MAT_AT(source, row-1, i-1) *
-                  _MZ_determinant_of_matrix(source, row + 1, i, skipCols, noSkipCols);
-        }
-
-        result += res;
-        cofactorSign = -cofactorSign;
-    }
-
-    // remove current column from the list
-    (*noSkipCols)--;
-    return result;
-}
-
-/*
-*/
-float MZ_cofactor_of_matrix_at_coord(MZ_Matrix source, unsigned int row, unsigned int col){
-
-    // must be a square matrix with at least 1 row
-    if (source.rows != source.cols || source.rows == 0)
-    {
-        return 0.0f;
-    }
-
-    // boundary condition
-    if (row > source.rows || col > source.cols)
-    {
-        return 0.0f;
-    }
-
-    // alternate signs
-    // if row + col is even, positive
-    // if row + col is odd, negative
-    char sign = ((row + col) & 1) == 0 ? 1 : -1;
-
-    MZ_Matrix subbedMat = MZ_get_sub_matrix(source, row, col);
-
-    // cofactor = sign * determinant of the matrix without row and col
-    float result = sign * MZ_determinant_of_matrix(subbedMat);
-
-    MZ_free_matrix(&subbedMat);
-
-    return result;
-}
 
 /*
 */
@@ -2467,7 +2384,7 @@ MZ_Matrix MZ_cofactor_matrix(MZ_Matrix source){
     {
         for (unsigned int j = 0; j < result.cols; j++)
         {
-            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_cofactor_of_matrix_at_coord(source, i + 1, j + 1);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_cofactor(source, i, j);
         }
     }
 
@@ -2486,13 +2403,7 @@ MZ_Matrix MZ_adjugate_matrix(MZ_Matrix source){
 
     MZ_Matrix result = MZ_alloc_matrix(source.rows, source.cols);
 
-    for (unsigned int i = 0; i < result.rows; i++)
-    {
-        for (unsigned int j = 0; j < result.cols; j++)
-        {
-            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_cofactor_of_matrix_at_coord(source, j + 1, i + 1);
-        }
-    }
+    result = MZ_transposed_matrix(MZ_cofactor_matrix(source));
 
     return result;
 }
@@ -2526,14 +2437,7 @@ MZ_Matrix MZ_inverse_of_matrix(MZ_Matrix source){
     // calculate the determinant using the adjugate
     float det = 0.0f;
 
-    // expand across first row of the matrix
-    for (unsigned int i = 0; i < source.cols; i++)
-    {
-        if (MZ_VALUE_OF_MAT_AT(source, 0, i) != 0.0f)
-        {
-            det += MZ_VALUE_OF_MAT_AT(source, 0, i) * MZ_VALUE_OF_MAT_AT(adj, i, 0); // [c][0] because the adjugate is the transpose of the cofactor matrix
-        }
-    }
+    det = MZ_determinant_of_matrix(source);
 
     if (det == 0.0f)
     {
@@ -2572,7 +2476,7 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source){
     {
         for (unsigned int j = 0; j < result.cols; j++)
         {
-            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(opMat, i, result.cols + j);
+            MZ_VALUE_OF_MAT_AT(result, i, j) = MZ_VALUE_OF_MAT_AT(opMat, i, source.cols + j);
         }
     }
 
