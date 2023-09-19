@@ -25,7 +25,7 @@
     @if 0 Then when a function is called it wont print each step done in a function.
     @elseif 1 Then when a function is called it may print each step done in a function.
 */
-#define VISUALIZE_STEPS 1
+#define VISUALIZE_STEPS 0
 
 /*!
     @attention CHANGE THIS ONLY IF THE ZSTRING.H IN PRESENT IN THE SAME FOLDER OF THIS FILE.
@@ -34,7 +34,7 @@
     @if 0 Then the program will print every value as a float.
     @elseif 1 Then the program will print every value in its rational representation.
 */
-#define VISUALIZE_RATIONAL 1
+#define VISUALIZE_RATIONAL 0
 
 #define MZ_EQUAL_ERROR      "Dimension mismatch."
 #define MZ_ALLOC_ERROR      "Allocation failure."
@@ -416,7 +416,7 @@ float MZ_magnitude_of_vector(MZ_Vec vector);
     @param index The index where to retrieve the value.
     @result The value at the specified index.
 */
-#define MZ_VALUE_OF_VECTOR_AT(vector, index) (vector.elements[index])
+#define MZ_VALUE_OF_VECTOR_AT(vector, index) ((vector).elements[(index)])
 
 /*!
     @brief Return the value of the specified vector at the specified index.
@@ -424,7 +424,11 @@ float MZ_magnitude_of_vector(MZ_Vec vector);
     @param index The index where to retrieve the value.
     @result The value at the specified index.
 */
-#define MZ_VALUE_OF_VECTOR_POINTER_AT(vector, index) (vector->elements[index])
+#define MZ_VALUE_OF_VECTOR_POINTER_AT(vector, index) ((vector)->elements[(index)])
+
+/*!
+*/
+#define MZ_print_vector_by_var_name(fp, vector) MZ_print_vector_by_label(fp, #vector, vector)
 
 /*!
     @brief Return the dimensions of the specified vector.
@@ -757,42 +761,28 @@ MZ_Matrix MZ_append_matrix_to_matrix(MZ_Matrix source, MZ_Matrix matrix);
 MZ_Matrix MZ_get_sub_matrix(MZ_Matrix source, unsigned int remRow, unsigned int remCol);
 
 /*!
-    @brief Find the determinant of a matrix.
-    @param source The source Matrix.
-    @return The determinant of the matrix.
+    @brief Calculate the determinant of a sub matrix.
+    @param source The source matrix.
+    @param row The row to eliminate.
+    @param col The col to eliminate.
+    @return The determinant of the smaller matrix.
 */
-float MZ_determinant_of_matrix_old(MZ_Matrix source);
+float MZ_minor(MZ_Matrix source, unsigned int row, unsigned int col);
 
+/*!
+    @brief Calculate the cofactor of an element in a matrix given the row and col.
+    @param source The source matrix.
+    @param row The row of the element.
+    @param col The col of the element.
+    @return The cofactor of that element.
+*/
+float MZ_cofactor(MZ_Matrix source, unsigned int row, unsigned int col);
 /*!
     @brief Find the determinant of a matrix through cofactor expansion with an exclusion list.
     @param source The source Matrix.
     @return The determinant of the matrix.
 */
 float MZ_determinant_of_matrix(MZ_Matrix source);
-
-/*!
-    @brief Calculate the determinant of a matrix through cofactor expansion using an exclusion list.
-    @param source The source matrix.
-    @param row The row to expand on.
-    @param col The new column to exclude.
-    @param skipCols The existing list of columns to exclude.
-    @param noSkipCols The number of columns in the list to skip.
-    @return The determinant.
-*/
-float _MZ_determinant_of_matrix(MZ_Matrix source,
-                            unsigned int row,
-                            unsigned int col,
-                            unsigned int *skipCols,
-                            unsigned int *noSkipCols);
-
-/*!
-    @brief Finds the cofactor of a matrix at the specific row and col.
-    @param source The source matrix.
-    @param row The row index.
-    @param col The col index.
-    @return The cofactor value.
-*/
-float MZ_cofactor_of_matrix_at_coord(MZ_Matrix source, unsigned int row, unsigned int col);
 
 /*!
     @brief Calculates the matrix in which the elements are the cofactor of every element of the source matrix.
@@ -847,22 +837,6 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
     @param x The x coordinate
     @param y The y coordinate
     @return The value of the element at the specified coordinates in the matrix
-
-#define MZ_VALUE_OF_MAT_AT(matrix, x, y) (matrix.elements[x][y])
-
-
-    @param matrix The source matrix
-    @param x The x coordinate
-    @param y The y coordinate
-    @return the value of the element at the specified coordinates in the matrix pointer
-
-#define MZ_VALUE_OF_MAT_POINTER_AT(matrix, x, y) (matrix->elements[x][y])*/
-
-/*! 
-    @param matrix The source matrix
-    @param x The x coordinate
-    @param y The y coordinate
-    @return The value of the element at the specified coordinates in the matrix
 */
 #define MZ_VALUE_OF_MAT_AT(matrix, x, y) (matrix.elements[(x) * (matrix.cols) + (y)])
 
@@ -882,6 +856,13 @@ MZ_Matrix MZ_inverse_of_matrix_by_rref(MZ_Matrix source);
     @return The matrix of rows * cols dimensions with the values specified.
 */
 #define MZ_new_matrix(rows, cols, ...)  _MZ_new_matrix(rows, cols, rows*cols, __VA_ARGS__)
+
+/*!
+    @brief Prints the matrix by its variable name.
+    @param fp The file to write the matrix.
+    @param matrix The matrix to print.
+*/
+#define MZ_print_matrix_by_var_name(fp, matrix) MZ_print_matrix_by_label(fp, #matrix, matrix)
 
 #endif // ZMATRIX_DEF
 
@@ -2338,13 +2319,13 @@ MZ_Matrix MZ_get_sub_matrix(MZ_Matrix source, unsigned int remRow, unsigned int 
 }
 
 
-float MZ_minor(MZ_Matrix source, unsigned int rows, unsigned int cols){
-    float result = MZ_determinant_of_matrix(MZ_get_sub_matrix(source, rows, cols));
+float MZ_minor(MZ_Matrix source, unsigned int row, unsigned int col){
+    float result = MZ_determinant_of_matrix(MZ_get_sub_matrix(source, row, col));
     return result;
 }
 
-float MZ_cofactor(MZ_Matrix source, unsigned int rows, unsigned int cols){
-    float x = (rows + cols) % 2 == 0 ? MZ_minor(source, rows, cols) : -MZ_minor(source, rows, cols);
+float MZ_cofactor(MZ_Matrix source, unsigned int row, unsigned int col){
+    float x = (row + col) % 2 == 0 ? MZ_minor(source, row, col) : -MZ_minor(source, row, col);
     return x;
 }
 
