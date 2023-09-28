@@ -376,6 +376,14 @@ MZ_Vec MZ_cross_product(MZ_Vec vector1, MZ_Vec vector2);
 MZ_Vec MZ_normalized_vector(MZ_Vec vector);
 
 /*!
+    @brief Calculate the vector projection of a vector A on a vector B.
+    @param vector_A The vector to project.
+    @param vector_B The vector to project onto.
+    @return The projection of the vector A on a vector B.
+*/
+MZ_Vec MZ_vector_proj_a_on_b(MZ_Vec vector_A, MZ_Vec vector_B);
+
+/*!
     @brief This function return the normalized version of a vector given.
     @param vector The vector pointer to normalize.
 */
@@ -418,6 +426,14 @@ float MZ_dot_two_vectors(MZ_Vec vector1, MZ_Vec vector2);
     @return The magnitude of the vector.
 */
 float MZ_magnitude_of_vector(MZ_Vec vector);
+
+/*!
+    @brief Calculate the scalar projection value of a vector A on a vector B.
+    @param vector_A The vector to project.
+    @param vector_B The vector to project onto.
+    @return The scalar projection value.
+*/
+float MZ_scalar_proj_a_on_b(MZ_Vec vector_A, MZ_Vec vector_B);
 
 
 /*!
@@ -1364,6 +1380,24 @@ MZ_Vec MZ_normalized_vector(MZ_Vec vector){
 
 /*
 */
+MZ_Vec MZ_vector_proj_a_on_b(MZ_Vec vector_A, MZ_Vec vector_B){
+  
+  MZ_assert(vector_A.dim == vector_B.dim, MZ_EQUAL_ERROR);
+
+  if(MZ_are_two_vectors_orthogonal(vector_A, vector_B)){
+      MZ_Vec result = MZ_new_zero_vector(vector_A.dim);
+      return result;
+  }
+
+  MZ_Vec result = MZ_alloc_vector(vector_A.dim);
+
+  result = MZ_multiply_vector_by_scalar(vector_B , MZ_scalar_proj_a_on_b(vector_A, vector_B));
+
+  return result;
+}
+
+/*
+*/
 void MZ_normalize_vector(MZ_Vec* vector){
 
     float mag = MZ_magnitude_of_vector(*vector);
@@ -1428,6 +1462,20 @@ float MZ_magnitude_of_vector(MZ_Vec vector){
 
     return sqrt(result);
 
+}
+
+float MZ_scalar_proj_a_on_b(MZ_Vec vector_A, MZ_Vec vector_B){
+
+  MZ_assert(vector_A.dim == vector_B.dim, MZ_EQUAL_ERROR);
+
+  if(MZ_are_two_vectors_orthogonal(vector_A, vector_B)) return 0.0f;
+  
+  float result;
+
+  result = MZ_dot_two_vectors(vector_A, vector_B) / powf(MZ_magnitude_of_vector(vector_B), 2.0f);
+
+  return result;
+  
 }
 
 MZ_Matrix NULL_MATRIX = {0, 0, NULL};
@@ -2121,7 +2169,6 @@ MZ_Matrix MZ_transposed_matrix(MZ_Matrix source){
 
     return result;
 }
-
 
 /*
 */
